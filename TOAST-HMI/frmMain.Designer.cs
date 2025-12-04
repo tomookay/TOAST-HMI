@@ -340,6 +340,7 @@
             button21.Name = "button21";
             button21.Size = new Size(80, 80);
             button21.TabIndex = 25;
+            button21.Text = "master";
             button21.UseVisualStyleBackColor = true;
             // 
             // button22
