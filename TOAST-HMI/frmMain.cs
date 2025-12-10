@@ -1,6 +1,9 @@
 using System;
+using System.Net.Sockets;
 using System.Windows.Forms;
 using TwinCAT.Ads;
+using TwinCAT.TypeSystem;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TOAST_HMI
 {
@@ -9,7 +12,7 @@ namespace TOAST_HMI
         // Use a nullable field and a consistent camelCase name to match usages below.
         private AdsClient? _adsClient;
         // TODO: set to your PLC AMS Net ID (e.g. "5.25.123.1.1") and port (default 851)
-        private readonly string _amsNetId = "5.25.123.1.1.1";
+        private readonly string _amsNetId = "5.132.152.5.1.1";
         private readonly int _adsPort = 851;
 
         private bool[] gStationSelected = new bool[6];
@@ -42,8 +45,7 @@ namespace TOAST_HMI
                     // Optionally show status to the user or update UI
                     Console.WriteLine($"Connected to {_amsNetId}:{_adsPort}");
 
-                    // Read the bool[6] from the PLC once immediately after connect
-                    ReadStationSelectedFromPlc();
+
                 }
             }
             catch (AdsErrorException ex)
@@ -107,98 +109,7 @@ namespace TOAST_HMI
             }
         }
 
-        // Reads a PLC array of BOOL (length = gStationSelected.Length) into gStationSelected.
-        // Replace the symbol below with the actual symbol name in your PLC (example: "GVL.gStationSelected").
-        private void ReadStationSelectedFromPlc()
-        {
-            if (_adsClient == null || !_adsClient.IsConnected)
-            {
-                // Not connected - nothing to do
-                return;
-            }
 
-            const string plcSymbol = "GVL.gStationSelected"; 
-            uint handle = 0;
-            try
-            {
-                handle = _adsClient.CreateVariableHandle(plcSymbol);
-
-                // First attempt: let ADS marshal directly to bool[]
-                object? read = null;
-                try
-                {
-                    read = _adsClient.ReadAny(handle, typeof(bool[]));
-                }
-                catch
-                {
-                    // ignore and try fallbacks
-                }
-
-                if (read is bool[] boolArr)
-                {
-                    // Copy up to our buffer length
-                    int copyLen = Math.Min(boolArr.Length, gStationSelected.Length);
-                    Array.Clear(gStationSelected, 0, gStationSelected.Length);
-                    Array.Copy(boolArr, gStationSelected, copyLen);
-                    return;
-                }
-
-                // Fallback 1: ADS might return an object[] of boxed bools
-                if (read is object[] objArr)
-                {
-                    for (int i = 0; i < gStationSelected.Length && i < objArr.Length; i++)
-                        gStationSelected[i] = Convert.ToBoolean(objArr[i]);
-                    return;
-                }
-
-                // Fallback 2: read raw bytes and interpret non-zero as true.
-                // Many PLC BOOL arrays are marshaled as bytes where 0 == false, non-zero == true.
-                byte[]? bytes = null;
-                try
-                {
-                    bytes = (byte[]?)_adsClient.ReadAny(handle, typeof(byte[]));
-                }
-                catch
-                {
-                    // if reading bytes fails, try ReadAny to byte[]
-                    try
-                    {
-                        var bobj = _adsClient.ReadAny(handle, typeof(byte[]));
-                        if (bobj is byte[] bb) bytes = bb;
-                    }
-                    catch
-                    {
-                        // give up
-                    }
-                }
-
-                if (bytes != null)
-                {
-                    for (int i = 0; i < gStationSelected.Length && i < bytes.Length; i++)
-                        gStationSelected[i] = bytes[i] != 0;
-                    // If bytes shorter than target, remaining values stay false (initialized)
-                    return;
-                }
-
-                // If we reach here, we couldn't marshal the data; leave gStationSelected as-is or clear it.
-                Array.Clear(gStationSelected, 0, gStationSelected.Length);
-            }
-            catch (AdsErrorException ex)
-            {
-                MessageBox.Show($"ADS read error for {plcSymbol}: {ex.Message}", "ADS Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Read error for {plcSymbol}: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (handle != 0)
-                {
-                    try { _adsClient?.DeleteVariableHandle(handle); } catch { /* ignore */ }
-                }
-            }
-        }
 
         private void btnPowerOn_Click(object sender, EventArgs e)
         {
@@ -209,7 +120,7 @@ namespace TOAST_HMI
         private void btnServicesOn_Click(object sender, EventArgs e)
         {
             // TODO: replace with actual symbol
-            WriteBool("GVL.bServicesOn", true);
+            WriteBool("gHMIButtons.btnMode.bServicesOn", true);
         }
 
         private void btnPowerOff_Click(object sender, EventArgs e)
@@ -228,14 +139,72 @@ namespace TOAST_HMI
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
 
-        }
 
         private void button22_Click(object sender, EventArgs e)
         {
 
+
+        }
+
+        private void btnReadArray_Click(object sender, EventArgs e)
+        {
+            // Step 1: ensure ADS client is connected
+            if (_adsClient == null || !_adsClient.IsConnected)
+            {
+                MessageBox.Show("Not connected to PLC.", "ADS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            uint handle = 0;
+            try
+            {
+                handle = _adsClient.CreateVariableHandle("gHMIData.gStationSelected");
+
+                // TODO: set elementCount and elementSize to match the PLC symbol type/length.
+                // The original code read 100 Int16 values => elementCount = 100, elementSize = sizeof(short).
+                int elementCount = 6;
+                int elementSize = sizeof(short); // change to 1 for byte, 4 for int32, etc.
+                int readLength = checked(elementCount * elementSize);
+
+                // Read bytes from PLC by variable handle
+                var result = _adsClient.ReadAsResult(handle, readLength);
+                result.ThrowOnError();
+
+                // result.Data is ReadOnlyMemory<byte>
+                byte[] buffer = result.Data.ToArray(); // copy into byte[] to use BinaryReader/MemoryStream
+
+                lbArray.Items.Clear();
+                using (var ms = new System.IO.MemoryStream(buffer))
+                using (var binRead = new System.IO.BinaryReader(ms))
+                {
+                    for (int i = 0; i < elementCount; i++)
+                    {
+                        // read as bool because elementSize == sizeof(short)
+                        bool val = binRead.ReadBoolean();
+                        lbArray.Items.Add(val.ToString());
+                    }
+                }
+            }
+            catch (AdsErrorException ex)
+            {
+                MessageBox.Show($"ADS read error: {ex.Message}", "ADS Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+            finally
+            {
+                if (handle != 0)
+                {
+                    try { _adsClient?.DeleteVariableHandle(handle); } catch { /* ignore */ }
+                }
+            }
+        }
+
+        private void lbArray_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }
