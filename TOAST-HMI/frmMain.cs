@@ -1,9 +1,4 @@
-using System;
-using System.Net.Sockets;
-using System.Windows.Forms;
 using TwinCAT.Ads;
-using TwinCAT.TypeSystem;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TOAST_HMI
 {
@@ -22,6 +17,21 @@ namespace TOAST_HMI
             InitializeComponent();
             this.Load += FrmMain_Load;
             this.FormClosing += FrmMain_FormClosing;
+
+            // Wire momentary behaviour for buttons (press = TRUE, release = FALSE)
+            WireMomentary(btnPowerOn, "gHMIButtons.btnMode.btnPowerOnPressed");
+            WireMomentary(btnPowerOff, "gHMIButtons.btnMode.btnPowerOffPressed");
+
+            //gHMIButtons.btnSelectStation1
+            WireMomentary(btnStation1, "gHMIButtons.btnSelectStation1");
+            WireMomentary(btnStation2, "gHMIButtons.btnSelectStation2");
+            WireMomentary(btnStation3, "gHMIButtons.btnSelectStation3");
+            WireMomentary(btnStation4, "gHMIButtons.btnSelectStation4");
+            WireMomentary(btnStation5, "gHMIButtons.btnSelectStation5");
+            WireMomentary(btnStation6, "gHMIButtons.btnSelectStation6");
+
+
+            // Add more buttons here: WireMomentary(button2, "PLC.Symbol.ForButton2");
         }
 
         private void FrmMain_Load(object? sender, EventArgs e)
@@ -44,6 +54,9 @@ namespace TOAST_HMI
                 {
                     // Optionally show status to the user or update UI
                     Console.WriteLine($"Connected to {_amsNetId}:{_adsPort}");
+
+                    timGetPLCData.Start();
+
 
 
                 }
@@ -69,6 +82,8 @@ namespace TOAST_HMI
                     if (_adsClient.IsConnected)
                         _adsClient.Dispose();
                     _adsClient = null;
+
+                    timGetPLCData.Stop();
                 }
             }
             catch
@@ -109,90 +124,32 @@ namespace TOAST_HMI
             }
         }
 
-
-
-        private void btnPowerOn_Click(object sender, EventArgs e)
+         private bool[] ReadBoolArray(string plcSymbol, int elementCount)
         {
-            // TODO: replace with the actual symbol name in the PLC (for example "GVL.bPowerOn" or "MAIN.bPowerOn")
-            WriteBool("gHMIButtons.btnMode.btnPowerOnPressed", true);
-        }
-
-        private void btnServicesOn_Click(object sender, EventArgs e)
-        {
-            // TODO: replace with actual symbol
-            WriteBool("gHMIButtons.btnMode.bServicesOn", true);
-        }
-
-        private void btnPowerOff_Click(object sender, EventArgs e)
-        {
-            // TODO: replace with actual symbol
-            WriteBool("gHMIButtons.btnMode.btnPowerOffPressed", false);
-        }
-
-        private void frmMain_Load_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-        private void button22_Click(object sender, EventArgs e)
-        {
-
-
-        }
-
-        private void btnReadArray_Click(object sender, EventArgs e)
-        {
-            // Step 1: ensure ADS client is connected
             if (_adsClient == null || !_adsClient.IsConnected)
-            {
-                MessageBox.Show("Not connected to PLC.", "ADS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+                throw new InvalidOperationException("Not connected to PLC.");
 
             uint handle = 0;
             try
             {
-                handle = _adsClient.CreateVariableHandle("gHMIData.gStationSelected");
+                handle = _adsClient.CreateVariableHandle(plcSymbol);
 
-                // TODO: set elementCount and elementSize to match the PLC symbol type/length.
-                // The original code read 100 Int16 values => elementCount = 100, elementSize = sizeof(short).
-                int elementCount = 6;
-                int elementSize = sizeof(short); // change to 1 for byte, 4 for int32, etc.
+                // each boolean encoded as one byte on PLC here
+                int elementSize = sizeof(byte);
                 int readLength = checked(elementCount * elementSize);
 
-                // Read bytes from PLC by variable handle
                 var result = _adsClient.ReadAsResult(handle, readLength);
                 result.ThrowOnError();
 
-                // result.Data is ReadOnlyMemory<byte>
-                byte[] buffer = result.Data.ToArray(); // copy into byte[] to use BinaryReader/MemoryStream
+                byte[] buffer = result.Data.ToArray();
+                if (buffer.Length < elementCount)
+                    throw new InvalidOperationException($"Unexpected read length: got {buffer.Length} bytes, expected {readLength}.");
 
-                lbArray.Items.Clear();
-                using (var ms = new System.IO.MemoryStream(buffer))
-                using (var binRead = new System.IO.BinaryReader(ms))
-                {
-                    for (int i = 0; i < elementCount; i++)
-                    {
-                        // read as bool because elementSize == sizeof(short)
-                        bool val = binRead.ReadBoolean();
-                        lbArray.Items.Add(val.ToString());
-                    }
-                }
-            }
-            catch (AdsErrorException ex)
-            {
-                MessageBox.Show($"ADS read error: {ex.Message}", "ADS Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.Message);
+                var values = new bool[elementCount];
+                for (int i = 0; i < elementCount; i++)
+                    values[i] = buffer[i] != 0;
+
+                return values;
             }
             finally
             {
@@ -203,9 +160,133 @@ namespace TOAST_HMI
             }
         }
 
-        private void lbArray_SelectedIndexChanged(object sender, EventArgs e)
+       
+
+        private void WireMomentary(Button btn, string plcSymbol)
+        {
+            // mouse press
+            btn.MouseDown += (s, e) =>
+            {
+                if (e.Button == MouseButtons.Left) WriteBool(plcSymbol, true);
+            };
+
+            // mouse release
+            btn.MouseUp += (s, e) =>
+            {
+                if (e.Button == MouseButtons.Left) WriteBool(plcSymbol, false);
+            };
+
+            // covers release when pointer leaves control while pressed
+            btn.MouseCaptureChanged += (s, e) =>
+            {
+                if ((Control.MouseButtons & MouseButtons.Left) == 0) WriteBool(plcSymbol, false);
+            };
+
+            // keyboard support (Space / Enter)
+            btn.KeyDown += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Space || e.KeyCode == Keys.Enter)
+                {
+                    WriteBool(plcSymbol, true);
+                    e.Handled = true;
+                }
+            };
+
+            btn.KeyUp += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Space || e.KeyCode == Keys.Enter)
+                {
+                    WriteBool(plcSymbol, false);
+                    e.Handled = true;
+                }
+            };
+
+            // ensure FALSE when leaving and mouse isn't down
+            btn.MouseLeave += (s, e) =>
+            {
+                if ((Control.MouseButtons & MouseButtons.Left) == 0) WriteBool(plcSymbol, false);
+            };
+        }
+
+        private void frmMain_Load_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void timGetPLCData_Tick(object sender, EventArgs e)
+        {
+            //read gStationSelected
+
+            try
+            {
+                var values = ReadBoolArray("gHMIData.gStationSelected", 6);
+                if (values.Length == gStationSelected.Length)
+                {
+                   Array.Copy(values, gStationSelected, values.Length);
+                    if (gStationSelected[0] == true)
+                    {
+                        btnStation1.BackColor = Color.Lime;
+                    }
+                    else
+                    {
+                        btnStation1.BackColor = SystemColors.Control;
+                    }
+
+                    if (gStationSelected[1] == true)
+                    {
+                        btnStation2.BackColor = Color.Lime;
+                    }
+                    else
+                    {
+                        btnStation2.BackColor = SystemColors.Control;
+                    }
+
+                    if (gStationSelected[2] == true)
+                    {
+                        btnStation3.BackColor = Color.Lime;
+                    }
+                    else
+                    {
+                        btnStation3.BackColor = SystemColors.Control;
+                    }
+
+                    if (gStationSelected[3] == true)
+                    {
+                        btnStation4.BackColor = Color.Lime;
+                    }
+                    else
+                    {
+                        btnStation4.BackColor = SystemColors.Control;
+                    }
+
+                    if (gStationSelected[4] == true)
+                    {
+                        btnStation5.BackColor = Color.Lime;
+                    }
+                    else
+                    {
+                        btnStation5.BackColor = SystemColors.Control;
+                    }
+
+                    if (gStationSelected[5] == true)
+                    {
+                        btnStation6.BackColor = Color.Lime;
+                    }
+                    else
+                    {
+                        btnStation6.BackColor = SystemColors.Control;
+                    }
+                }
+                else
+                {
+                    gStationSelected = values;
+                }
+
+            }
+            catch
+            {
+                // ignore read errors here
+            }
         }
     }
 }

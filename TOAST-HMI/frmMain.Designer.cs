@@ -31,7 +31,6 @@
             components = new System.ComponentModel.Container();
             btnPowerOn = new Button();
             btnPowerOff = new Button();
-            btnServicesOn = new Button();
             timGetPLCData = new System.Windows.Forms.Timer(components);
             btnStation1 = new Button();
             btnStation2 = new Button();
@@ -64,7 +63,6 @@
             button21 = new Button();
             button22 = new Button();
             button23 = new Button();
-            lbArray = new ListBox();
             SuspendLayout();
             // 
             // btnPowerOn
@@ -75,7 +73,6 @@
             btnPowerOn.TabIndex = 0;
             btnPowerOn.Text = "Power On";
             btnPowerOn.UseVisualStyleBackColor = true;
-            btnPowerOn.Click += btnPowerOn_Click;
             // 
             // btnPowerOff
             // 
@@ -85,21 +82,11 @@
             btnPowerOff.TabIndex = 1;
             btnPowerOff.Text = "Power Off";
             btnPowerOff.UseVisualStyleBackColor = true;
-            btnPowerOff.Click += btnPowerOff_Click;
-            // 
-            // btnServicesOn
-            // 
-            btnServicesOn.Location = new Point(38, 276);
-            btnServicesOn.Name = "btnServicesOn";
-            btnServicesOn.Size = new Size(80, 80);
-            btnServicesOn.TabIndex = 2;
-            btnServicesOn.Text = "Services On";
-            btnServicesOn.UseVisualStyleBackColor = true;
-            btnServicesOn.Click += btnServicesOn_Click;
             // 
             // timGetPLCData
             // 
             timGetPLCData.Interval = 1000;
+            timGetPLCData.Tick += timGetPLCData_Tick;
             // 
             // btnStation1
             // 
@@ -172,7 +159,6 @@
             btnAutoCycleStop.TabIndex = 9;
             btnAutoCycleStop.Text = "Auto Cycle Stop";
             btnAutoCycleStop.UseVisualStyleBackColor = true;
-            btnAutoCycleStop.Click += button2_Click;
             // 
             // btnReadArray
             // 
@@ -181,7 +167,6 @@
             btnReadArray.Size = new Size(80, 80);
             btnReadArray.TabIndex = 11;
             btnReadArray.UseVisualStyleBackColor = true;
-            btnReadArray.Click += btnReadArray_Click;
             // 
             // button2
             // 
@@ -351,7 +336,6 @@
             button22.Size = new Size(80, 80);
             button22.TabIndex = 32;
             button22.UseVisualStyleBackColor = true;
-            button22.Click += button22_Click;
             // 
             // button23
             // 
@@ -361,22 +345,11 @@
             button23.TabIndex = 33;
             button23.UseVisualStyleBackColor = true;
             // 
-            // lbArray
-            // 
-            lbArray.FormattingEnabled = true;
-            lbArray.ItemHeight = 15;
-            lbArray.Location = new Point(55, 410);
-            lbArray.Name = "lbArray";
-            lbArray.Size = new Size(120, 94);
-            lbArray.TabIndex = 34;
-            lbArray.SelectedIndexChanged += lbArray_SelectedIndexChanged;
-            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(834, 556);
-            Controls.Add(lbArray);
             Controls.Add(button23);
             Controls.Add(button22);
             Controls.Add(button15);
@@ -408,7 +381,6 @@
             Controls.Add(btnStation3);
             Controls.Add(btnStation2);
             Controls.Add(btnStation1);
-            Controls.Add(btnServicesOn);
             Controls.Add(btnPowerOff);
             Controls.Add(btnPowerOn);
             HelpButton = true;
@@ -425,7 +397,6 @@
 
         private Button btnPowerOn;
         private Button btnPowerOff;
-        private Button btnServicesOn;
         private System.Windows.Forms.Timer timGetPLCData;
         private Button btnStation1;
         private Button btnStation2;
@@ -458,6 +429,5 @@
         private Button button21;
         private Button button22;
         private Button button23;
-        private ListBox lbArray;
     }
 }
