@@ -21,6 +21,7 @@ namespace TOAST_HMI
             // Wire momentary behaviour for buttons (press = TRUE, release = FALSE)
             WireMomentary(btnPowerOn, "gHMIButtons.btnMode.btnPowerOnPressed");
             WireMomentary(btnPowerOff, "gHMIButtons.btnMode.btnPowerOffPressed");
+            WireMomentary(btnSelectAll, "gHMIButtons.btnSelectAll");
 
             //gHMIButtons.btnSelectStation1
             WireMomentary(btnStation1, "gHMIButtons.btnSelectStation1");
@@ -225,7 +226,7 @@ namespace TOAST_HMI
                    Array.Copy(values, gStationSelected, values.Length);
                     if (gStationSelected[0] == true)
                     {
-                        btnStation1.BackColor = Color.Lime;
+                        btnStation1.BackColor = Color.LightGreen;
                     }
                     else
                     {
@@ -234,7 +235,7 @@ namespace TOAST_HMI
 
                     if (gStationSelected[1] == true)
                     {
-                        btnStation2.BackColor = Color.Lime;
+                        btnStation2.BackColor = Color.LightGreen;
                     }
                     else
                     {
@@ -243,7 +244,7 @@ namespace TOAST_HMI
 
                     if (gStationSelected[2] == true)
                     {
-                        btnStation3.BackColor = Color.Lime;
+                        btnStation3.BackColor = Color.LightGreen;
                     }
                     else
                     {
@@ -252,7 +253,7 @@ namespace TOAST_HMI
 
                     if (gStationSelected[3] == true)
                     {
-                        btnStation4.BackColor = Color.Lime;
+                        btnStation4.BackColor = Color.LightGreen;
                     }
                     else
                     {
@@ -261,7 +262,7 @@ namespace TOAST_HMI
 
                     if (gStationSelected[4] == true)
                     {
-                        btnStation5.BackColor = Color.Lime;
+                        btnStation5.BackColor = Color.LightGreen;
                     }
                     else
                     {
@@ -270,7 +271,7 @@ namespace TOAST_HMI
 
                     if (gStationSelected[5] == true)
                     {
-                        btnStation6.BackColor = Color.Lime;
+                        btnStation6.BackColor = Color.LightGreen;
                     }
                     else
                     {

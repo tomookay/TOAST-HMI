@@ -63,6 +63,7 @@
             button21 = new Button();
             button22 = new Button();
             button23 = new Button();
+            btnSelectAll = new Button();
             SuspendLayout();
             // 
             // btnPowerOn
@@ -345,11 +346,21 @@
             button23.TabIndex = 33;
             button23.UseVisualStyleBackColor = true;
             // 
+            // btnSelectAll
+            // 
+            btnSelectAll.Location = new Point(95, 450);
+            btnSelectAll.Name = "btnSelectAll";
+            btnSelectAll.Size = new Size(80, 80);
+            btnSelectAll.TabIndex = 34;
+            btnSelectAll.Text = "Select All";
+            btnSelectAll.UseVisualStyleBackColor = true;
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(834, 556);
+            Controls.Add(btnSelectAll);
             Controls.Add(button23);
             Controls.Add(button22);
             Controls.Add(button15);
@@ -429,5 +440,6 @@
         private Button button21;
         private Button button22;
         private Button button23;
+        private Button btnSelectAll;
     }
 }
