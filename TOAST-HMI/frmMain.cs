@@ -31,6 +31,83 @@ namespace TOAST_HMI
             WireMomentary(btnStation5, "gHMIButtons.btnSelectStation5");
             WireMomentary(btnStation6, "gHMIButtons.btnSelectStation6");
 
+            WireMomentary(btnAutoCycleStart, "gHMIButtons.btnMode.btnAutoCycleStartPressed");
+            WireMomentary(btnAutoCycleStop, "gHMIButtons.btnMode.btnAutoCycleStopPressed");
+
+
+
+            //button Pressed BOOLs for mode screen
+
+            ////	|------------------------------------|
+            ////	|									 |
+            ////	|a	00 01 02 03 04 05 06 07 08 09	x|
+            ////	|b	10 11 12 13 14 15 16 17 18 19	y|
+            //// 	|   20 21 22 23 24 25 26 27 28 29	 |
+            //// 	|   30 31 32 33 34 35 36 37 38 39	 |
+            ////	|									 |
+            ////	|									 |
+            ////	|------------------------------------|
+
+            //button Pressed BOOL in X-Y format
+            //a,b,x,y are not included
+
+
+            WireMomentary(btn00, "gHMIButtons.btnMode.btn00Pressed");
+            WireMomentary(btn01, "gHMIButtons.btnMode.btn01Pressed");
+            WireMomentary(btn02, "gHMIButtons.btnMode.btn02Pressed");
+            WireMomentary(btn03, "gHMIButtons.btnMode.btn03Pressed");
+            WireMomentary(btn04, "gHMIButtons.btnMode.btn04Pressed");
+            WireMomentary(btn05, "gHMIButtons.btnMode.btn05Pressed");
+            WireMomentary(btn06, "gHMIButtons.btnMode.btn06Pressed");
+            //WireMomentary(btn07, "gHMIButtons.btnMode.btn07Pressed");
+            //WireMomentary(btn08, "gHMIButtons.btnMode.btn08Pressed");
+            //WireMomentary(btn09, "gHMIButtons.btnMode.btn09Pressed");
+            WireMomentary(btn10, "gHMIButtons.btnMode.btn10Pressed");
+            WireMomentary(btn11, "gHMIButtons.btnMode.btn11Pressed");
+            WireMomentary(btn12, "gHMIButtons.btnMode.btn12Pressed");
+            WireMomentary(btn13, "gHMIButtons.btnMode.btn13Pressed");
+            WireMomentary(btn14, "gHMIButtons.btnMode.btn14Pressed");
+            WireMomentary(btn15, "gHMIButtons.btnMode.btn15Pressed");
+            WireMomentary(btn16, "gHMIButtons.btnMode.btn16Pressed");
+            //WireMomentary(btn17, "gHMIButtons.btnMode.btn17Pressed");
+            //WireMomentary(btn18, "gHMIButtons.btnMode.btn18Pressed");
+            //WireMomentary(btn19, "gHMIButtons.btnMode.btn19Pressed");
+            WireMomentary(btn20, "gHMIButtons.btnMode.btn20Pressed");
+            WireMomentary(btn21, "gHMIButtons.btnMode.btn21Pressed");
+            WireMomentary(btn22, "gHMIButtons.btnMode.btn22Pressed");
+            WireMomentary(btn23, "gHMIButtons.btnMode.btn23Pressed");
+            WireMomentary(btn24, "gHMIButtons.btnMode.btn24Pressed");
+            WireMomentary(btn25, "gHMIButtons.btnMode.btn25Pressed");
+            WireMomentary(btn26, "gHMIButtons.btnMode.btn26Pressed");
+            //WireMomentary(btn27, "gHMIButtons.btnMode.btn27Pressed");
+            //WireMomentary(btn28, "gHMIButtons.btnMode.btn28Pressed");
+            //WireMomentary(btn29, "gHMIButtons.btnMode.btn29Pressed");
+
+
+            //WireMomentary(btn30, "gHMIButtons.btnMode.btn30Pressed");
+            //WireMomentary(btn31, "gHMIButtons.btnMode.btn31Pressed");
+            //WireMomentary(btn32, "gHMIButtons.btnMode.btn32Pressed");
+            //WireMomentary(btn33, "gHMIButtons.btnMode.btn33Pressed");
+            //WireMomentary(btn34, "gHMIButtons.btnMode.btn34Pressed");
+            //WireMomentary(btn35, "gHMIButtons.btnMode.btn35Pressed");
+            //WireMomentary(btn36, "gHMIButtons.btnMode.btn36Pressed");
+            //WireMomentary(btn37, "gHMIButtons.btnMode.btn37Pressed");
+            //WireMomentary(btn38, "gHMIButtons.btnMode.btn38Pressed");
+            //WireMomentary(btn39, "gHMIButtons.btnMode.btn39Pressed");
+
+                     ////special case buttons	
+            //btnPowerOnPressed: BOOL; //TRUE to power the machine on
+            //btnPowerOffPressed: BOOL; //TRUE to power the machine off
+
+            //btnAutoCycleStartPressed: BOOL; //TRUE to start auto cycle
+            //btnAutoCycleStopPressed: BOOL; //TRUE to stop auto cycle immediately
+
+            //btnFooterAutoCycleStart: BOOL;
+            //btnFooterAutoCycleStopEOC: BOOL;
+            //btnFooterReturnHome: BOOL;
+            //btnFooterAutoMode: BOOL;
+            //btnFooterManualMode: BOOL;
+
 
             // Add more buttons here: WireMomentary(button2, "PLC.Symbol.ForButton2");
         }
@@ -169,6 +246,7 @@ namespace TOAST_HMI
             btn.MouseDown += (s, e) =>
             {
                 if (e.Button == MouseButtons.Left) WriteBool(plcSymbol, true);
+                WriteBool("gHMIButtons.gAnyButtonPressed", true);
             };
 
             // mouse release
@@ -190,6 +268,7 @@ namespace TOAST_HMI
                 {
                     WriteBool(plcSymbol, true);
                     e.Handled = true;
+                    WriteBool("gHMIButtons.gAnyButtonPressed", true);
                 }
             };
 
@@ -201,6 +280,9 @@ namespace TOAST_HMI
                     e.Handled = true;
                 }
             };
+
+            
+
 
             // ensure FALSE when leaving and mouse isn't down
             btn.MouseLeave += (s, e) =>

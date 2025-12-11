@@ -40,48 +40,61 @@
             btnStation6 = new Button();
             btnAutoCycleStart = new Button();
             btnAutoCycleStop = new Button();
-            btnReadArray = new Button();
+            btn10 = new Button();
+            btn11 = new Button();
+            btn13 = new Button();
+            btn12 = new Button();
+            btn16 = new Button();
+            btn15 = new Button();
+            btn14 = new Button();
+            btn26 = new Button();
+            btn25 = new Button();
+            btn24 = new Button();
+            btn23 = new Button();
+            btn22 = new Button();
+            btn21 = new Button();
+            btn20 = new Button();
+            btn06 = new Button();
+            btn05 = new Button();
+            btn04 = new Button();
+            btn03 = new Button();
+            btn02 = new Button();
+            btn01 = new Button();
+            btn00 = new Button();
+            btnMainMenu = new Button();
+            btnReset = new Button();
+            btnSelectAll = new Button();
+            btnMode = new Button();
+            btnControl = new Button();
+            btnAutoMode = new Button();
+            btnManualMode = new Button();
+            button1 = new Button();
             button2 = new Button();
             button3 = new Button();
-            button4 = new Button();
-            button5 = new Button();
-            button6 = new Button();
-            button7 = new Button();
-            button8 = new Button();
-            button9 = new Button();
-            button10 = new Button();
-            button11 = new Button();
-            button12 = new Button();
-            button13 = new Button();
-            button14 = new Button();
-            button15 = new Button();
-            button16 = new Button();
-            button17 = new Button();
-            button18 = new Button();
-            button19 = new Button();
-            button20 = new Button();
-            button21 = new Button();
-            button22 = new Button();
-            button23 = new Button();
-            btnSelectAll = new Button();
+            lblStationState = new Label();
+            lblCycleTypeState = new Label();
+            lblFaultState = new Label();
+            lblHomeState = new Label();
+            lblAnyWarnings = new Label();
+            lblStationName = new Label();
             SuspendLayout();
             // 
             // btnPowerOn
             // 
-            btnPowerOn.Location = new Point(38, 190);
+            btnPowerOn.Location = new Point(12, 253);
             btnPowerOn.Name = "btnPowerOn";
             btnPowerOn.Size = new Size(80, 80);
             btnPowerOn.TabIndex = 0;
-            btnPowerOn.Text = "Power On";
+            btnPowerOn.Text = "POWER ON";
             btnPowerOn.UseVisualStyleBackColor = true;
             // 
             // btnPowerOff
             // 
-            btnPowerOff.Location = new Point(38, 104);
+            btnPowerOff.Location = new Point(12, 167);
             btnPowerOff.Name = "btnPowerOff";
             btnPowerOff.Size = new Size(80, 80);
             btnPowerOff.TabIndex = 1;
-            btnPowerOff.Text = "Power Off";
+            btnPowerOff.Text = "POWER OFF";
             btnPowerOff.UseVisualStyleBackColor = true;
             // 
             // timGetPLCData
@@ -91,299 +104,455 @@
             // 
             // btnStation1
             // 
-            btnStation1.Location = new Point(181, 450);
+            btnStation1.Location = new Point(139, 540);
             btnStation1.Name = "btnStation1";
-            btnStation1.Size = new Size(80, 80);
+            btnStation1.Size = new Size(120, 80);
             btnStation1.TabIndex = 3;
             btnStation1.Text = "Station 1";
             btnStation1.UseVisualStyleBackColor = true;
             // 
             // btnStation2
             // 
-            btnStation2.Location = new Point(267, 450);
+            btnStation2.Location = new Point(265, 540);
             btnStation2.Name = "btnStation2";
-            btnStation2.Size = new Size(80, 80);
+            btnStation2.Size = new Size(120, 80);
             btnStation2.TabIndex = 4;
             btnStation2.Text = "Station 2";
             btnStation2.UseVisualStyleBackColor = true;
             // 
             // btnStation3
             // 
-            btnStation3.Location = new Point(353, 450);
+            btnStation3.Location = new Point(391, 540);
             btnStation3.Name = "btnStation3";
-            btnStation3.Size = new Size(80, 80);
+            btnStation3.Size = new Size(120, 80);
             btnStation3.TabIndex = 5;
             btnStation3.Text = "Station 3";
             btnStation3.UseVisualStyleBackColor = true;
             // 
             // btnStation4
             // 
-            btnStation4.Location = new Point(439, 450);
+            btnStation4.Location = new Point(517, 540);
             btnStation4.Name = "btnStation4";
-            btnStation4.Size = new Size(80, 80);
+            btnStation4.Size = new Size(120, 80);
             btnStation4.TabIndex = 6;
             btnStation4.Text = "Station 4";
             btnStation4.UseVisualStyleBackColor = true;
             // 
             // btnStation5
             // 
-            btnStation5.Location = new Point(525, 450);
+            btnStation5.Location = new Point(643, 540);
             btnStation5.Name = "btnStation5";
-            btnStation5.Size = new Size(80, 80);
+            btnStation5.Size = new Size(120, 80);
             btnStation5.TabIndex = 7;
             btnStation5.Text = "Station 5";
             btnStation5.UseVisualStyleBackColor = true;
             // 
             // btnStation6
             // 
-            btnStation6.Location = new Point(611, 450);
+            btnStation6.Location = new Point(769, 540);
             btnStation6.Name = "btnStation6";
-            btnStation6.Size = new Size(80, 80);
+            btnStation6.Size = new Size(120, 80);
             btnStation6.TabIndex = 8;
             btnStation6.Text = "Station 6";
             btnStation6.UseVisualStyleBackColor = true;
             // 
             // btnAutoCycleStart
             // 
-            btnAutoCycleStart.Location = new Point(743, 276);
+            btnAutoCycleStart.Location = new Point(916, 270);
             btnAutoCycleStart.Name = "btnAutoCycleStart";
             btnAutoCycleStart.Size = new Size(80, 80);
             btnAutoCycleStart.TabIndex = 10;
-            btnAutoCycleStart.Text = "Auto Cycle Start";
+            btnAutoCycleStart.Text = "START AUTO CYCLE";
             btnAutoCycleStart.UseVisualStyleBackColor = true;
             // 
             // btnAutoCycleStop
             // 
-            btnAutoCycleStop.Location = new Point(743, 190);
+            btnAutoCycleStop.Location = new Point(916, 184);
             btnAutoCycleStop.Name = "btnAutoCycleStop";
             btnAutoCycleStop.Size = new Size(80, 80);
             btnAutoCycleStop.TabIndex = 9;
-            btnAutoCycleStop.Text = "Auto Cycle Stop";
+            btnAutoCycleStop.Text = "STOP AUTO CYCLE";
             btnAutoCycleStop.UseVisualStyleBackColor = true;
             // 
-            // btnReadArray
+            // btn10
             // 
-            btnReadArray.Location = new Point(141, 215);
-            btnReadArray.Name = "btnReadArray";
-            btnReadArray.Size = new Size(80, 80);
-            btnReadArray.TabIndex = 11;
-            btnReadArray.UseVisualStyleBackColor = true;
+            btn10.Location = new Point(188, 295);
+            btn10.Name = "btn10";
+            btn10.Size = new Size(80, 80);
+            btn10.TabIndex = 11;
+            btn10.Text = "CONTINUOUS CYCLE";
+            btn10.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btn11
             // 
-            button2.Location = new Point(227, 215);
-            button2.Name = "button2";
-            button2.Size = new Size(80, 80);
-            button2.TabIndex = 12;
-            button2.UseVisualStyleBackColor = true;
+            btn11.Location = new Point(274, 295);
+            btn11.Name = "btn11";
+            btn11.Size = new Size(80, 80);
+            btn11.TabIndex = 12;
+            btn11.Text = "DRY CYCLE";
+            btn11.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btn13
             // 
-            button3.Location = new Point(399, 215);
-            button3.Name = "button3";
-            button3.Size = new Size(80, 80);
-            button3.TabIndex = 14;
-            button3.UseVisualStyleBackColor = true;
+            btn13.Location = new Point(446, 295);
+            btn13.Name = "btn13";
+            btn13.Size = new Size(80, 80);
+            btn13.TabIndex = 14;
+            btn13.Text = "SINGLE CYCLE";
+            btn13.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // btn12
             // 
-            button4.Location = new Point(313, 215);
-            button4.Name = "button4";
-            button4.Size = new Size(80, 80);
-            button4.TabIndex = 13;
-            button4.UseVisualStyleBackColor = true;
+            btn12.Location = new Point(360, 295);
+            btn12.Name = "btn12";
+            btn12.Size = new Size(80, 80);
+            btn12.TabIndex = 13;
+            btn12.Text = "STOP END OF CYCLE";
+            btn12.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // btn16
             // 
-            button5.Location = new Point(657, 215);
-            button5.Name = "button5";
-            button5.Size = new Size(80, 80);
-            button5.TabIndex = 17;
-            button5.UseVisualStyleBackColor = true;
+            btn16.Location = new Point(704, 295);
+            btn16.Name = "btn16";
+            btn16.Size = new Size(80, 80);
+            btn16.TabIndex = 17;
+            btn16.UseVisualStyleBackColor = true;
             // 
-            // button6
+            // btn15
             // 
-            button6.Location = new Point(571, 215);
-            button6.Name = "button6";
-            button6.Size = new Size(80, 80);
-            button6.TabIndex = 16;
-            button6.UseVisualStyleBackColor = true;
+            btn15.Location = new Point(618, 295);
+            btn15.Name = "btn15";
+            btn15.Size = new Size(80, 80);
+            btn15.TabIndex = 16;
+            btn15.Text = "SILENCE HORN";
+            btn15.UseVisualStyleBackColor = true;
             // 
-            // button7
+            // btn14
             // 
-            button7.Location = new Point(485, 215);
-            button7.Name = "button7";
-            button7.Size = new Size(80, 80);
-            button7.TabIndex = 15;
-            button7.UseVisualStyleBackColor = true;
+            btn14.Location = new Point(532, 295);
+            btn14.Name = "btn14";
+            btn14.Size = new Size(80, 80);
+            btn14.TabIndex = 15;
+            btn14.UseVisualStyleBackColor = true;
             // 
-            // button8
+            // btn26
             // 
-            button8.Location = new Point(657, 301);
-            button8.Name = "button8";
-            button8.Size = new Size(80, 80);
-            button8.TabIndex = 24;
-            button8.UseVisualStyleBackColor = true;
+            btn26.Location = new Point(704, 381);
+            btn26.Name = "btn26";
+            btn26.Size = new Size(80, 80);
+            btn26.TabIndex = 24;
+            btn26.UseVisualStyleBackColor = true;
             // 
-            // button9
+            // btn25
             // 
-            button9.Location = new Point(571, 301);
-            button9.Name = "button9";
-            button9.Size = new Size(80, 80);
-            button9.TabIndex = 23;
-            button9.UseVisualStyleBackColor = true;
+            btn25.Location = new Point(618, 381);
+            btn25.Name = "btn25";
+            btn25.Size = new Size(80, 80);
+            btn25.TabIndex = 23;
+            btn25.UseVisualStyleBackColor = true;
             // 
-            // button10
+            // btn24
             // 
-            button10.Location = new Point(485, 301);
-            button10.Name = "button10";
-            button10.Size = new Size(80, 80);
-            button10.TabIndex = 22;
-            button10.UseVisualStyleBackColor = true;
+            btn24.Location = new Point(532, 381);
+            btn24.Name = "btn24";
+            btn24.Size = new Size(80, 80);
+            btn24.TabIndex = 22;
+            btn24.UseVisualStyleBackColor = true;
             // 
-            // button11
+            // btn23
             // 
-            button11.Location = new Point(399, 301);
-            button11.Name = "button11";
-            button11.Size = new Size(80, 80);
-            button11.TabIndex = 21;
-            button11.UseVisualStyleBackColor = true;
+            btn23.Location = new Point(446, 381);
+            btn23.Name = "btn23";
+            btn23.Size = new Size(80, 80);
+            btn23.TabIndex = 21;
+            btn23.Text = "ENABLE PENDANT";
+            btn23.UseVisualStyleBackColor = true;
             // 
-            // button12
+            // btn22
             // 
-            button12.Location = new Point(313, 301);
-            button12.Name = "button12";
-            button12.Size = new Size(80, 80);
-            button12.TabIndex = 20;
-            button12.UseVisualStyleBackColor = true;
+            btn22.Location = new Point(360, 381);
+            btn22.Name = "btn22";
+            btn22.Size = new Size(80, 80);
+            btn22.TabIndex = 20;
+            btn22.Text = "LOCK ACCESS GATE";
+            btn22.UseVisualStyleBackColor = true;
             // 
-            // button13
+            // btn21
             // 
-            button13.Location = new Point(227, 301);
-            button13.Name = "button13";
-            button13.Size = new Size(80, 80);
-            button13.TabIndex = 19;
-            button13.UseVisualStyleBackColor = true;
+            btn21.Location = new Point(274, 381);
+            btn21.Name = "btn21";
+            btn21.Size = new Size(80, 80);
+            btn21.TabIndex = 19;
+            btn21.Text = "GATE 2 ACCESS REQUEST";
+            btn21.UseVisualStyleBackColor = true;
             // 
-            // button14
+            // btn20
             // 
-            button14.Location = new Point(141, 301);
-            button14.Name = "button14";
-            button14.Size = new Size(80, 80);
-            button14.TabIndex = 18;
-            button14.UseVisualStyleBackColor = true;
+            btn20.Location = new Point(188, 381);
+            btn20.Name = "btn20";
+            btn20.Size = new Size(80, 80);
+            btn20.TabIndex = 18;
+            btn20.Text = "GATE 1 ACCESS REQUEST";
+            btn20.UseVisualStyleBackColor = true;
             // 
-            // button15
+            // btn06
             // 
-            button15.Location = new Point(657, 129);
-            button15.Name = "button15";
-            button15.Size = new Size(80, 80);
-            button15.TabIndex = 31;
-            button15.UseVisualStyleBackColor = true;
+            btn06.Location = new Point(704, 209);
+            btn06.Name = "btn06";
+            btn06.Size = new Size(80, 80);
+            btn06.TabIndex = 31;
+            btn06.UseVisualStyleBackColor = true;
             // 
-            // button16
+            // btn05
             // 
-            button16.Location = new Point(571, 129);
-            button16.Name = "button16";
-            button16.Size = new Size(80, 80);
-            button16.TabIndex = 30;
-            button16.UseVisualStyleBackColor = true;
+            btn05.Location = new Point(618, 209);
+            btn05.Name = "btn05";
+            btn05.Size = new Size(80, 80);
+            btn05.TabIndex = 30;
+            btn05.Text = "ENABLE REMOTE CONTROL";
+            btn05.UseVisualStyleBackColor = true;
             // 
-            // button17
+            // btn04
             // 
-            button17.Location = new Point(485, 129);
-            button17.Name = "button17";
-            button17.Size = new Size(80, 80);
-            button17.TabIndex = 29;
-            button17.UseVisualStyleBackColor = true;
+            btn04.Location = new Point(532, 209);
+            btn04.Name = "btn04";
+            btn04.Size = new Size(80, 80);
+            btn04.TabIndex = 29;
+            btn04.UseVisualStyleBackColor = true;
             // 
-            // button18
+            // btn03
             // 
-            button18.Location = new Point(399, 129);
-            button18.Name = "button18";
-            button18.Size = new Size(80, 80);
-            button18.TabIndex = 28;
-            button18.UseVisualStyleBackColor = true;
+            btn03.Location = new Point(446, 209);
+            btn03.Name = "btn03";
+            btn03.Size = new Size(80, 80);
+            btn03.TabIndex = 28;
+            btn03.UseVisualStyleBackColor = true;
             // 
-            // button19
+            // btn02
             // 
-            button19.Location = new Point(313, 129);
-            button19.Name = "button19";
-            button19.Size = new Size(80, 80);
-            button19.TabIndex = 27;
-            button19.UseVisualStyleBackColor = true;
+            btn02.Location = new Point(360, 209);
+            btn02.Name = "btn02";
+            btn02.Size = new Size(80, 80);
+            btn02.TabIndex = 27;
+            btn02.Text = "SEMI-AUTO MODE";
+            btn02.UseVisualStyleBackColor = true;
             // 
-            // button20
+            // btn01
             // 
-            button20.Location = new Point(227, 129);
-            button20.Name = "button20";
-            button20.Size = new Size(80, 80);
-            button20.TabIndex = 26;
-            button20.UseVisualStyleBackColor = true;
+            btn01.Location = new Point(274, 209);
+            btn01.Name = "btn01";
+            btn01.Size = new Size(80, 80);
+            btn01.TabIndex = 26;
+            btn01.Text = "MANUAL MODE";
+            btn01.UseVisualStyleBackColor = true;
             // 
-            // button21
+            // btn00
             // 
-            button21.Location = new Point(141, 129);
-            button21.Name = "button21";
-            button21.Size = new Size(80, 80);
-            button21.TabIndex = 25;
-            button21.Text = "master";
-            button21.UseVisualStyleBackColor = true;
+            btn00.Location = new Point(188, 209);
+            btn00.Name = "btn00";
+            btn00.Size = new Size(80, 80);
+            btn00.TabIndex = 25;
+            btn00.Text = "AUTO MODE";
+            btn00.UseVisualStyleBackColor = true;
             // 
-            // button22
+            // btnMainMenu
             // 
-            button22.Location = new Point(743, 12);
-            button22.Name = "button22";
-            button22.Size = new Size(80, 80);
-            button22.TabIndex = 32;
-            button22.UseVisualStyleBackColor = true;
+            btnMainMenu.Location = new Point(916, 12);
+            btnMainMenu.Name = "btnMainMenu";
+            btnMainMenu.Size = new Size(80, 80);
+            btnMainMenu.TabIndex = 32;
+            btnMainMenu.Text = "Main Menu";
+            btnMainMenu.UseVisualStyleBackColor = true;
             // 
-            // button23
+            // btnReset
             // 
-            button23.Location = new Point(12, 12);
-            button23.Name = "button23";
-            button23.Size = new Size(80, 80);
-            button23.TabIndex = 33;
-            button23.UseVisualStyleBackColor = true;
+            btnReset.Location = new Point(12, 12);
+            btnReset.Name = "btnReset";
+            btnReset.Size = new Size(80, 80);
+            btnReset.TabIndex = 33;
+            btnReset.Text = "Reset";
+            btnReset.UseVisualStyleBackColor = true;
             // 
             // btnSelectAll
             // 
-            btnSelectAll.Location = new Point(95, 450);
+            btnSelectAll.Location = new Point(53, 540);
             btnSelectAll.Name = "btnSelectAll";
             btnSelectAll.Size = new Size(80, 80);
             btnSelectAll.TabIndex = 34;
             btnSelectAll.Text = "Select All";
             btnSelectAll.UseVisualStyleBackColor = true;
             // 
+            // btnMode
+            // 
+            btnMode.Location = new Point(12, 637);
+            btnMode.Name = "btnMode";
+            btnMode.Size = new Size(80, 80);
+            btnMode.TabIndex = 35;
+            btnMode.Text = "Mode";
+            btnMode.UseVisualStyleBackColor = true;
+            // 
+            // btnControl
+            // 
+            btnControl.Location = new Point(98, 637);
+            btnControl.Name = "btnControl";
+            btnControl.Size = new Size(80, 80);
+            btnControl.TabIndex = 36;
+            btnControl.Text = "Control";
+            btnControl.UseVisualStyleBackColor = true;
+            // 
+            // btnAutoMode
+            // 
+            btnAutoMode.Location = new Point(234, 637);
+            btnAutoMode.Name = "btnAutoMode";
+            btnAutoMode.Size = new Size(80, 80);
+            btnAutoMode.TabIndex = 37;
+            btnAutoMode.Text = "AUTO MODE";
+            btnAutoMode.UseVisualStyleBackColor = true;
+            // 
+            // btnManualMode
+            // 
+            btnManualMode.Location = new Point(320, 637);
+            btnManualMode.Name = "btnManualMode";
+            btnManualMode.Size = new Size(80, 80);
+            btnManualMode.TabIndex = 38;
+            btnManualMode.Text = "MANUAL MODE";
+            btnManualMode.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(406, 637);
+            button1.Name = "button1";
+            button1.Size = new Size(80, 80);
+            button1.TabIndex = 39;
+            button1.Text = "START AUTO CYCLE";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(492, 637);
+            button2.Name = "button2";
+            button2.Size = new Size(80, 80);
+            button2.TabIndex = 40;
+            button2.Text = "STOP END OF CYCLE";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(578, 637);
+            button3.Name = "button3";
+            button3.Size = new Size(80, 80);
+            button3.TabIndex = 41;
+            button3.Text = "RETURN HOME";
+            button3.UseVisualStyleBackColor = true;
+            // 
+            // lblStationState
+            // 
+            lblStationState.BackColor = Color.White;
+            lblStationState.BorderStyle = BorderStyle.FixedSingle;
+            lblStationState.Location = new Point(98, 9);
+            lblStationState.Name = "lblStationState";
+            lblStationState.Size = new Size(92, 113);
+            lblStationState.TabIndex = 42;
+            lblStationState.Text = "STATION STATE, ModeStatesHeader, , header.stationstate";
+            lblStationState.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // lblCycleTypeState
+            // 
+            lblCycleTypeState.BackColor = Color.White;
+            lblCycleTypeState.BorderStyle = BorderStyle.FixedSingle;
+            lblCycleTypeState.Location = new Point(196, 9);
+            lblCycleTypeState.Name = "lblCycleTypeState";
+            lblCycleTypeState.Size = new Size(92, 113);
+            lblCycleTypeState.TabIndex = 43;
+            lblCycleTypeState.Text = "CycleTypeState,  header.cycleTypeFeedback , CycleType";
+            lblCycleTypeState.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // lblFaultState
+            // 
+            lblFaultState.BackColor = Color.White;
+            lblFaultState.BorderStyle = BorderStyle.FixedSingle;
+            lblFaultState.Location = new Point(293, 9);
+            lblFaultState.Name = "lblFaultState";
+            lblFaultState.Size = new Size(92, 113);
+            lblFaultState.TabIndex = 44;
+            lblFaultState.Text = "Fault State, header.FaultStateHeader,  FaultState";
+            lblFaultState.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // lblHomeState
+            // 
+            lblHomeState.BackColor = Color.White;
+            lblHomeState.BorderStyle = BorderStyle.FixedSingle;
+            lblHomeState.Location = new Point(391, 9);
+            lblHomeState.Name = "lblHomeState";
+            lblHomeState.Size = new Size(92, 113);
+            lblHomeState.TabIndex = 45;
+            lblHomeState.Text = "Home State, header.homestate, HomeState";
+            lblHomeState.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // lblAnyWarnings
+            // 
+            lblAnyWarnings.BackColor = Color.White;
+            lblAnyWarnings.BorderStyle = BorderStyle.FixedSingle;
+            lblAnyWarnings.Location = new Point(489, 9);
+            lblAnyWarnings.Name = "lblAnyWarnings";
+            lblAnyWarnings.Size = new Size(92, 113);
+            lblAnyWarnings.TabIndex = 46;
+            lblAnyWarnings.Text = "Any Warnings Exist, header.AnyStationWarningHeader,, AnyStationWarningList";
+            lblAnyWarnings.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // lblStationName
+            // 
+            lblStationName.BackColor = Color.White;
+            lblStationName.BorderStyle = BorderStyle.FixedSingle;
+            lblStationName.Location = new Point(587, 9);
+            lblStationName.Name = "lblStationName";
+            lblStationName.Size = new Size(92, 113);
+            lblStationName.TabIndex = 47;
+            lblStationName.Text = "Station Name, header.stationNameSelect, StationNames";
+            lblStationName.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(834, 556);
-            Controls.Add(btnSelectAll);
-            Controls.Add(button23);
-            Controls.Add(button22);
-            Controls.Add(button15);
-            Controls.Add(button16);
-            Controls.Add(button17);
-            Controls.Add(button18);
-            Controls.Add(button19);
-            Controls.Add(button20);
-            Controls.Add(button21);
-            Controls.Add(button8);
-            Controls.Add(button9);
-            Controls.Add(button10);
-            Controls.Add(button11);
-            Controls.Add(button12);
-            Controls.Add(button13);
-            Controls.Add(button14);
-            Controls.Add(button5);
-            Controls.Add(button6);
-            Controls.Add(button7);
+            ClientSize = new Size(1008, 729);
+            Controls.Add(lblStationName);
+            Controls.Add(lblAnyWarnings);
+            Controls.Add(lblHomeState);
+            Controls.Add(lblFaultState);
+            Controls.Add(lblCycleTypeState);
+            Controls.Add(lblStationState);
             Controls.Add(button3);
-            Controls.Add(button4);
             Controls.Add(button2);
-            Controls.Add(btnReadArray);
+            Controls.Add(button1);
+            Controls.Add(btnManualMode);
+            Controls.Add(btnAutoMode);
+            Controls.Add(btnControl);
+            Controls.Add(btnMode);
+            Controls.Add(btnSelectAll);
+            Controls.Add(btnReset);
+            Controls.Add(btnMainMenu);
+            Controls.Add(btn06);
+            Controls.Add(btn05);
+            Controls.Add(btn04);
+            Controls.Add(btn03);
+            Controls.Add(btn02);
+            Controls.Add(btn01);
+            Controls.Add(btn00);
+            Controls.Add(btn26);
+            Controls.Add(btn25);
+            Controls.Add(btn24);
+            Controls.Add(btn23);
+            Controls.Add(btn22);
+            Controls.Add(btn21);
+            Controls.Add(btn20);
+            Controls.Add(btn16);
+            Controls.Add(btn15);
+            Controls.Add(btn14);
+            Controls.Add(btn13);
+            Controls.Add(btn12);
+            Controls.Add(btn11);
+            Controls.Add(btn10);
             Controls.Add(btnAutoCycleStart);
             Controls.Add(btnAutoCycleStop);
             Controls.Add(btnStation6);
@@ -417,29 +586,42 @@
         private Button btnStation6;
         private Button btnAutoCycleStart;
         private Button btnAutoCycleStop;
-        private Button btnReadArray;
+        private Button btn10;
+        private Button btn11;
+        private Button btn13;
+        private Button btn12;
+        private Button btn16;
+        private Button btn15;
+        private Button btn14;
+        private Button btn26;
+        private Button btn25;
+        private Button btn24;
+        private Button btn23;
+        private Button btn22;
+        private Button btn21;
+        private Button btn20;
+        private Button btn06;
+        private Button btn05;
+        private Button btn04;
+        private Button btn03;
+        private Button btn02;
+        private Button btn01;
+        private Button btn00;
+        private Button btnMainMenu;
+        private Button btnReset;
+        private Button btnSelectAll;
+        private Button btnMode;
+        private Button btnControl;
+        private Button btnAutoMode;
+        private Button btnManualMode;
+        private Button button1;
         private Button button2;
         private Button button3;
-        private Button button4;
-        private Button button5;
-        private Button button6;
-        private Button button7;
-        private Button button8;
-        private Button button9;
-        private Button button10;
-        private Button button11;
-        private Button button12;
-        private Button button13;
-        private Button button14;
-        private Button button15;
-        private Button button16;
-        private Button button17;
-        private Button button18;
-        private Button button19;
-        private Button button20;
-        private Button button21;
-        private Button button22;
-        private Button button23;
-        private Button btnSelectAll;
+        private Label lblStationState;
+        private Label lblCycleTypeState;
+        private Label lblFaultState;
+        private Label lblHomeState;
+        private Label lblAnyWarnings;
+        private Label lblStationName;
     }
 }
