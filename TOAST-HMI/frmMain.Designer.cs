@@ -242,6 +242,7 @@
             btn26.Size = new Size(80, 80);
             btn26.TabIndex = 24;
             btn26.UseVisualStyleBackColor = true;
+            btn26.Click += btn26_Click;
             // 
             // btn25
             // 
@@ -366,7 +367,7 @@
             // 
             // btnReset
             // 
-            btnReset.Location = new Point(12, 12);
+            btnReset.Location = new Point(0, 0);
             btnReset.Name = "btnReset";
             btnReset.Size = new Size(80, 80);
             btnReset.TabIndex = 33;
@@ -449,9 +450,9 @@
             // 
             lblStationState.BackColor = Color.White;
             lblStationState.BorderStyle = BorderStyle.FixedSingle;
-            lblStationState.Location = new Point(98, 9);
+            lblStationState.Location = new Point(80, 0);
             lblStationState.Name = "lblStationState";
-            lblStationState.Size = new Size(92, 113);
+            lblStationState.Size = new Size(148, 20);
             lblStationState.TabIndex = 42;
             lblStationState.Text = "STATION STATE, ModeStatesHeader, , header.stationstate";
             lblStationState.TextAlign = ContentAlignment.MiddleCenter;
@@ -460,9 +461,9 @@
             // 
             lblCycleTypeState.BackColor = Color.White;
             lblCycleTypeState.BorderStyle = BorderStyle.FixedSingle;
-            lblCycleTypeState.Location = new Point(196, 9);
+            lblCycleTypeState.Location = new Point(234, 0);
             lblCycleTypeState.Name = "lblCycleTypeState";
-            lblCycleTypeState.Size = new Size(92, 113);
+            lblCycleTypeState.Size = new Size(120, 20);
             lblCycleTypeState.TabIndex = 43;
             lblCycleTypeState.Text = "CycleTypeState,  header.cycleTypeFeedback , CycleType";
             lblCycleTypeState.TextAlign = ContentAlignment.MiddleCenter;
@@ -471,7 +472,7 @@
             // 
             lblFaultState.BackColor = Color.White;
             lblFaultState.BorderStyle = BorderStyle.FixedSingle;
-            lblFaultState.Location = new Point(293, 9);
+            lblFaultState.Location = new Point(524, 0);
             lblFaultState.Name = "lblFaultState";
             lblFaultState.Size = new Size(92, 113);
             lblFaultState.TabIndex = 44;
@@ -482,7 +483,7 @@
             // 
             lblHomeState.BackColor = Color.White;
             lblHomeState.BorderStyle = BorderStyle.FixedSingle;
-            lblHomeState.Location = new Point(391, 9);
+            lblHomeState.Location = new Point(622, 0);
             lblHomeState.Name = "lblHomeState";
             lblHomeState.Size = new Size(92, 113);
             lblHomeState.TabIndex = 45;
@@ -493,7 +494,7 @@
             // 
             lblAnyWarnings.BackColor = Color.White;
             lblAnyWarnings.BorderStyle = BorderStyle.FixedSingle;
-            lblAnyWarnings.Location = new Point(489, 9);
+            lblAnyWarnings.Location = new Point(720, 0);
             lblAnyWarnings.Name = "lblAnyWarnings";
             lblAnyWarnings.Size = new Size(92, 113);
             lblAnyWarnings.TabIndex = 46;
@@ -504,7 +505,7 @@
             // 
             lblStationName.BackColor = Color.White;
             lblStationName.BorderStyle = BorderStyle.FixedSingle;
-            lblStationName.Location = new Point(587, 9);
+            lblStationName.Location = new Point(818, 0);
             lblStationName.Name = "lblStationName";
             lblStationName.Size = new Size(92, 113);
             lblStationName.TabIndex = 47;

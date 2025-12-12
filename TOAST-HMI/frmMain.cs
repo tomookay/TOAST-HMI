@@ -95,7 +95,7 @@ namespace TOAST_HMI
             //WireMomentary(btn38, "gHMIButtons.btnMode.btn38Pressed");
             //WireMomentary(btn39, "gHMIButtons.btnMode.btn39Pressed");
 
-                     ////special case buttons	
+            ////special case buttons	
             //btnPowerOnPressed: BOOL; //TRUE to power the machine on
             //btnPowerOffPressed: BOOL; //TRUE to power the machine off
 
@@ -202,7 +202,7 @@ namespace TOAST_HMI
             }
         }
 
-         private bool[] ReadBoolArray(string plcSymbol, int elementCount)
+        private bool[] ReadBoolArray(string plcSymbol, int elementCount)
         {
             if (_adsClient == null || !_adsClient.IsConnected)
                 throw new InvalidOperationException("Not connected to PLC.");
@@ -238,7 +238,39 @@ namespace TOAST_HMI
             }
         }
 
-       
+        private int ReadInt32(string plcSymbol)
+        {
+            if (_adsClient == null || !_adsClient.IsConnected)
+                throw new InvalidOperationException("Not connected to PLC.");
+
+            uint handle = 0;
+            try
+            {
+                handle = _adsClient.CreateVariableHandle(plcSymbol);
+
+                // Beckhoff stores this integer as a 16-bit value; read 2 bytes
+                int readLength = sizeof(short);
+                var result = _adsClient.ReadAsResult(handle, readLength);
+                result.ThrowOnError();
+
+                byte[] buffer = result.Data.ToArray();
+                if (buffer.Length < readLength)
+                    throw new InvalidOperationException($"Unexpected read length: got {buffer.Length} bytes, expected {readLength}.");
+
+                // Convert 16-bit value and return as int for callers
+                short val16 = BitConverter.ToInt16(buffer, 0);
+                return (int)val16;
+            }
+            finally
+            {
+                if (handle != 0)
+                {
+                    try { _adsClient?.DeleteVariableHandle(handle); } catch { /* ignore */ }
+                }
+            }
+        }
+
+
 
         private void WireMomentary(Button btn, string plcSymbol)
         {
@@ -281,7 +313,7 @@ namespace TOAST_HMI
                 }
             };
 
-            
+
 
 
             // ensure FALSE when leaving and mouse isn't down
@@ -305,7 +337,7 @@ namespace TOAST_HMI
                 var values = ReadBoolArray("gHMIData.gStationSelected", 6);
                 if (values.Length == gStationSelected.Length)
                 {
-                   Array.Copy(values, gStationSelected, values.Length);
+                    Array.Copy(values, gStationSelected, values.Length);
                     if (gStationSelected[0] == true)
                     {
                         btnStation1.BackColor = Color.LightGreen;
@@ -365,11 +397,70 @@ namespace TOAST_HMI
                     gStationSelected = values;
                 }
 
+                // --- read integer station state and update lblStationState background ---
+                try
+                {
+                    int stationState = ReadInt32("gHMIData.hmiHeader.stationstate");
+
+                    // Map PLC integer values to colours. Adjust mapping as required.
+                    string stateText = stationState switch
+                    {
+                        0 => "No State",               // no state or data not read from plc
+                        1 => "Power Off",             // powered off baseline
+                        2 => "Power On",              // Powered on baseline
+                        3 => "Manual",              // manual mode on the manual buttons
+                        4 => "Auto",                  // auto but not cycling
+                        5 => "Auto Cycle",           // normal auto cycling state
+                        6 => "Semi Auto",           // semi auto state
+                        7 => "Fault",               // normal fault state
+                        8 => "Bypass",              // bypass station, some auto possible?
+                        9 => "Auto Cycle Stopping",  // stopping
+                       _ => "Unknown"               // unknown
+                    };
+
+                    lblStationState.Text = stateText;
+                }
+                catch
+                {
+                    // ignore read errors for stationstate (optionally log)
+                }
+
+
+                //header.cycleTypeFeedback.
+                try
+                {
+                    int cycletypefeedback = ReadInt32("gHMIData.hmiHeader.cycleTypeFeedback");
+
+                    // Map PLC integer values to colours. Adjust mapping as required.
+                    string stateText = cycletypefeedback switch
+                    {
+                        0 => "No State",                // no data read from plc
+                        1 => "Continuous Cycle",       // normal auto cycle
+                        2 => "Single Cycle",           // single cycle, then stop auto cycle
+                        3 => "other state",           // error
+                        _ => "Unknown"              // unknown
+                    };
+
+                    lblCycleTypeState.Text = stateText;
+                }
+                catch
+                {
+                    // ignore read errors for stationstate (optionally log)
+                }
             }
             catch
             {
                 // ignore read errors here
             }
         }
+
+        private void btn26_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }
+
+
