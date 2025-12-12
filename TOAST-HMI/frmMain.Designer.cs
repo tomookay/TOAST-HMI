@@ -472,9 +472,9 @@
             // 
             lblFaultState.BackColor = Color.White;
             lblFaultState.BorderStyle = BorderStyle.FixedSingle;
-            lblFaultState.Location = new Point(524, 0);
+            lblFaultState.Location = new Point(360, 0);
             lblFaultState.Name = "lblFaultState";
-            lblFaultState.Size = new Size(92, 113);
+            lblFaultState.Size = new Size(96, 20);
             lblFaultState.TabIndex = 44;
             lblFaultState.Text = "Fault State, header.FaultStateHeader,  FaultState";
             lblFaultState.TextAlign = ContentAlignment.MiddleCenter;
@@ -483,9 +483,9 @@
             // 
             lblHomeState.BackColor = Color.White;
             lblHomeState.BorderStyle = BorderStyle.FixedSingle;
-            lblHomeState.Location = new Point(622, 0);
+            lblHomeState.Location = new Point(462, 0);
             lblHomeState.Name = "lblHomeState";
-            lblHomeState.Size = new Size(92, 113);
+            lblHomeState.Size = new Size(122, 20);
             lblHomeState.TabIndex = 45;
             lblHomeState.Text = "Home State, header.homestate, HomeState";
             lblHomeState.TextAlign = ContentAlignment.MiddleCenter;
@@ -494,9 +494,9 @@
             // 
             lblAnyWarnings.BackColor = Color.White;
             lblAnyWarnings.BorderStyle = BorderStyle.FixedSingle;
-            lblAnyWarnings.Location = new Point(720, 0);
+            lblAnyWarnings.Location = new Point(590, 0);
             lblAnyWarnings.Name = "lblAnyWarnings";
-            lblAnyWarnings.Size = new Size(92, 113);
+            lblAnyWarnings.Size = new Size(127, 20);
             lblAnyWarnings.TabIndex = 46;
             lblAnyWarnings.Text = "Any Warnings Exist, header.AnyStationWarningHeader,, AnyStationWarningList";
             lblAnyWarnings.TextAlign = ContentAlignment.MiddleCenter;

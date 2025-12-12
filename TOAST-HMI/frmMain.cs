@@ -238,7 +238,7 @@ namespace TOAST_HMI
             }
         }
 
-        private int ReadInt32(string plcSymbol)
+        private int ReadInt16(string plcSymbol)
         {
             if (_adsClient == null || !_adsClient.IsConnected)
                 throw new InvalidOperationException("Not connected to PLC.");
@@ -400,7 +400,7 @@ namespace TOAST_HMI
                 // --- read integer station state and update lblStationState background ---
                 try
                 {
-                    int stationState = ReadInt32("gHMIData.hmiHeader.stationstate");
+                    int stationState = ReadInt16("gHMIData.hmiHeader.stationstate");
 
                     // Map PLC integer values to colours. Adjust mapping as required.
                     string stateText = stationState switch
@@ -429,7 +429,7 @@ namespace TOAST_HMI
                 //header.cycleTypeFeedback.
                 try
                 {
-                    int cycletypefeedback = ReadInt32("gHMIData.hmiHeader.cycleTypeFeedback");
+                    int cycletypefeedback = ReadInt16("gHMIData.hmiHeader.cycleTypeFeedback");
 
                     // Map PLC integer values to colours. Adjust mapping as required.
                     string stateText = cycletypefeedback switch
@@ -447,11 +447,136 @@ namespace TOAST_HMI
                 {
                     // ignore read errors for stationstate (optionally log)
                 }
+
+                //header.FaultStateHeader.
+                try
+                {
+                    int faultStateHeader = ReadInt16("gHMIData.hmiHeader.FaultStateHeader");
+
+                    // Map PLC integer values to colours. Adjust mapping as required.
+                    string stateText = faultStateHeader switch
+                    {
+                        0 => " ",                // no data read from plc
+                        1 => "Fault",       // normal auto cycle
+                        2 => "Fault",           // single cycle, then stop auto cycle
+                        3 => "Fault",           // error
+                        _ => "Unknown"              // unknown
+                    };
+
+                    lblFaultState.Text = stateText;
+
+                    //change background colour since its a fault indicator
+                    if (faultStateHeader == 0)
+                    {
+                        lblFaultState.BackColor = SystemColors.Control;
+                      //  lblFaultState.BackColor = Color.RebeccaPurple;
+                    }
+                    else
+                    {
+                        lblFaultState.BackColor = Color.Red;
+                    }
+
+                }
+                catch
+                {
+                    // ignore read errors for stationstate (optionally log)
+                }
+
+
+
+                //header.homestate.
+                try
+                {
+                        int homestate = ReadInt16("gHMIData.hmiHeader.homestate");
+
+                        // Map PLC integer values to colours. Adjust mapping as required.
+                        string stateText = homestate switch
+                        {
+                            0 => "Not Home",                // not home
+                            1 => "Homing",                     // in the state of homing
+                            2 => "Home",           // in home state
+                            3 => "Fault",           // error
+                            _ => "Unknown"              // unknown
+                        };
+
+                        lblHomeState.Text = stateText;
+
+                        //change background colour since its a fault indicator
+                        if (homestate == 0)
+                        {
+                        lblHomeState.BackColor = SystemColors.Control;
+                        //lblHomeState.BackColor = Color.RebeccaPurple;
+                        }
+                        else
+                        {
+                            lblFaultState.BackColor = Color.Green;
+                        }
+
+
+                }
+                catch
+                {
+                    // ignore read errors for stationstate (optionally log)
+                }
+
+                //header.AnyStationWarningHeader.
+                try
+                {
+                    int homestate = ReadInt16("gHMIData.hmiHeader.AnyStationWarningHeader");
+
+                    // Map PLC integer values to colours. Adjust mapping as required.
+                    string stateText = homestate switch
+                    {
+                        0 => "Not Home",                // not home
+                        1 => "Homing",                     // in the state of homing
+                        2 => "Home",           // in home state
+                        3 => "Fault",           // error
+                        _ => "Unknown"              // unknown
+                    };
+
+                    lblHomeState.Text = stateText;
+
+                    //change background colour since its a fault indicator
+                    if (homestate == 0)
+                    {
+                        lblHomeState.BackColor = SystemColors.Control;
+                        //lblHomeState.BackColor = Color.RebeccaPurple;
+                    }
+                    else
+                    {
+                        lblFaultState.BackColor = Color.Green;
+                    }
+
+
+                }
+                catch
+                {
+                    // ignore read errors for stationstate (optionally log)
+                }
+
+
+                //lblAnyWarnings
+
+
+
+
+
+
+
+
             }
             catch
             {
                 // ignore read errors here
             }
+
+
+
+            //
+
+
+
+
         }
 
         private void btn26_Click(object sender, EventArgs e)
