@@ -1,4 +1,5 @@
 using TwinCAT.Ads;
+using System.Xml.Linq;
 
 namespace TOAST_HMI
 {
@@ -11,6 +12,9 @@ namespace TOAST_HMI
         private readonly int _adsPort = 851;
 
         private bool[] gStationSelected = new bool[6];
+
+        private string tc3ProjectPath = string.Empty;
+
 
         public frmMain()
         {
@@ -415,7 +419,7 @@ namespace TOAST_HMI
                         7 => "Fault",               // normal fault state
                         8 => "Bypass",              // bypass station, some auto possible?
                         9 => "Auto Cycle Stopping",  // stopping
-                       _ => "Unknown"               // unknown
+                        _ => "Unknown"               // unknown
                     };
 
                     lblStationState.Text = stateText;
@@ -469,7 +473,7 @@ namespace TOAST_HMI
                     if (faultStateHeader == 0)
                     {
                         lblFaultState.BackColor = SystemColors.Control;
-                      //  lblFaultState.BackColor = Color.RebeccaPurple;
+                        //  lblFaultState.BackColor = Color.RebeccaPurple;
                     }
                     else
                     {
@@ -487,30 +491,30 @@ namespace TOAST_HMI
                 //header.homestate.
                 try
                 {
-                        int homestate = ReadInt16("gHMIData.hmiHeader.homestate");
+                    int homestate = ReadInt16("gHMIData.hmiHeader.homestate");
 
-                        // Map PLC integer values to colours. Adjust mapping as required.
-                        string stateText = homestate switch
-                        {
-                            0 => "Not Home",                // not home
-                            1 => "Homing",                     // in the state of homing
-                            2 => "Home",           // in home state
-                            3 => "Fault",           // error
-                            _ => "Unknown"              // unknown
-                        };
+                    // Map PLC integer values to colours. Adjust mapping as required.
+                    string stateText = homestate switch
+                    {
+                        0 => "Not Home",                // not home
+                        1 => "Homing",                     // in the state of homing
+                        2 => "Home",           // in home state
+                        3 => "Fault",           // error
+                        _ => "Unknown"              // unknown
+                    };
 
-                        lblHomeState.Text = stateText;
+                    lblHomeState.Text = stateText;
 
-                        //change background colour since its a fault indicator
-                        if (homestate == 0)
-                        {
+                    //change background colour since its a fault indicator
+                    if (homestate == 0)
+                    {
                         lblHomeState.BackColor = SystemColors.Control;
                         //lblHomeState.BackColor = Color.RebeccaPurple;
-                        }
-                        else
-                        {
-                            lblFaultState.BackColor = Color.Green;
-                        }
+                    }
+                    else
+                    {
+                        lblFaultState.BackColor = Color.Green;
+                    }
 
 
                 }
@@ -584,8 +588,332 @@ namespace TOAST_HMI
 
         }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //load tc3 project
+            ofdTc3Project.ShowDialog();
+            tc3ProjectPath = ofdTc3Project.FileName;
 
+            // Clear previous results in the listbox (if present)
+            lbFoundFiles?.Items.Clear();
+
+            if (!string.IsNullOrEmpty(tc3ProjectPath))
+            {
+                MessageBox.Show($"Loaded TC3 project: {tc3ProjectPath}", "TC3 Project", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            //search for all textlist files
+            //.TcTLO
+
+            string projectDirectory = Path.GetDirectoryName(tc3ProjectPath) ?? string.Empty;
+            var textListFiles = Directory.GetFiles(projectDirectory, "*.TcTLO", SearchOption.AllDirectories);
+
+            // Populate the listbox with every found file (show full path)
+            if (textListFiles.Length == 0)
+            {
+                MessageBox.Show("No .TcTLO files found in the selected project.", "TC3 Text List", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                foreach (var file in textListFiles)
+                {
+                    lbFoundFiles?.Items.Add(file);
+                }
+
+                // Select first item for convenience
+                if (lbFoundFiles != null && lbFoundFiles.Items.Count > 0)
+                    lbFoundFiles.SelectedIndex = 0;
+
+                MessageBox.Show($"Found {textListFiles.Length} .TcTLO file(s).", "TC3 Text List", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            //each .TcTLO file is an XML file
+            //parse each file and extract the text entries
+            foreach (var file in textListFiles)
+            {
+                try
+                {
+                    var xmlDoc = new System.Xml.XmlDocument();
+                    xmlDoc.Load(file);
+                    var textEntries = xmlDoc.GetElementsByTagName("TextListEntry");
+                    foreach (System.Xml.XmlNode entry in textEntries)
+                    {
+                        var idNode = entry.SelectSingleNode("ID");
+                        var textNode = entry.SelectSingleNode("Text");
+                        if (idNode != null && textNode != null)
+                        {
+                            string id = idNode.InnerText;
+                            string text = textNode.InnerText;
+                            // For demonstration, show each text entry found
+                            // In a real application, you might want to store these in a data structure
+                            // or display them in a list.
+                            MessageBox.Show($"ID: {id}, Text: {text}", "Text List Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error parsing file {file}: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void ofdTc3Project_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        // Add this helper to your frmMain class
+        private List<(string Id, string Text)> ParseTextListEntriesFromXml(string xml)
+        {
+            if (string.IsNullOrWhiteSpace(xml))
+                return new List<(string, string)>();
+
+            // Parse with XDocument — works with or without namespaces
+            var doc = XDocument.Parse(xml);
+
+            // Use LocalName to ignore namespace prefixes (if any)
+            var entries = doc
+                .Descendants()
+                .Where(e => e.Name.LocalName == "TextListEntry")
+                .Select(e =>
+                {
+                    var idEl = e.Elements().FirstOrDefault(x => x.Name.LocalName == "ID");
+                    var textEl = e.Elements().FirstOrDefault(x => x.Name.LocalName == "Text");
+                    return (Id: idEl?.Value ?? string.Empty, Text: textEl?.Value ?? string.Empty);
+                })
+                .ToList();
+
+            return entries;
+        }
+
+        // Add to frmMain class
+        private List<(string TextId, string TextDefault)> FindTextDefaultsForTextId(string xml, string textId = "0")
+        {
+            if (string.IsNullOrWhiteSpace(xml))
+                return new List<(string, string)>();
+
+            var doc = XDocument.Parse(xml);
+
+            var results = new List<(string, string)>();
+
+            var textIdNodes = doc.Descendants()
+                .Where(x => x.Name.LocalName == "v" && (string?)x.Attribute("n") == "TextID");
+
+            foreach (var idNode in textIdNodes)
+            {
+                // Value may include surrounding quotes e.g. "0"
+                var idValue = (idNode.Value ?? string.Empty).Trim().Trim('"');
+
+                if (string.Equals(idValue, textId, StringComparison.Ordinal))
+                {
+                    var textDefaultNode = idNode.ElementsAfterSelf()
+                        .FirstOrDefault(x => x.Name.LocalName == "v" && (string?)x.Attribute("n") == "TextDefault");
+
+                    if (textDefaultNode != null)
+                    {
+                        var textDefault = (textDefaultNode.Value ?? string.Empty).Trim().Trim('"');
+                        results.Add((idValue, textDefault));
+                    }
+                }
+            }
+
+            return results;
+        }
+
+        // Replace your existing FindAllTextDefaults and btnParse_Click with these implementations
+
+        private List<(string TextId, string TextDefault)> FindAllTextDefaults(string xml)
+        {
+            if (string.IsNullOrWhiteSpace(xml))
+                return new List<(string, string)>();
+
+            var doc = XDocument.Parse(xml);
+            var results = new List<(string, string)>();
+
+            // Find every <v n="TextID"> node
+            var textIdNodes = doc.Descendants()
+                .Where(x => x.Name.LocalName == "v" && (string?)x.Attribute("n") == "TextID");
+
+            foreach (var idNode in textIdNodes)
+            {
+                // Trim surrounding quotes/whitespace
+                var idValue = (idNode.Value ?? string.Empty).Trim().Trim('"');
+
+                XElement? parent = idNode.Parent;
+                XElement? textDefaultNode = null;
+
+                // 1) Try any TextDefault inside the same parent element
+                if (parent != null)
+                {
+                    textDefaultNode = parent
+                        .Descendants()
+                        .FirstOrDefault(x => x.Name.LocalName == "v" && (string?)x.Attribute("n") == "TextDefault");
+                }
+
+                // 2) Fallback: sibling elements after the TextID element (same parent)
+                if (textDefaultNode == null && parent != null)
+                {
+                    var afterSiblings = parent.Elements().SkipWhile(e => e != idNode).Skip(1);
+                    textDefaultNode = afterSiblings
+                        .FirstOrDefault(x => x.Name.LocalName == "v" && (string?)x.Attribute("n") == "TextDefault");
+                }
+
+                // 3) Broader fallback: search the grandparent container
+                if (textDefaultNode == null && parent?.Parent != null)
+                {
+                    textDefaultNode = parent.Parent
+                        .Descendants()
+                        .FirstOrDefault(x => x.Name.LocalName == "v" && (string?)x.Attribute("n") == "TextDefault");
+                }
+
+                if (textDefaultNode != null)
+                {
+                    var textDefault = (textDefaultNode.Value ?? string.Empty).Trim().Trim('"');
+                    results.Add((idValue, textDefault));
+                }
+            }
+
+            // Deduplicate by TextId and order numerically when possible
+            //var deduped = results
+            //    .GroupBy(r => r.TextId)
+            //    .Select(g => g.First())
+            //    .OrderBy(r => {
+            //        if (int.TryParse(r.TextId, out var n)) return n;
+            //        return int.MaxValue;
+            //    })
+            //    .ToList();
+
+            return results;
+        }
+
+        private void btnParse_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var entries = FindAllTextDefaults(txbSpecialXML.Text);
+
+                if (entries.Count == 0)
+                {
+                    MessageBox.Show("No TextID / TextDefault pairs found.", "Parse result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                var sb = new System.Text.StringBuilder();
+                foreach (var entry in entries)
+                    sb.AppendLine($"TextID: \"{entry.TextId}\" → TextDefault: \"{entry.TextDefault}\"");
+
+                // If the output is large prefer writing to a file or showing in a dedicated window.
+                MessageBox.Show(sb.ToString(), $"Found {entries.Count} entries", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (System.Xml.XmlException ex)
+            {
+                MessageBox.Show($"XML error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error parsing XML: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void lbFoundFiles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //on the selected file, use the FindAllTextDefaults to parse the path
+            if (lbFoundFiles.SelectedItem != null)
+            {
+                string selectedFilePath = lbFoundFiles.SelectedItem.ToString() ?? string.Empty;
+                try
+                {
+                    string fileContent = File.ReadAllText(selectedFilePath);
+                    var entries = FindAllTextDefaults(fileContent);
+                    if (entries.Count == 0)
+                    {
+                        MessageBox.Show("No TextID / TextDefault pairs found in the selected file.", "Parse result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    var sb = new System.Text.StringBuilder();
+                    foreach (var entry in entries)
+                        sb.AppendLine($"TextID: \"{entry.TextId}\" → TextDefault: \"{entry.TextDefault}\"");
+                    // Show results in the text box
+                    txbSpecialXML.Text = sb.ToString();
+                    //MessageBox.Show($"Found {entries.Count} entries in the selected file.", "Parse result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(sb.ToString(), $"Found {entries.Count} entries", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error reading or parsing file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+
+            }
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             btnPowerOn = new Button();
             btnPowerOff = new Button();
             timGetPLCData = new System.Windows.Forms.Timer(components);
@@ -77,6 +78,11 @@
             lblHomeState = new Label();
             lblAnyWarnings = new Label();
             lblStationName = new Label();
+            ofdTc3Project = new OpenFileDialog();
+            button4 = new Button();
+            txbSpecialXML = new TextBox();
+            btnParse = new Button();
+            lbFoundFiles = new ListBox();
             SuspendLayout();
             // 
             // btnPowerOn
@@ -512,11 +518,61 @@
             lblStationName.Text = "Station Name, header.stationNameSelect, StationNames";
             lblStationName.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // ofdTc3Project
+            // 
+            ofdTc3Project.FileName = "openFileDialog1";
+            ofdTc3Project.Filter = "TwinCAT3 Projects | *.sln";
+            ofdTc3Project.Title = "Select a TwinCAT3 Project...";
+            ofdTc3Project.FileOk += ofdTc3Project_FileOk;
+            // 
+            // button4
+            // 
+            button4.Location = new Point(769, 680);
+            button4.Name = "button4";
+            button4.Size = new Size(75, 23);
+            button4.TabIndex = 48;
+            button4.Text = "button4";
+            button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
+            // 
+            // txbSpecialXML
+            // 
+            txbSpecialXML.Location = new Point(826, 400);
+            txbSpecialXML.Multiline = true;
+            txbSpecialXML.Name = "txbSpecialXML";
+            txbSpecialXML.Size = new Size(100, 95);
+            txbSpecialXML.TabIndex = 49;
+            txbSpecialXML.Text = resources.GetString("txbSpecialXML.Text");
+            // 
+            // btnParse
+            // 
+            btnParse.Location = new Point(826, 501);
+            btnParse.Name = "btnParse";
+            btnParse.Size = new Size(75, 23);
+            btnParse.TabIndex = 50;
+            btnParse.Text = "button5";
+            btnParse.UseVisualStyleBackColor = true;
+            btnParse.Click += btnParse_Click;
+            // 
+            // lbFoundFiles
+            // 
+            lbFoundFiles.FormattingEnabled = true;
+            lbFoundFiles.ItemHeight = 15;
+            lbFoundFiles.Location = new Point(876, 626);
+            lbFoundFiles.Name = "lbFoundFiles";
+            lbFoundFiles.Size = new Size(120, 94);
+            lbFoundFiles.TabIndex = 51;
+            lbFoundFiles.SelectedIndexChanged += lbFoundFiles_SelectedIndexChanged;
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1008, 729);
+            Controls.Add(lbFoundFiles);
+            Controls.Add(btnParse);
+            Controls.Add(txbSpecialXML);
+            Controls.Add(button4);
             Controls.Add(lblStationName);
             Controls.Add(lblAnyWarnings);
             Controls.Add(lblHomeState);
@@ -572,6 +628,7 @@
             Text = "Main Screen";
             Load += frmMain_Load_1;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -624,5 +681,10 @@
         private Label lblHomeState;
         private Label lblAnyWarnings;
         private Label lblStationName;
+        private OpenFileDialog ofdTc3Project;
+        private Button button4;
+        private TextBox txbSpecialXML;
+        private Button btnParse;
+        private ListBox lbFoundFiles;
     }
 }

@@ -120,4 +120,76 @@
   <metadata name="timGetPLCData.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <metadata name="ofdTc3Project.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>152, 17</value>
+  </metadata>
+  <data name="txbSpecialXML.Text" xml:space="preserve">
+    <value>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11"&gt;
+  &lt;TextList Name="HomeState" Id="{b4803b02-2149-4d66-9f5b-a00f65548737}"&gt;
+    &lt;XmlArchive&gt;
+      &lt;Data&gt;
+        &lt;o xml:space="preserve" t="TextListObject"&gt;
+          &lt;v n="UniqueIdGenerator"&gt;"0"&lt;/v&gt;
+          &lt;l n="TextList" t="ArrayList" cet="TextListRow"&gt;
+            &lt;o&gt;
+              &lt;v n="TextID"&gt;"0"&lt;/v&gt;
+              &lt;v n="TextDefault"&gt;"Not Home"&lt;/v&gt;
+              &lt;l n="LanguageTexts" t="ArrayList" cet="String"&gt;
+                &lt;v&gt;German Not Home&lt;/v&gt;
+                &lt;v&gt;French Not Home&lt;/v&gt;
+                &lt;v&gt;汉语&lt;/v&gt;
+              &lt;/l&gt;
+            &lt;/o&gt;
+            &lt;o&gt;
+              &lt;v n="TextID"&gt;"1"&lt;/v&gt;
+              &lt;v n="TextDefault"&gt;"Homing"&lt;/v&gt;
+              &lt;l n="LanguageTexts" t="ArrayList" cet="String"&gt;
+                &lt;v&gt;German Homing&lt;/v&gt;
+                &lt;v&gt;French Homing&lt;/v&gt;
+                &lt;v&gt;汉语&lt;/v&gt;
+              &lt;/l&gt;
+            &lt;/o&gt;
+            &lt;o&gt;
+              &lt;v n="TextID"&gt;"2"&lt;/v&gt;
+              &lt;v n="TextDefault"&gt;"Home"&lt;/v&gt;
+              &lt;l n="LanguageTexts" t="ArrayList" cet="String"&gt;
+                &lt;v&gt;German Home&lt;/v&gt;
+                &lt;v&gt;French Home&lt;/v&gt;
+                &lt;v&gt;汉语&lt;/v&gt;
+              &lt;/l&gt;
+            &lt;/o&gt;
+            &lt;o&gt;
+              &lt;v n="TextID"&gt;""&lt;/v&gt;
+              &lt;v n="TextDefault"&gt;""&lt;/v&gt;
+              &lt;l n="LanguageTexts" t="ArrayList" cet="String"&gt;
+                &lt;v&gt;&lt;/v&gt;
+                &lt;v&gt;&lt;/v&gt;
+                &lt;v&gt;&lt;/v&gt;
+              &lt;/l&gt;
+            &lt;/o&gt;
+          &lt;/l&gt;
+          &lt;l n="Languages" t="ArrayList" cet="String"&gt;
+            &lt;v&gt;German&lt;/v&gt;
+            &lt;v&gt;French&lt;/v&gt;
+            &lt;v&gt;汉语&lt;/v&gt;
+          &lt;/l&gt;
+          &lt;v n="GuidInit"&gt;{9275c70e-3b43-46b3-b7d6-c975cd08a9a5}&lt;/v&gt;
+          &lt;v n="GuidReInit"&gt;{6d1e2e4f-6493-4148-8c29-9012e318e7cb}&lt;/v&gt;
+          &lt;v n="GuidExitX"&gt;{cd6e8671-8620-4048-bb22-412336c3c80f}&lt;/v&gt;
+        &lt;/o&gt;
+      &lt;/Data&gt;
+      &lt;TypeList&gt;
+        &lt;Type n="ArrayList"&gt;System.Collections.ArrayList&lt;/Type&gt;
+        &lt;Type n="Guid"&gt;System.Guid&lt;/Type&gt;
+        &lt;Type n="String"&gt;System.String&lt;/Type&gt;
+        &lt;Type n="TextListObject"&gt;{2bef0454-1bd3-412a-ac2c-af0f31dbc40f}&lt;/Type&gt;
+        &lt;Type n="TextListRow"&gt;{53da1be7-ad25-47c3-b0e8-e26286dad2e0}&lt;/Type&gt;
+      &lt;/TypeList&gt;
+    &lt;/XmlArchive&gt;
+  &lt;/TextList&gt;
+&lt;/TcPlcObject&gt;
+
+</value>
+  </data>
 </root>
