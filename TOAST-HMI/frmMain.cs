@@ -38,6 +38,9 @@ namespace TOAST_HMI
 
         private bool[] gStationEnabled = new bool[6];
 
+        private bool[] gButtonFdbk = new bool[40];
+
+
 
         public frmMain()
         {
@@ -369,6 +372,40 @@ namespace TOAST_HMI
             {
                 try
                 {
+
+                    //read all gHMIButtons.btnFdbk, which is 40 bools into gButtonFdbk array
+                    var buttonFdbkValues = ReadBoolArray("gHMIButtons.btnFdbk", 32);
+                    if (buttonFdbkValues.Length == gButtonFdbk.Length)
+                    {
+                        Array.Copy(buttonFdbkValues, gButtonFdbk, buttonFdbkValues.Length);
+                        //update button backcolors based on gButtonFdbk values
+                        //btn00 to btn39
+                        for (int i = 0; i < 40; i++)
+                        {
+                            Button? btn = this.Controls.Find($"btn{i:D2}", true).FirstOrDefault() as Button;
+                            if (btn != null)
+                            {
+                                if (gButtonFdbk[i] == true)
+                                {
+                                    btn.BackColor = Color.LightGreen;
+                                }
+                                else
+                                {
+                                    btn.BackColor = SystemColors.Control;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        gButtonFdbk = buttonFdbkValues;
+                    }
+
+
+
+
+
+
 
                     //hide / show btnStation1, btnStation2, etc based on gStationEnabled
                     var enabledValues = ReadBoolArray("gHMIData.gStationEnabled", 6);
