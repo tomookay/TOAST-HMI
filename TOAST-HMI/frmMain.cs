@@ -19,6 +19,16 @@ namespace TOAST_HMI
 
         bool isConnectionFaulted = false;
 
+        string[] StationNames = new string[]
+        {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
+        };
+
 
 
         public frmMain()
@@ -576,6 +586,7 @@ namespace TOAST_HMI
                     try
                     {
                         int stationName = ReadInt16("gHMIData.hmiHeader.stationNameSelect");
+                                           
 
                         // Map PLC integer values to colours. Adjust mapping as required.
                         string stateText = stationName switch
@@ -589,6 +600,13 @@ namespace TOAST_HMI
                             6 => "Station 6",           //
                             _ => "Unknown"              // unknown
                         };
+
+                        //if the contents of StationNames contains text entries, use those instead of the default mapping
+                        if (StationNames.Length >= 6 && stationName >= 1 && stationName <= 6)
+                        {
+                            lblStationName.Text = StationNames[stationName - 1];
+                            return;
+                        }
 
                         lblStationName.Text = stateText;
 
@@ -699,6 +717,33 @@ namespace TOAST_HMI
                 {
                     MessageBox.Show($"Error parsing file {file}: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+
+
+
+            //find the text file called ScreenNames 
+            string StationNamesFile = textListFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Equals("StationNames", StringComparison.OrdinalIgnoreCase));
+            //if found, parse it and put the entries into StationNames[] using FindAllTextDefaults
+            if (StationNamesFile != null) {
+                try
+                {
+                    string fileContent = File.ReadAllText(StationNamesFile);
+                    var entries = FindAllTextDefaults(fileContent);
+                    //update StationNames array
+                    for (int i = 0; i < entries.Count && i < StationNames.Length; i++)
+                    {
+                        StationNames[i] = entries[i].TextDefault;
+                    }
+                    MessageBox.Show($"Loaded {entries.Count} station names from StationNames.", "TC3 Text List", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error reading or parsing StationNames file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+
+
+
             }
         }
 
@@ -904,6 +949,11 @@ namespace TOAST_HMI
             isConnectionFaulted = false;
             timGetPLCData.Start();
 
+
+        }
+
+        private void lblStationName_Click(object sender, EventArgs e)
+        {
 
         }
     }

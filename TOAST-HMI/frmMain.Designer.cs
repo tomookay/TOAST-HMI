@@ -365,7 +365,7 @@
             // 
             // btnMainMenu
             // 
-            btnMainMenu.Location = new Point(916, 12);
+            btnMainMenu.Location = new Point(928, 0);
             btnMainMenu.Name = "btnMainMenu";
             btnMainMenu.Size = new Size(80, 80);
             btnMainMenu.TabIndex = 32;
@@ -504,7 +504,7 @@
             lblAnyWarnings.BorderStyle = BorderStyle.FixedSingle;
             lblAnyWarnings.Location = new Point(590, 0);
             lblAnyWarnings.Name = "lblAnyWarnings";
-            lblAnyWarnings.Size = new Size(127, 20);
+            lblAnyWarnings.Size = new Size(173, 20);
             lblAnyWarnings.TabIndex = 46;
             lblAnyWarnings.Text = "Any Warnings Exist, header.AnyStationWarningHeader,, AnyStationWarningList";
             lblAnyWarnings.TextAlign = ContentAlignment.MiddleCenter;
@@ -513,12 +513,13 @@
             // 
             lblStationName.BackColor = Color.White;
             lblStationName.BorderStyle = BorderStyle.FixedSingle;
-            lblStationName.Location = new Point(723, 0);
+            lblStationName.Location = new Point(769, 0);
             lblStationName.Name = "lblStationName";
-            lblStationName.Size = new Size(187, 144);
+            lblStationName.Size = new Size(153, 20);
             lblStationName.TabIndex = 47;
             lblStationName.Text = "Station Name, header.stationNameSelect, StationNames";
             lblStationName.TextAlign = ContentAlignment.MiddleCenter;
+            lblStationName.Click += lblStationName_Click;
             // 
             // ofdTc3Project
             // 
@@ -560,9 +561,9 @@
             // 
             lbFoundFiles.FormattingEnabled = true;
             lbFoundFiles.ItemHeight = 15;
-            lbFoundFiles.Location = new Point(876, 626);
+            lbFoundFiles.Location = new Point(209, 50);
             lbFoundFiles.Name = "lbFoundFiles";
-            lbFoundFiles.Size = new Size(120, 94);
+            lbFoundFiles.Size = new Size(477, 139);
             lbFoundFiles.TabIndex = 51;
             lbFoundFiles.SelectedIndexChanged += lbFoundFiles_SelectedIndexChanged;
             // 
