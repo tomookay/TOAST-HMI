@@ -479,8 +479,8 @@ namespace TOAST_HMI
                         //if the contents of CycleType contains text entries, use those instead of the default mapping
                         if (CycleType.Length >= 3 && cycletypefeedback >= 1 && cycletypefeedback <= 3)
                         {
-                            lblCycleTypeState.Text = CycleType[cycletypefeedback - 1];
-                            return;
+                            lblCycleTypeState.Text = CycleType[cycletypefeedback];
+                           // return;
                         }
                         }
                     catch
@@ -616,9 +616,23 @@ namespace TOAST_HMI
                         if (StationNames.Length >= 6 && stationName >= 1 && stationName <= 6)
                         {
                             lblStationName.Text = StationNames[stationName - 1];
-                            return;
+                            // return;
+
+                            //set btnStation1, btnStation2, etc text to the station names
+                            btnStation1.Text = StationNames[0];
+                            btnStation2.Text = StationNames[1];
+                            btnStation3.Text = StationNames[2];
+                            btnStation4.Text = StationNames[3];
+                            btnStation5.Text = StationNames[4];
+                            btnStation6.Text = StationNames[5];
                         }
-                        lblStationName.Text = stateText;
+                        else
+                        {
+                            lblStationName.Text = stateText;
+                        }
+
+                    
+
                     }
                     catch
                     {
