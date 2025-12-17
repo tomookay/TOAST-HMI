@@ -28,6 +28,13 @@ namespace TOAST_HMI
             "5",
             "6"
         };
+        string[] CycleType = new string[]
+        {
+            "0",
+            "1",
+            "2",
+            "3"
+        };
 
 
 
@@ -457,7 +464,6 @@ namespace TOAST_HMI
                     try
                     {
                         int cycletypefeedback = ReadInt16("gHMIData.hmiHeader.cycleTypeFeedback");
-
                         // Map PLC integer values to colours. Adjust mapping as required.
                         string stateText = cycletypefeedback switch
                         {
@@ -469,7 +475,14 @@ namespace TOAST_HMI
                         };
 
                         lblCycleTypeState.Text = stateText;
-                    }
+
+                        //if the contents of CycleType contains text entries, use those instead of the default mapping
+                        if (CycleType.Length >= 3 && cycletypefeedback >= 1 && cycletypefeedback <= 3)
+                        {
+                            lblCycleTypeState.Text = CycleType[cycletypefeedback - 1];
+                            return;
+                        }
+                        }
                     catch
                     {
                         // ignore read errors for stationstate (optionally log)
@@ -586,8 +599,6 @@ namespace TOAST_HMI
                     try
                     {
                         int stationName = ReadInt16("gHMIData.hmiHeader.stationNameSelect");
-                                           
-
                         // Map PLC integer values to colours. Adjust mapping as required.
                         string stateText = stationName switch
                         {
@@ -607,12 +618,7 @@ namespace TOAST_HMI
                             lblStationName.Text = StationNames[stationName - 1];
                             return;
                         }
-
                         lblStationName.Text = stateText;
-
-
-
-
                     }
                     catch
                     {
@@ -724,7 +730,8 @@ namespace TOAST_HMI
             //find the text file called ScreenNames 
             string StationNamesFile = textListFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Equals("StationNames", StringComparison.OrdinalIgnoreCase));
             //if found, parse it and put the entries into StationNames[] using FindAllTextDefaults
-            if (StationNamesFile != null) {
+            if (StationNamesFile != null)
+            {
                 try
                 {
                     string fileContent = File.ReadAllText(StationNamesFile);
@@ -742,7 +749,31 @@ namespace TOAST_HMI
                 }
 
 
+                //find the next file called CycleType
+                string CycleTypeFile = textListFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Equals("CycleType", StringComparison.OrdinalIgnoreCase));
+                //if found, parse it and put the entries into CycleType[] using FindAllTextDefaults
+                if (CycleTypeFile != null)
+                {
+                    try
+                    {
+                        string fileContent = File.ReadAllText(CycleTypeFile);
+                        var entries = FindAllTextDefaults(fileContent);
+                        //update CycleType array
+                        for (int i = 0; i < entries.Count && i < CycleType.Length; i++)
+                        {
+                            CycleType[i] = entries[i].TextDefault;
+                        }
+                        MessageBox.Show($"Loaded {entries.Count} cycle types from CycleType.", "TC3 Text List", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error reading or parsing CycleType file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
 
+
+
+
+                }
 
             }
         }
@@ -953,6 +984,11 @@ namespace TOAST_HMI
         }
 
         private void lblStationName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblCycleTypeState_Click(object sender, EventArgs e)
         {
 
         }

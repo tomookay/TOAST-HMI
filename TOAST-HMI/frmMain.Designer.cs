@@ -475,6 +475,7 @@
             lblCycleTypeState.TabIndex = 43;
             lblCycleTypeState.Text = "CycleTypeState,  header.cycleTypeFeedback , CycleType";
             lblCycleTypeState.TextAlign = ContentAlignment.MiddleCenter;
+            lblCycleTypeState.Click += lblCycleTypeState_Click;
             // 
             // lblFaultState
             // 
