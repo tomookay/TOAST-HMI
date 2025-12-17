@@ -220,7 +220,7 @@ namespace TOAST_HMI
         {
             if (_adsClient == null || !_adsClient.IsConnected)
                 throw new InvalidOperationException("Not connected to PLC.");
-            isConnectionFaulted = true;
+            //isConnectionFaulted = true;
 
             uint handle = 0;
             try
@@ -572,10 +572,34 @@ namespace TOAST_HMI
                     }
 
 
-                    //lblAnyWarnings
+                    //Station Name, header.stationNameSelect, StationNames
+                    try
+                    {
+                        int stationName = ReadInt16("gHMIData.hmiHeader.stationNameSelect");
+
+                        // Map PLC integer values to colours. Adjust mapping as required.
+                        string stateText = stationName switch
+                        {
+                            0 => "No Value",                // no data read from plc
+                            1 => "Station 1",                     //
+                            2 => "Station 2",           //
+                            3 => "Station 3",           //
+                            4 => "Station 4",           //
+                            5 => "Station 5",           //
+                            6 => "Station 6",           //
+                            _ => "Unknown"              // unknown
+                        };
+
+                        lblStationName.Text = stateText;
 
 
 
+
+                    }
+                    catch
+                    {
+                        // ignore read errors for stationstate (optionally log)
+                    }
 
 
 
@@ -596,7 +620,7 @@ namespace TOAST_HMI
             }
 
             //dont bother using timer anymore
-            if (isConnectionFaulted == true)
+            if (isConnectionFaulted)
             {
                 timGetPLCData.Stop();
             }
@@ -872,6 +896,14 @@ namespace TOAST_HMI
 
         private void btn13_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            isConnectionFaulted = false;
+            timGetPLCData.Start();
+
 
         }
     }

@@ -380,6 +380,7 @@
             btnReset.TabIndex = 33;
             btnReset.Text = "Reset";
             btnReset.UseVisualStyleBackColor = true;
+            btnReset.Click += btnReset_Click;
             // 
             // btnSelectAll
             // 
@@ -512,9 +513,9 @@
             // 
             lblStationName.BackColor = Color.White;
             lblStationName.BorderStyle = BorderStyle.FixedSingle;
-            lblStationName.Location = new Point(818, 0);
+            lblStationName.Location = new Point(723, 0);
             lblStationName.Name = "lblStationName";
-            lblStationName.Size = new Size(92, 113);
+            lblStationName.Size = new Size(187, 144);
             lblStationName.TabIndex = 47;
             lblStationName.Text = "Station Name, header.stationNameSelect, StationNames";
             lblStationName.TextAlign = ContentAlignment.MiddleCenter;
