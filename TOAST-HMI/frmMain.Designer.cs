@@ -69,9 +69,9 @@
             btnControl = new Button();
             btnAutoMode = new Button();
             btnManualMode = new Button();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
+            btnStartAutoCycle = new Button();
+            btnSEOC = new Button();
+            btnReturnHome = new Button();
             lblStationState = new Label();
             lblCycleTypeState = new Label();
             lblFaultState = new Label();
@@ -206,7 +206,6 @@
             btn13.TabIndex = 14;
             btn13.Text = "SINGLE CYCLE";
             btn13.UseVisualStyleBackColor = true;
-            btn13.Click += btn13_Click;
             // 
             // btn12
             // 
@@ -249,7 +248,6 @@
             btn26.Size = new Size(80, 80);
             btn26.TabIndex = 24;
             btn26.UseVisualStyleBackColor = true;
-            btn26.Click += btn26_Click;
             // 
             // btn25
             // 
@@ -427,32 +425,32 @@
             btnManualMode.Text = "MANUAL MODE";
             btnManualMode.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnStartAutoCycle
             // 
-            button1.Location = new Point(406, 637);
-            button1.Name = "button1";
-            button1.Size = new Size(80, 80);
-            button1.TabIndex = 39;
-            button1.Text = "START AUTO CYCLE";
-            button1.UseVisualStyleBackColor = true;
+            btnStartAutoCycle.Location = new Point(406, 637);
+            btnStartAutoCycle.Name = "btnStartAutoCycle";
+            btnStartAutoCycle.Size = new Size(80, 80);
+            btnStartAutoCycle.TabIndex = 39;
+            btnStartAutoCycle.Text = "START AUTO CYCLE";
+            btnStartAutoCycle.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnSEOC
             // 
-            button2.Location = new Point(492, 637);
-            button2.Name = "button2";
-            button2.Size = new Size(80, 80);
-            button2.TabIndex = 40;
-            button2.Text = "STOP END OF CYCLE";
-            button2.UseVisualStyleBackColor = true;
+            btnSEOC.Location = new Point(492, 637);
+            btnSEOC.Name = "btnSEOC";
+            btnSEOC.Size = new Size(80, 80);
+            btnSEOC.TabIndex = 40;
+            btnSEOC.Text = "STOP END OF CYCLE";
+            btnSEOC.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btnReturnHome
             // 
-            button3.Location = new Point(578, 637);
-            button3.Name = "button3";
-            button3.Size = new Size(80, 80);
-            button3.TabIndex = 41;
-            button3.Text = "RETURN HOME";
-            button3.UseVisualStyleBackColor = true;
+            btnReturnHome.Location = new Point(578, 637);
+            btnReturnHome.Name = "btnReturnHome";
+            btnReturnHome.Size = new Size(80, 80);
+            btnReturnHome.TabIndex = 41;
+            btnReturnHome.Text = "RETURN HOME";
+            btnReturnHome.UseVisualStyleBackColor = true;
             // 
             // lblStationState
             // 
@@ -475,7 +473,6 @@
             lblCycleTypeState.TabIndex = 43;
             lblCycleTypeState.Text = "CycleTypeState,  header.cycleTypeFeedback , CycleType";
             lblCycleTypeState.TextAlign = ContentAlignment.MiddleCenter;
-            lblCycleTypeState.Click += lblCycleTypeState_Click;
             // 
             // lblFaultState
             // 
@@ -520,14 +517,12 @@
             lblStationName.TabIndex = 47;
             lblStationName.Text = "Station Name, header.stationNameSelect, StationNames";
             lblStationName.TextAlign = ContentAlignment.MiddleCenter;
-            lblStationName.Click += lblStationName_Click;
             // 
             // ofdTc3Project
             // 
             ofdTc3Project.FileName = "openFileDialog1";
             ofdTc3Project.Filter = "TwinCAT3 Projects | *.sln";
             ofdTc3Project.Title = "Select a TwinCAT3 Project...";
-            ofdTc3Project.FileOk += ofdTc3Project_FileOk;
             // 
             // button4
             // 
@@ -583,9 +578,9 @@
             Controls.Add(lblFaultState);
             Controls.Add(lblCycleTypeState);
             Controls.Add(lblStationState);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(btnReturnHome);
+            Controls.Add(btnSEOC);
+            Controls.Add(btnStartAutoCycle);
             Controls.Add(btnManualMode);
             Controls.Add(btnAutoMode);
             Controls.Add(btnControl);
@@ -676,9 +671,9 @@
         private Button btnControl;
         private Button btnAutoMode;
         private Button btnManualMode;
-        private Button button1;
-        private Button button2;
-        private Button button3;
+        private Button btnStartAutoCycle;
+        private Button btnSEOC;
+        private Button btnReturnHome;
         private Label lblStationState;
         private Label lblCycleTypeState;
         private Label lblFaultState;

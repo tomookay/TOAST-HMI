@@ -16,7 +16,6 @@ namespace TOAST_HMI
 
         private string tc3ProjectPath = string.Empty;
 
-
         bool isConnectionFaulted = false;
 
         string[] StationNames = new string[]
@@ -34,6 +33,20 @@ namespace TOAST_HMI
             "1",
             "2",
             "3"
+        };
+        string[] HomeState = new string[]
+        {
+            " ",
+            " ",
+            " ",
+            " "
+        };
+        string[] FaultState = new string[]
+        {
+            " ",
+            " ",
+            " ",
+            " "
         };
 
         private bool[] gStationEnabled = new bool[6];
@@ -139,7 +152,12 @@ namespace TOAST_HMI
             //btnFooterManualMode: BOOL;
 
 
-            // Add more buttons here: WireMomentary(button2, "PLC.Symbol.ForButton2");
+            WireMomentary(btnAutoMode, "gHMIButtons.btnMode.btnFooterAutoMode");
+            WireMomentary(btnManualMode, "gHMIButtons.btnMode.btnFooterManualMode");
+            WireMomentary(btnStartAutoCycle, "gHMIButtons.btnMode.btnFooterAutoCycleStart");
+            WireMomentary(btnSEOC, "gHMIButtons.btnMode.btnFooterAutoCycleStopEOC");
+            WireMomentary(btnReturnHome, "gHMIButtons.btnMode.btnFooterReturnHome");
+
         }
 
         private void FrmMain_Load(object? sender, EventArgs e)
@@ -373,6 +391,48 @@ namespace TOAST_HMI
                 try
                 {
 
+                    //
+
+
+                    //gHMIButtons.btnFdbk.btnIsHomeFdbk
+                    //read status of is home feedback
+                    bool isHomeFdbk = ReadBoolArray("gHMIButtons.btnFdbk.btnIsHomeFdbk", 1)[0];
+                    if (isHomeFdbk == true)
+                    {
+                        btnReturnHome.BackColor = Color.LightGreen;
+                    }
+                    else
+                    {
+                        btnReturnHome.BackColor = SystemColors.Control;
+                    }
+
+                    //gHMIButtons.btnFdbk.btnAutoCyclingFdbk
+                    //read status of auto cycling feedback
+                    bool autoCyclingFdbk = ReadBoolArray("gHMIButtons.btnFdbk.btnAutoCyclingFdbk", 1)[0];
+                    if (autoCyclingFdbk == true)
+                    {
+                        btnAutoCycleStart.BackColor = Color.LightGreen;
+                    }
+                    else
+                    {
+                        btnAutoCycleStart.BackColor = SystemColors.Control;
+                    }
+
+                    //read power on status from Mc_Global.PowerOnFdbk
+                    bool powerOnFdbk = ReadBoolArray("Mc_Global.PowerOnFdbk", 1)[0];
+                    if (powerOnFdbk == true)
+                    {
+                        btnPowerOn.BackColor = Color.LightGreen;
+                    }
+                    else
+                    {
+                        btnPowerOn.BackColor = SystemColors.Control;
+                    }
+
+
+
+
+
                     //read all gHMIButtons.btnFdbk, which is 40 bools into gButtonFdbk array
                     var buttonFdbkValues = ReadBoolArray("gHMIButtons.btnFdbk", 32);
                     if (buttonFdbkValues.Length == gButtonFdbk.Length)
@@ -395,16 +455,49 @@ namespace TOAST_HMI
                                 }
                             }
                         }
+
+
+                        //carryover buttons
+                        if (gButtonFdbk[00] == true)
+                        {
+                            btnAutoMode.BackColor = Color.LightGreen;
+                        }
+                        else
+                        {
+                            btnAutoMode.BackColor = SystemColors.Control;
+                        }
+
+                        //btnManualMode
+                        if (gButtonFdbk[01] == true)
+                        {
+                            btnManualMode.BackColor = Color.LightGreen;
+                        }
+                        else
+                        {
+                            btnManualMode.BackColor = SystemColors.Control;
+                        }
+
+
                     }
                     else
                     {
                         gButtonFdbk = buttonFdbkValues;
                     }
 
-
-
-
-
+                    //read all gHMIButtons.btnHides, which is 32 bools into gButtonHides array
+                    var buttonHidesValues = ReadBoolArray("gHMIButtons.btnHides", 32);
+                    if (buttonHidesValues.Length == gButtonFdbk.Length)
+                    {
+                        //update button visibility based on gButtonHides values
+                        for (int i = 0; i < 40; i++)
+                        {
+                            Button? btn = this.Controls.Find($"btn{i:D2}", true).FirstOrDefault() as Button;
+                            if (btn != null)
+                            {
+                                btn.Visible = !buttonHidesValues[i];
+                            }
+                        }
+                    }
 
 
                     //hide / show btnStation1, btnStation2, etc based on gStationEnabled
@@ -538,9 +631,9 @@ namespace TOAST_HMI
                         if (CycleType.Length >= 3 && cycletypefeedback >= 1 && cycletypefeedback <= 3)
                         {
                             lblCycleTypeState.Text = CycleType[cycletypefeedback];
-                           // return;
+                            // return;
                         }
-                        }
+                    }
                     catch
                     {
                         // ignore read errors for stationstate (optionally log)
@@ -567,12 +660,22 @@ namespace TOAST_HMI
                         if (faultStateHeader == 0)
                         {
                             lblFaultState.BackColor = SystemColors.Control;
-                            //  lblFaultState.BackColor = Color.RebeccaPurple;
                         }
                         else
                         {
                             lblFaultState.BackColor = Color.Red;
                         }
+
+                        //lblFaultState
+                        //lblFaultState
+                        //if FaultState[] array contains text, then fill in the lblFaultState with those texts
+                        if (FaultState.Length >= 3 && faultStateHeader >= 0 && faultStateHeader <= 4)
+                        {
+                            lblFaultState.Text = FaultState[faultStateHeader];
+                            // return;
+                        }
+
+
 
                     }
                     catch
@@ -603,15 +706,26 @@ namespace TOAST_HMI
                         if (homestate == 0)
                         {
                             lblHomeState.BackColor = SystemColors.Control;
-                            //lblHomeState.BackColor = Color.RebeccaPurple;
                         }
                         else
                         {
-                            lblFaultState.BackColor = Color.Green;
+                            lblHomeState.BackColor = Color.Green;
                         }
 
-
+                        //HomeState
+                        //if HomeState[] array contains text, then fill in the lblHomeState with those texts
+                        if (HomeState.Length >= 3 && homestate >= 0 && homestate <= 4)
+                        {
+                            lblHomeState.Text = HomeState[homestate];
+                            // return;
+                        }
                     }
+
+
+
+
+
+
                     catch
                     {
                         // ignore read errors for stationstate (optionally log)
@@ -632,17 +746,17 @@ namespace TOAST_HMI
                             _ => "Unknown"              // unknown
                         };
 
-                        lblHomeState.Text = stateText;
+                        lblAnyWarnings.Text = stateText;
 
                         //change background colour since its a fault indicator
                         if (homestate == 0)
                         {
-                            lblHomeState.BackColor = SystemColors.Control;
+                            lblAnyWarnings.BackColor = SystemColors.Control;
                             //lblHomeState.BackColor = Color.RebeccaPurple;
                         }
                         else
                         {
-                            lblFaultState.BackColor = Color.Green;
+                            lblAnyWarnings.BackColor = Color.Green;
                         }
 
 
@@ -656,6 +770,7 @@ namespace TOAST_HMI
                     //Station Name, header.stationNameSelect, StationNames
                     try
                     {
+                        //
                         int stationName = ReadInt16("gHMIData.hmiHeader.stationNameSelect");
                         // Map PLC integer values to colours. Adjust mapping as required.
                         string stateText = stationName switch
@@ -689,29 +804,18 @@ namespace TOAST_HMI
                             lblStationName.Text = stateText;
                         }
 
-                    
-
                     }
                     catch
                     {
                         // ignore read errors for stationstate (optionally log)
                     }
 
-
-
-
-
                 }
                 catch
                 {
                     // ignore read errors here
                     isConnectionFaulted = true;
-
                 }
-
-
-
-                //
 
             }
 
@@ -720,11 +824,6 @@ namespace TOAST_HMI
             {
                 timGetPLCData.Stop();
             }
-
-        }
-
-        private void btn26_Click(object sender, EventArgs e)
-        {
 
         }
 
@@ -797,6 +896,49 @@ namespace TOAST_HMI
                 }
             }
 
+            //find the text file called FaultState
+            string FaultStateFile = textListFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Equals("FaultState", StringComparison.OrdinalIgnoreCase));
+            //if found, parse it and put the entries into FaultState[] using FindAllTextDefaults
+            if (FaultStateFile != null) {
+                try
+                {
+                    string fileContent = File.ReadAllText(FaultStateFile);
+                    var entries = FindAllTextDefaults(fileContent);
+                    //update FaultState array
+                    for (int i = 0; i < entries.Count && i < FaultState.Length; i++)
+                    {
+                        FaultState[i] = entries[i].TextDefault;
+                    }
+                    MessageBox.Show($"Loaded {entries.Count} fault states from FaultState.", "TC3 Text List", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error reading or parsing FaultState file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+
+            //find the text file called HomeState
+            string HomeStateFile = textListFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Equals("HomeState", StringComparison.OrdinalIgnoreCase));
+            //if found, parse it and put the entries into HomeState[] using FindAllTextDefaults
+            if (HomeStateFile != null)
+            {
+                try
+                {
+                    string fileContent = File.ReadAllText(HomeStateFile);
+                    var entries = FindAllTextDefaults(fileContent);
+                    //update HomeState array
+                    for (int i = 0; i < entries.Count && i < HomeState.Length; i++)
+                    {
+                        HomeState[i] = entries[i].TextDefault;
+                    }
+                    MessageBox.Show($"Loaded {entries.Count} home states from HomeState.", "TC3 Text List", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error reading or parsing HomeState file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
 
 
             //find the text file called ScreenNames 
@@ -841,21 +983,11 @@ namespace TOAST_HMI
                     {
                         MessageBox.Show($"Error reading or parsing CycleType file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-
-
-
-
                 }
-
             }
         }
 
-        private void ofdTc3Project_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-
-        }
-
-        // Add this helper to your frmMain class
+          // Add this helper to your frmMain class
         private List<(string Id, string Text)> ParseTextListEntriesFromXml(string xml)
         {
             if (string.IsNullOrWhiteSpace(xml))
@@ -1042,11 +1174,6 @@ namespace TOAST_HMI
             }
         }
 
-        private void btn13_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnReset_Click(object sender, EventArgs e)
         {
             isConnectionFaulted = false;
@@ -1054,16 +1181,7 @@ namespace TOAST_HMI
 
 
         }
-
-        private void lblStationName_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblCycleTypeState_Click(object sender, EventArgs e)
-        {
-
-        }
+             
     }
 }
 
