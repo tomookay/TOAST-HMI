@@ -36,6 +36,7 @@ namespace TOAST_HMI
             "3"
         };
 
+        private bool[] gStationEnabled = new bool[6];
 
 
         public frmMain()
@@ -368,6 +369,26 @@ namespace TOAST_HMI
             {
                 try
                 {
+
+                    //hide / show btnStation1, btnStation2, etc based on gStationEnabled
+                    var enabledValues = ReadBoolArray("gHMIData.gStationEnabled", 6);
+                    if (enabledValues.Length == gStationEnabled.Length)
+                    {
+                        Array.Copy(enabledValues, gStationEnabled, enabledValues.Length);
+                        btnStation1.Visible = gStationEnabled[0];
+                        btnStation2.Visible = gStationEnabled[1];
+                        btnStation3.Visible = gStationEnabled[2];
+                        btnStation4.Visible = gStationEnabled[3];
+                        btnStation5.Visible = gStationEnabled[4];
+                        btnStation6.Visible = gStationEnabled[5];
+                    }
+                    else
+                    {
+                        gStationEnabled = enabledValues;
+                    }
+
+
+
                     var values = ReadBoolArray("gHMIData.gStationSelected", 6);
                     if (values.Length == gStationSelected.Length)
                     {
