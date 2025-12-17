@@ -206,6 +206,7 @@
             btn13.TabIndex = 14;
             btn13.Text = "SINGLE CYCLE";
             btn13.UseVisualStyleBackColor = true;
+            btn13.Click += btn13_Click;
             // 
             // btn12
             // 
