@@ -580,6 +580,79 @@ namespace TOAST_HMI
                         lblmsgViewPromptsS6.Visible = true;
                     }
 
+                    //now the same for warnings
+                    //read gHMIData.gHideDisplayElementWarningView.McEnabled
+                    bool hideWarningView = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.McEnabled", 1)[0];
+                    if (hideWarningView == true)
+                    {
+                        lblmsgViewWarningMachine.Visible = false;
+                    }
+                    else
+                    {
+                        lblmsgViewWarningMachine.Visible = true;
+                    }
+                    //read gHMIData.gHideDisplayElementWarningView.S1Enabled
+                    bool hideWarningViewS1 = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.S1Enabled", 1)[0];
+                    if (hideWarningViewS1 == true)
+                    {
+                        lblmsgViewWarningS1.Visible = false;
+                    }
+                    else
+                    {
+                        lblmsgViewWarningS1.Visible = true;
+                    }
+                    //read gHMIData.gHideDisplayElementWarningView.S2Enabled
+                    bool hideWarningViewS2 = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.S2Enabled", 1)[0];
+                    if (hideWarningViewS2 == true)
+                    {
+                        lblmsgViewWarningS2.Visible = false;
+                    }
+                    else
+                    {
+                        lblmsgViewWarningS2.Visible = true;
+                    }
+                    //read gHMIData.gHideDisplayElementWarningView.S3Enabled
+                    bool hideWarningViewS3 = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.S3Enabled", 1)[0];
+                    if (hideWarningViewS3 == true)
+                    {
+                        lblmsgViewWarningS3.Visible = false;
+                    }
+                    else
+                    {
+                        lblmsgViewWarningS3.Visible = true;
+                    }
+                    //read gHMIData.gHideDisplayElementWarningView.S4Enabled
+                    bool hideWarningViewS4 = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.S4Enabled", 1)[0];
+                    if (hideWarningViewS4 == true)
+                    {
+                        lblmsgViewWarningS4.Visible = false;
+                    }
+                    else
+                    {
+                        lblmsgViewWarningS4.Visible = true;
+                    }
+                    //read gHMIData.gHideDisplayElementWarningView.S5Enabled
+                    bool hideWarningViewS5 = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.S5Enabled", 1)[0];
+                    if (hideWarningViewS5 == true)
+                    {
+                        lblmsgViewWarningS5.Visible = false;
+                    }
+                    else
+                    {
+                        lblmsgViewWarningS5.Visible = true;
+                    }
+                    //read gHMIData.gHideDisplayElementWarningView.S6Enabled
+                    bool hideWarningViewS6 = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.S6Enabled", 1)[0];
+                    if (hideWarningViewS6 == true)
+                    {
+                        lblmsgViewWarningS6.Visible = false;
+                    }
+                    else
+                    {
+                        lblmsgViewWarningS6.Visible = true;
+                    }
+
+
 
 
 
