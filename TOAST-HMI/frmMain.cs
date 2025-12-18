@@ -67,10 +67,6 @@ namespace TOAST_HMI
 
         private bool[] gButtonFdbk = new bool[40];
 
-
-
-
-
         public frmMain()
         {
             InitializeComponent();
@@ -154,19 +150,6 @@ namespace TOAST_HMI
             //WireMomentary(btn38, "gHMIButtons.btnMode.btn38Pressed");
             //WireMomentary(btn39, "gHMIButtons.btnMode.btn39Pressed");
 
-            ////special case buttons	
-            //btnPowerOnPressed: BOOL; //TRUE to power the machine on
-            //btnPowerOffPressed: BOOL; //TRUE to power the machine off
-
-            //btnAutoCycleStartPressed: BOOL; //TRUE to start auto cycle
-            //btnAutoCycleStopPressed: BOOL; //TRUE to stop auto cycle immediately
-
-            //btnFooterAutoCycleStart: BOOL;
-            //btnFooterAutoCycleStopEOC: BOOL;
-            //btnFooterReturnHome: BOOL;
-            //btnFooterAutoMode: BOOL;
-            //btnFooterManualMode: BOOL;
-
 
             WireMomentary(btnAutoMode, "gHMIButtons.btnMode.btnFooterAutoMode");
             WireMomentary(btnManualMode, "gHMIButtons.btnMode.btnFooterManualMode");
@@ -198,8 +181,6 @@ namespace TOAST_HMI
                     Console.WriteLine($"Connected to {_amsNetId}:{_adsPort}");
 
                     timGetPLCData.Start();
-
-
 
                 }
             }
@@ -341,7 +322,6 @@ namespace TOAST_HMI
         }
 
 
-
         private void WireMomentary(Button btn, string plcSymbol)
         {
             // mouse press
@@ -383,19 +363,11 @@ namespace TOAST_HMI
                 }
             };
 
-
-
-
             // ensure FALSE when leaving and mouse isn't down
             btn.MouseLeave += (s, e) =>
             {
                 if ((Control.MouseButtons & MouseButtons.Left) == 0) WriteBool(plcSymbol, false);
             };
-        }
-
-        private void frmMain_Load_1(object sender, EventArgs e)
-        {
-
         }
 
         private void timGetPLCData_Tick(object sender, EventArgs e)
@@ -445,6 +417,9 @@ namespace TOAST_HMI
                     else
                     {
                         lblmsgViewAlarmMachine.Visible = true;
+                        //set the lbl to the string GlobalMessages.gMsgMc.Alarm.topMessage
+                        lblmsgViewAlarmMachine.Text = ReadPlcString("GlobalMessages.gMsgMc.Alarm.topMessage");
+
                     }
 
                     //if gHMIData.gHideDisplayElementAlarmView.S1Enabled is TRUE then hide lblmsgViewAlarmStation1
@@ -456,6 +431,9 @@ namespace TOAST_HMI
                     else
                     {
                         lblmsgViewAlarmS1.Visible = true;
+                        //set the lbl to the string GlobalMessages.gMsgS1.Alarm.topMessage
+                        lblmsgViewAlarmS1.Text = ReadPlcString("GlobalMessages.gMsgS1.Alarm.topMessage");
+
                     }
                     //if gHMIData.gHideDisplayElementAlarmView.S2Enabled is TRUE then hide lblmsgViewAlarmStation2
                     bool hideAlarmViewS2 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S2Enabled", 1)[0];
@@ -466,6 +444,9 @@ namespace TOAST_HMI
                     else
                     {
                         lblmsgViewAlarmS2.Visible = true;
+                        //set the lbl to the string GlobalMessages.gMsgS2.Alarm.topMessage
+                        lblmsgViewAlarmS2.Text = ReadPlcString("GlobalMessages.gMsgS2.Alarm.topMessage");
+
                     }
                     //if gHMIData.gHideDisplayElementAlarmView.S3Enabled is TRUE then hide lblmsgViewAlarmStation3
                     bool hideAlarmViewS3 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S3Enabled", 1)[0];
@@ -476,6 +457,9 @@ namespace TOAST_HMI
                     else
                     {
                         lblmsgViewAlarmS3.Visible = true;
+                        //set the lbl to the string GlobalMessages.gMsgS3.Alarm.topMessage
+                        lblmsgViewAlarmS3.Text = ReadPlcString("GlobalMessages.gMsgS3.Alarm.topMessage");
+
                     }
                     //if gHMIData.gHideDisplayElementAlarmView.S4Enabled is TRUE then hide lblmsgViewAlarmStation4
                     bool hideAlarmViewS4 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S4Enabled", 1)[0];
@@ -486,6 +470,9 @@ namespace TOAST_HMI
                     else
                     {
                         lblmsgViewAlarmS4.Visible = true;
+                        //set the lbl to the string GlobalMessages.gMsgS4.Alarm.topMessage
+                        lblmsgViewAlarmS4.Text = ReadPlcString("GlobalMessages.gMsgS4.Alarm.topMessage");
+
                     }
                     //if gHMIData.gHideDisplayElementAlarmView.S5Enabled is TRUE then hide lblmsgViewAlarmStation5
                     bool hideAlarmViewS5 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S5Enabled", 1)[0];
@@ -496,6 +483,9 @@ namespace TOAST_HMI
                     else
                     {
                         lblmsgViewAlarmS5.Visible = true;
+                        //set the lbl to the string GlobalMessages.gMsgS5.Alarm.topMessage
+                        lblmsgViewAlarmS5.Text = ReadPlcString("GlobalMessages.gMsgS5.Alarm.topMessage");
+
                     }
                     //if gHMIData.gHideDisplayElementAlarmView.S6Enabled is TRUE then hide lblmsgViewAlarmStation6
                     bool hideAlarmViewS6 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S6Enabled", 1)[0];
@@ -506,8 +496,10 @@ namespace TOAST_HMI
                     else
                     {
                         lblmsgViewAlarmS6.Visible = true;
-                    }
+                        //set the lbl to the string GlobalMessages.gMsgS6.Alarm.topMessage
+                        lblmsgViewAlarmS6.Text = ReadPlcString("GlobalMessages.gMsgS6.Alarm.topMessage");
 
+                    }
 
                     //read gHMIData.gHideDisplayElementPromptView.McEnabled for prompts
                     bool hidePromptView = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.McEnabled", 1)[0];
@@ -528,6 +520,9 @@ namespace TOAST_HMI
                     else
                     {
                         lblmsgViewPromptsS1.Visible = true;
+                        //set the lbl to the string GlobalMessages.gMsgS1.Prompts.topMessage
+                        //read string from PLC
+                        lblmsgViewPromptsS1.Text = ReadPlcString("GlobalMessages.gMsgS1.Prompts.topMessage");
                     }
                     //read gHMIData.gHideDisplayElementPromptView.S2Enabled for prompts
                     bool hidePromptViewS2 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S2Enabled", 1)[0];
@@ -538,6 +533,9 @@ namespace TOAST_HMI
                     else
                     {
                         lblmsgViewPromptsS2.Visible = true;
+                        //set the lbl to the string GlobalMessages.gMsgS2.Prompts.topMessage
+                        lblmsgViewPromptsS2.Text = ReadPlcString("GlobalMessages.gMsgS2.Prompts.topMessage");
+
                     }
                     //read gHMIData.gHideDisplayElementPromptView.S3Enabled for prompts
                     bool hidePromptViewS3 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S3Enabled", 1)[0];
@@ -548,6 +546,9 @@ namespace TOAST_HMI
                     else
                     {
                         lblmsgViewPromptsS3.Visible = true;
+                        //set the lbl to the string GlobalMessages.gMsgS3.Prompts.topMessage
+                        lblmsgViewPromptsS3.Text = ReadPlcString("GlobalMessages.gMsgS3.Prompts.topMessage");
+
                     }
                     //read gHMIData.gHideDisplayElementPromptView.S4Enabled for prompts
                     bool hidePromptViewS4 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S4Enabled", 1)[0];
@@ -558,6 +559,9 @@ namespace TOAST_HMI
                     else
                     {
                         lblmsgViewPromptsS4.Visible = true;
+                        //set the lbl to the string GlobalMessages.gMsgS4.Prompts.topMessage
+                        lblmsgViewPromptsS4.Text = ReadPlcString("GlobalMessages.gMsgS4.Prompts.topMessage");
+
                     }
                     //read gHMIData.gHideDisplayElementPromptView.S5Enabled for prompts
                     bool hidePromptViewS5 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S5Enabled", 1)[0];
@@ -578,6 +582,9 @@ namespace TOAST_HMI
                     else
                     {
                         lblmsgViewPromptsS6.Visible = true;
+                        //set the lbl to the string GlobalMessages.gMsgS6.Prompts.topMessage
+                        lblmsgViewPromptsS6.Text = ReadPlcString("GlobalMessages.gMsgS6.Prompts.topMessage");
+
                     }
 
                     //now the same for warnings
@@ -590,6 +597,9 @@ namespace TOAST_HMI
                     else
                     {
                         lblmsgViewWarningMachine.Visible = true;
+                        //set the lbl to the string GlobalMessages.gMsgMc.Warning.topMessage
+                        lblmsgViewWarningMachine.Text = ReadPlcString("GlobalMessages.gMsgMc.Warning.topMessage");
+
                     }
                     //read gHMIData.gHideDisplayElementWarningView.S1Enabled
                     bool hideWarningViewS1 = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.S1Enabled", 1)[0];
@@ -600,6 +610,9 @@ namespace TOAST_HMI
                     else
                     {
                         lblmsgViewWarningS1.Visible = true;
+                        //set the lbl to the string GlobalMessages.gMsgS1.Warning.topMessage
+                        lblmsgViewWarningS1.Text = ReadPlcString("GlobalMessages.gMsgS1.Warning.topMessage");
+
                     }
                     //read gHMIData.gHideDisplayElementWarningView.S2Enabled
                     bool hideWarningViewS2 = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.S2Enabled", 1)[0];
@@ -610,6 +623,9 @@ namespace TOAST_HMI
                     else
                     {
                         lblmsgViewWarningS2.Visible = true;
+                        //set the lbl to the string GlobalMessages.gMsgS2.Warning.topMessage
+                        lblmsgViewWarningS2.Text = ReadPlcString("GlobalMessages.gMsgS2.Warning.topMessage");
+
                     }
                     //read gHMIData.gHideDisplayElementWarningView.S3Enabled
                     bool hideWarningViewS3 = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.S3Enabled", 1)[0];
@@ -620,6 +636,9 @@ namespace TOAST_HMI
                     else
                     {
                         lblmsgViewWarningS3.Visible = true;
+                        //set the lbl to the string GlobalMessages.gMsgS3.Warning.topMessage
+                        lblmsgViewWarningS3.Text = ReadPlcString("GlobalMessages.gMsgS3.Warning.topMessage");
+
                     }
                     //read gHMIData.gHideDisplayElementWarningView.S4Enabled
                     bool hideWarningViewS4 = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.S4Enabled", 1)[0];
@@ -630,6 +649,9 @@ namespace TOAST_HMI
                     else
                     {
                         lblmsgViewWarningS4.Visible = true;
+                        //set the lbl to the string GlobalMessages.gMsgS4.Warning.topMessage
+                        lblmsgViewWarningS4.Text = ReadPlcString("GlobalMessages.gMsgS4.Warning.topMessage");
+
                     }
                     //read gHMIData.gHideDisplayElementWarningView.S5Enabled
                     bool hideWarningViewS5 = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.S5Enabled", 1)[0];
@@ -640,6 +662,9 @@ namespace TOAST_HMI
                     else
                     {
                         lblmsgViewWarningS5.Visible = true;
+                        //set the lbl to the string GlobalMessages.gMsgS5.Warning.topMessage
+                        lblmsgViewWarningS5.Text = ReadPlcString("GlobalMessages.gMsgS5.Warning.topMessage");
+
                     }
                     //read gHMIData.gHideDisplayElementWarningView.S6Enabled
                     bool hideWarningViewS6 = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.S6Enabled", 1)[0];
@@ -650,21 +675,11 @@ namespace TOAST_HMI
                     else
                     {
                         lblmsgViewWarningS6.Visible = true;
+                        //set the lbl to the string GlobalMessages.gMsgS6.Warning.topMessage
+                        lblmsgViewWarningS6.Text = ReadPlcString("GlobalMessages.gMsgS6.Warning.topMessage");
+
                     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
                     //check warnings status from PLC from  .isAnyWarningState  
                     bool isAnyWarningState = ReadBoolArray("gHMIData.hmiHeader.isAnyWarningState", 1)[0];
                     //if the isAnyWarningState is true, then dont hide the lblAnyWarnings, but if  isAnyFaultState is TRUE then keep it hidden
@@ -691,12 +706,6 @@ namespace TOAST_HMI
                     {
                         // ignore read errors for stationstate (optionally log)
                     }
-
-
-
-
-                    //
-
 
                     //gHMIButtons.btnFdbk.btnIsHomeFdbk
                     //read status of is home feedback
@@ -733,11 +742,7 @@ namespace TOAST_HMI
                         btnPowerOn.BackColor = SystemColors.Control;
                     }
 
-
-
-
-
-                    //read all gHMIButtons.btnFdbk, which is 40 bools into gButtonFdbk array
+                     //read all gHMIButtons.btnFdbk, which is 40 bools into gButtonFdbk array
                     var buttonFdbkValues = ReadBoolArray("gHMIButtons.btnFdbk", 32);
                     if (buttonFdbkValues.Length == gButtonFdbk.Length)
                     {
@@ -1023,53 +1028,14 @@ namespace TOAST_HMI
                             lblHomeState.Text = HomeState[homestate];
                             // return;
                         }
-                    }
-
-
-
-
-
+                   }
 
                     catch
                     {
                         // ignore read errors for stationstate (optionally log)
                     }
 
-                    ////header.AnyStationWarningHeader.
-                    //try
-                    //{
-                    //    int homestate = ReadInt16("gHMIData.hmiHeader.AnyStationWarningHeader");
-
-                    //    // Map PLC integer values to colours. Adjust mapping as required.
-                    //    string stateText = homestate switch
-                    //    {
-                    //        0 => "Not Home",                // not home
-                    //        1 => "Homing",                     // in the state of homing
-                    //        2 => "Home",           // in home state
-                    //        3 => "Fault",           // error
-                    //        _ => "Unknown"              // unknown
-                    //    };
-
-                    //    lblAnyWarnings.Text = stateText;
-
-                    //    //change background colour since its a fault indicator
-                    //    if (homestate == 0)
-                    //    {
-                    //        lblAnyWarnings.BackColor = SystemColors.Control;
-                    //        //lblHomeState.BackColor = Color.RebeccaPurple;
-                    //    }
-                    //    else
-                    //    {
-                    //        lblAnyWarnings.BackColor = Color.Green;
-                    //    }
-
-
-                    //}
-                    //catch
-                    //{
-                    //    // ignore read errors for stationstate (optionally log)
-                    //}
-
+                  
 
                     //Station Name, header.stationNameSelect, StationNames
                     try
@@ -1113,14 +1079,12 @@ namespace TOAST_HMI
                     {
                         // ignore read errors for stationstate (optionally log)
                     }
-
                 }
                 catch
                 {
                     // ignore read errors here
                     isConnectionFaulted = true;
                 }
-
             }
 
             //dont bother using timer anymore
@@ -1128,9 +1092,7 @@ namespace TOAST_HMI
             {
                 timGetPLCData.Stop();
             }
-
         }
-
         private void button4_Click(object sender, EventArgs e)
         {
             //load tc3 project
@@ -1221,9 +1183,6 @@ namespace TOAST_HMI
                     MessageBox.Show($"Error reading or parsing AnyStationAlarmList file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
-
-
 
             //find the text file called AnyStationWarningList
             string AnyStationWarningListFile = textListFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Equals("AnyStationWarningList", StringComparison.OrdinalIgnoreCase));
@@ -1452,17 +1411,7 @@ namespace TOAST_HMI
                 }
             }
 
-            // Deduplicate by TextId and order numerically when possible
-            //var deduped = results
-            //    .GroupBy(r => r.TextId)
-            //    .Select(g => g.First())
-            //    .OrderBy(r => {
-            //        if (int.TryParse(r.TextId, out var n)) return n;
-            //        return int.MaxValue;
-            //    })
-            //    .ToList();
-
-            return results;
+           return results;
         }
 
         private void btnParse_Click(object sender, EventArgs e)
@@ -1517,14 +1466,11 @@ namespace TOAST_HMI
                     //MessageBox.Show($"Found {entries.Count} entries in the selected file.", "Parse result", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MessageBox.Show(sb.ToString(), $"Found {entries.Count} entries", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Error reading or parsing file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
-
             }
         }
 
@@ -1532,94 +1478,81 @@ namespace TOAST_HMI
         {
             isConnectionFaulted = false;
             timGetPLCData.Start();
-
-
         }
 
-        private void lblCycleTypeState_Click(object sender, EventArgs e)
+           // Read a PLC STRING (e.g. GlobalMessages.gMsgS1.Prompts.topMessage).
+        // maxBytes should match the PLC STRING maximum length (buffer size) you expect.
+        private string ReadPlcString(string plcSymbol, int maxBytes = 256)
         {
+            if (_adsClient == null || !_adsClient.IsConnected)
+                throw new InvalidOperationException("Not connected to PLC.");
 
-        }
+            uint handle = 0;
+            try
+            {
+                handle = _adsClient.CreateVariableHandle(plcSymbol);
 
-        private void btnPowerOn_Click(object sender, EventArgs e)
-        {
+                int readLength = checked(maxBytes);
+                var result = _adsClient.ReadAsResult(handle, readLength);
+                result.ThrowOnError();
 
-        }
+                byte[] buffer = result.Data.ToArray();
+                if (buffer.Length == 0)
+                    return string.Empty;
 
-        private void lblAnyWarnings_Click(object sender, EventArgs e)
-        {
+                // Find first NUL (0) — common terminator for PLC strings
+                int firstNull = Array.IndexOf(buffer, (byte)0);
+                int usedLength = firstNull >= 0 ? firstNull : buffer.Length;
 
-        }
+                // Detect and skip common Beckhoff/TwinCAT STRING length prefix if present:
+                // Many PLC STRING implementations include a leading length byte.
+                int startIndex = 0;
+                if (buffer.Length >= 1)
+                {
+                    byte possibleLen = buffer[0];
+                    // Heuristic: if first byte is small and <= maxBytes and non-printable,
+                    // treat it as length prefix and skip it.
+                    if (possibleLen > 0 && possibleLen <= maxBytes && possibleLen < 32)
+                    {
+                        startIndex = 1;
+                        // adjust usedLength (reportedLen cannot exceed remaining buffer)
+                        int reportedLen = Math.Min(possibleLen, usedLength - 1);
+                        usedLength = Math.Max(0, reportedLen);
+                    }
+                }
 
-        private void lblFaultState_Click(object sender, EventArgs e)
-        {
+                if (usedLength <= 0 || startIndex >= buffer.Length)
+                    return string.Empty;
 
+                // Decode bytes. Use ASCII which is commonly used for TwinCAT TEXT; change if you need UTF8/ANSI.
+                string decoded = System.Text.Encoding.ASCII.GetString(buffer, startIndex, usedLength);
+
+                // Trim any trailing NULs or control characters
+                int trimAt = decoded.IndexOf('\0');
+                if (trimAt >= 0)
+                    decoded = decoded.Substring(0, trimAt);
+
+                return decoded;
+            }
+            catch (AdsErrorException ex)
+            {
+                isConnectionFaulted = true;
+                MessageBox.Show($"ADS read error ({plcSymbol}): {ex.Message}", "ADS Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+                isConnectionFaulted = true;
+                MessageBox.Show($"Read error ({plcSymbol}): {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return string.Empty;
+            }
+            finally
+            {
+                if (handle != 0)
+                {
+                    try { _adsClient?.DeleteVariableHandle(handle); } catch { /* ignore */ }
+                }
+            }
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
