@@ -55,7 +55,6 @@ namespace TOAST_HMI
             " ",
             " "
         };
-         
         string[] AnyStationWarningList = new string[]
         {
             " ",
@@ -437,6 +436,157 @@ namespace TOAST_HMI
                         // ignore read errors for stationstate (optionally log)
                     }
 
+                    //if gHMIData.gHideDisplayElementAlarmView.McEnabled is TRUE, then hide lblmsgViewAlarmMachine
+                    bool hideAlarmView = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.McEnabled", 1)[0];
+                    if (hideAlarmView == true)
+                    {
+                        lblmsgViewAlarmMachine.Visible = false;
+                    }
+                    else
+                    {
+                        lblmsgViewAlarmMachine.Visible = true;
+                    }
+
+                    //if gHMIData.gHideDisplayElementAlarmView.S1Enabled is TRUE then hide lblmsgViewAlarmStation1
+                    bool hideAlarmViewS1 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S1Enabled", 1)[0];
+                    if (hideAlarmViewS1 == true)
+                    {
+                        lblmsgViewAlarmS1.Visible = false;
+                    }
+                    else
+                    {
+                        lblmsgViewAlarmS1.Visible = true;
+                    }
+                    //if gHMIData.gHideDisplayElementAlarmView.S2Enabled is TRUE then hide lblmsgViewAlarmStation2
+                    bool hideAlarmViewS2 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S2Enabled", 1)[0];
+                    if (hideAlarmViewS2 == true)
+                    {
+                        lblmsgViewAlarmS2.Visible = false;
+                    }
+                    else
+                    {
+                        lblmsgViewAlarmS2.Visible = true;
+                    }
+                    //if gHMIData.gHideDisplayElementAlarmView.S3Enabled is TRUE then hide lblmsgViewAlarmStation3
+                    bool hideAlarmViewS3 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S3Enabled", 1)[0];
+                    if (hideAlarmViewS3 == true)
+                    {
+                        lblmsgViewAlarmS3.Visible = false;
+                    }
+                    else
+                    {
+                        lblmsgViewAlarmS3.Visible = true;
+                    }
+                    //if gHMIData.gHideDisplayElementAlarmView.S4Enabled is TRUE then hide lblmsgViewAlarmStation4
+                    bool hideAlarmViewS4 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S4Enabled", 1)[0];
+                    if (hideAlarmViewS4 == true)
+                    {
+                        lblmsgViewAlarmS4.Visible = false;
+                    }
+                    else
+                    {
+                        lblmsgViewAlarmS4.Visible = true;
+                    }
+                    //if gHMIData.gHideDisplayElementAlarmView.S5Enabled is TRUE then hide lblmsgViewAlarmStation5
+                    bool hideAlarmViewS5 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S5Enabled", 1)[0];
+                    if (hideAlarmViewS5 == true)
+                    {
+                        lblmsgViewAlarmS5.Visible = false;
+                    }
+                    else
+                    {
+                        lblmsgViewAlarmS5.Visible = true;
+                    }
+                    //if gHMIData.gHideDisplayElementAlarmView.S6Enabled is TRUE then hide lblmsgViewAlarmStation6
+                    bool hideAlarmViewS6 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S6Enabled", 1)[0];
+                    if (hideAlarmViewS6 == true)
+                    {
+                        lblmsgViewAlarmS6.Visible = false;
+                    }
+                    else
+                    {
+                        lblmsgViewAlarmS6.Visible = true;
+                    }
+
+
+                    //read gHMIData.gHideDisplayElementPromptView.McEnabled for prompts
+                    bool hidePromptView = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.McEnabled", 1)[0];
+                    if (hidePromptView == true)
+                    {
+                        lblmsgViewPromptMachine.Visible = false;
+                    }
+                    else
+                    {
+                        lblmsgViewPromptMachine.Visible = true;
+                    }
+                    //read gHMIData.gHideDisplayElementPromptView.S1Enabled for prompts
+                    bool hidePromptViewS1 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S1Enabled", 1)[0];
+                    if (hidePromptViewS1 == true)
+                    {
+                        lblmsgViewPromptsS1.Visible = false;
+                    }
+                    else
+                    {
+                        lblmsgViewPromptsS1.Visible = true;
+                    }
+                    //read gHMIData.gHideDisplayElementPromptView.S2Enabled for prompts
+                    bool hidePromptViewS2 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S2Enabled", 1)[0];
+                    if (hidePromptViewS2 == true)
+                    {
+                        lblmsgViewPromptsS2.Visible = false;
+                    }
+                    else
+                    {
+                        lblmsgViewPromptsS2.Visible = true;
+                    }
+                    //read gHMIData.gHideDisplayElementPromptView.S3Enabled for prompts
+                    bool hidePromptViewS3 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S3Enabled", 1)[0];
+                    if (hidePromptViewS3 == true)
+                    {
+                        lblmsgViewPromptsS3.Visible = false;
+                    }
+                    else
+                    {
+                        lblmsgViewPromptsS3.Visible = true;
+                    }
+                    //read gHMIData.gHideDisplayElementPromptView.S4Enabled for prompts
+                    bool hidePromptViewS4 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S4Enabled", 1)[0];
+                    if (hidePromptViewS4 == true)
+                    {
+                        lblmsgViewPromptsS4.Visible = false;
+                    }
+                    else
+                    {
+                        lblmsgViewPromptsS4.Visible = true;
+                    }
+                    //read gHMIData.gHideDisplayElementPromptView.S5Enabled for prompts
+                    bool hidePromptViewS5 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S5Enabled", 1)[0];
+                    if (hidePromptViewS5 == true)
+                    {
+                        lblmsgViewPromptsS5.Visible = false;
+                    }
+                    else
+                    {
+                        lblmsgViewPromptsS5.Visible = true;
+                    }
+                    //read gHMIData.gHideDisplayElementPromptView.S6Enabled for prompts
+                    bool hidePromptViewS6 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S6Enabled", 1)[0];
+                    if (hidePromptViewS6 == true)
+                    {
+                        lblmsgViewPromptsS6.Visible = false;
+                    }
+                    else
+                    {
+                        lblmsgViewPromptsS6.Visible = true;
+                    }
+
+
+
+
+
+
+
+
 
 
 
@@ -812,40 +962,40 @@ namespace TOAST_HMI
                         // ignore read errors for stationstate (optionally log)
                     }
 
-                    //header.AnyStationWarningHeader.
-                    try
-                    {
-                        int homestate = ReadInt16("gHMIData.hmiHeader.AnyStationWarningHeader");
+                    ////header.AnyStationWarningHeader.
+                    //try
+                    //{
+                    //    int homestate = ReadInt16("gHMIData.hmiHeader.AnyStationWarningHeader");
 
-                        // Map PLC integer values to colours. Adjust mapping as required.
-                        string stateText = homestate switch
-                        {
-                            0 => "Not Home",                // not home
-                            1 => "Homing",                     // in the state of homing
-                            2 => "Home",           // in home state
-                            3 => "Fault",           // error
-                            _ => "Unknown"              // unknown
-                        };
+                    //    // Map PLC integer values to colours. Adjust mapping as required.
+                    //    string stateText = homestate switch
+                    //    {
+                    //        0 => "Not Home",                // not home
+                    //        1 => "Homing",                     // in the state of homing
+                    //        2 => "Home",           // in home state
+                    //        3 => "Fault",           // error
+                    //        _ => "Unknown"              // unknown
+                    //    };
 
-                        lblAnyWarnings.Text = stateText;
+                    //    lblAnyWarnings.Text = stateText;
 
-                        //change background colour since its a fault indicator
-                        if (homestate == 0)
-                        {
-                            lblAnyWarnings.BackColor = SystemColors.Control;
-                            //lblHomeState.BackColor = Color.RebeccaPurple;
-                        }
-                        else
-                        {
-                            lblAnyWarnings.BackColor = Color.Green;
-                        }
+                    //    //change background colour since its a fault indicator
+                    //    if (homestate == 0)
+                    //    {
+                    //        lblAnyWarnings.BackColor = SystemColors.Control;
+                    //        //lblHomeState.BackColor = Color.RebeccaPurple;
+                    //    }
+                    //    else
+                    //    {
+                    //        lblAnyWarnings.BackColor = Color.Green;
+                    //    }
 
 
-                    }
-                    catch
-                    {
-                        // ignore read errors for stationstate (optionally log)
-                    }
+                    //}
+                    //catch
+                    //{
+                    //    // ignore read errors for stationstate (optionally log)
+                    //}
 
 
                     //Station Name, header.stationNameSelect, StationNames
@@ -976,6 +1126,55 @@ namespace TOAST_HMI
                     MessageBox.Show($"Error parsing file {file}: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+
+            //find the text file called AnyStationAlarmList
+            string AnyStationAlarmListFile = textListFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Equals("AnyStationAlarmList", StringComparison.OrdinalIgnoreCase));
+            //if found, parse it and put the entries into AnyStationAlarmList[] using FindAllTextDefaults
+            if (AnyStationAlarmListFile != null)
+            {
+                try
+                {
+                    string fileContent = File.ReadAllText(AnyStationAlarmListFile);
+                    var entries = FindAllTextDefaults(fileContent);
+                    //update AnyStationAlarmList array
+                    for (int i = 0; i < entries.Count && i < AnyStationAlarmList.Length; i++)
+                    {
+                        AnyStationAlarmList[i] = entries[i].TextDefault;
+                    }
+                    // MessageBox.Show($"Loaded {entries.Count} alarm states from AnyStationAlarmList.", "TC3 Text List", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error reading or parsing AnyStationAlarmList file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+
+
+
+            //find the text file called AnyStationWarningList
+            string AnyStationWarningListFile = textListFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Equals("AnyStationWarningList", StringComparison.OrdinalIgnoreCase));
+            //if found, parse it and put the entries into AnyStationWarningList[] using FindAllTextDefaults
+            if (AnyStationWarningListFile != null)
+            {
+                try
+                {
+                    string fileContent = File.ReadAllText(AnyStationWarningListFile);
+                    var entries = FindAllTextDefaults(fileContent);
+                    //update AnyStationWarningList array
+                    for (int i = 0; i < entries.Count && i < AnyStationWarningList.Length; i++)
+                    {
+                        AnyStationWarningList[i] = entries[i].TextDefault;
+                    }
+                    // MessageBox.Show($"Loaded {entries.Count} warning states from AnyStationWarningList.", "TC3 Text List", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error reading or parsing AnyStationWarningList file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+
 
             //find the text file called FaultState
             string FaultStateFile = textListFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Equals("FaultState", StringComparison.OrdinalIgnoreCase));
@@ -1270,6 +1469,16 @@ namespace TOAST_HMI
         }
 
         private void btnPowerOn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblAnyWarnings_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblFaultState_Click(object sender, EventArgs e)
         {
 
         }

@@ -84,6 +84,27 @@
             btnParse = new Button();
             lbFoundFiles = new ListBox();
             lblAnyFaultsExist = new Label();
+            lblmsgViewAlarmMachine = new Label();
+            lblmsgViewAlarmS1 = new Label();
+            lblmsgViewAlarmS2 = new Label();
+            lblmsgViewAlarmS3 = new Label();
+            lblmsgViewAlarmS4 = new Label();
+            lblmsgViewAlarmS5 = new Label();
+            lblmsgViewAlarmS6 = new Label();
+            lblmsgViewPromptMachine = new Label();
+            lblmsgViewPromptsS1 = new Label();
+            lblmsgViewPromptsS2 = new Label();
+            lblmsgViewPromptsS3 = new Label();
+            lblmsgViewPromptsS4 = new Label();
+            lblmsgViewPromptsS5 = new Label();
+            lblmsgViewPromptsS6 = new Label();
+            lblmsgViewWarningMachine = new Label();
+            lblmsgViewWarningS1 = new Label();
+            lblmsgViewWarningS2 = new Label();
+            lblmsgViewWarningS3 = new Label();
+            lblmsgViewWarningS4 = new Label();
+            lblmsgViewWarningS5 = new Label();
+            lblmsgViewWarningS6 = new Label();
             SuspendLayout();
             // 
             // btnPowerOn
@@ -487,6 +508,7 @@
             lblFaultState.TabIndex = 44;
             lblFaultState.Text = "Fault State, header.FaultStateHeader,  FaultState";
             lblFaultState.TextAlign = ContentAlignment.MiddleCenter;
+            lblFaultState.Click += lblFaultState_Click;
             // 
             // lblHomeState
             // 
@@ -503,7 +525,7 @@
             // 
             lblAnyWarnings.BackColor = Color.White;
             lblAnyWarnings.BorderStyle = BorderStyle.FixedSingle;
-            lblAnyWarnings.Location = new Point(590, 27);
+            lblAnyWarnings.Location = new Point(590, 0);
             lblAnyWarnings.Name = "lblAnyWarnings";
             lblAnyWarnings.Size = new Size(173, 20);
             lblAnyWarnings.TabIndex = 46;
@@ -560,9 +582,9 @@
             // 
             lbFoundFiles.FormattingEnabled = true;
             lbFoundFiles.ItemHeight = 15;
-            lbFoundFiles.Location = new Point(209, 50);
+            lbFoundFiles.Location = new Point(209, 140);
             lbFoundFiles.Name = "lbFoundFiles";
-            lbFoundFiles.Size = new Size(477, 139);
+            lbFoundFiles.Size = new Size(477, 49);
             lbFoundFiles.TabIndex = 51;
             lbFoundFiles.SelectedIndexChanged += lbFoundFiles_SelectedIndexChanged;
             // 
@@ -570,18 +592,256 @@
             // 
             lblAnyFaultsExist.BackColor = Color.White;
             lblAnyFaultsExist.BorderStyle = BorderStyle.FixedSingle;
-            lblAnyFaultsExist.Location = new Point(671, 60);
+            lblAnyFaultsExist.Location = new Point(590, 0);
             lblAnyFaultsExist.Name = "lblAnyFaultsExist";
             lblAnyFaultsExist.Size = new Size(173, 20);
             lblAnyFaultsExist.TabIndex = 52;
             lblAnyFaultsExist.Text = "Any Faults Exist\r\n";
             lblAnyFaultsExist.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // lblmsgViewAlarmMachine
+            // 
+            lblmsgViewAlarmMachine.BackColor = Color.White;
+            lblmsgViewAlarmMachine.BorderStyle = BorderStyle.FixedSingle;
+            lblmsgViewAlarmMachine.Location = new Point(86, 32);
+            lblmsgViewAlarmMachine.Name = "lblmsgViewAlarmMachine";
+            lblmsgViewAlarmMachine.Size = new Size(815, 20);
+            lblmsgViewAlarmMachine.TabIndex = 53;
+            lblmsgViewAlarmMachine.Text = "msgViewAlarmMachine";
+            // 
+            // lblmsgViewAlarmS1
+            // 
+            lblmsgViewAlarmS1.BackColor = Color.White;
+            lblmsgViewAlarmS1.BorderStyle = BorderStyle.FixedSingle;
+            lblmsgViewAlarmS1.Location = new Point(86, 32);
+            lblmsgViewAlarmS1.Name = "lblmsgViewAlarmS1";
+            lblmsgViewAlarmS1.Size = new Size(815, 20);
+            lblmsgViewAlarmS1.TabIndex = 54;
+            lblmsgViewAlarmS1.Text = "msgViewAlarmS1";
+            // 
+            // lblmsgViewAlarmS2
+            // 
+            lblmsgViewAlarmS2.BackColor = Color.White;
+            lblmsgViewAlarmS2.BorderStyle = BorderStyle.FixedSingle;
+            lblmsgViewAlarmS2.Location = new Point(86, 32);
+            lblmsgViewAlarmS2.Name = "lblmsgViewAlarmS2";
+            lblmsgViewAlarmS2.Size = new Size(815, 20);
+            lblmsgViewAlarmS2.TabIndex = 55;
+            lblmsgViewAlarmS2.Text = "lblmsgViewAlarmS2";
+            // 
+            // lblmsgViewAlarmS3
+            // 
+            lblmsgViewAlarmS3.BackColor = Color.White;
+            lblmsgViewAlarmS3.BorderStyle = BorderStyle.FixedSingle;
+            lblmsgViewAlarmS3.Location = new Point(86, 32);
+            lblmsgViewAlarmS3.Name = "lblmsgViewAlarmS3";
+            lblmsgViewAlarmS3.Size = new Size(815, 20);
+            lblmsgViewAlarmS3.TabIndex = 56;
+            lblmsgViewAlarmS3.Text = "lblmsgViewAlarmS3";
+            // 
+            // lblmsgViewAlarmS4
+            // 
+            lblmsgViewAlarmS4.BackColor = Color.White;
+            lblmsgViewAlarmS4.BorderStyle = BorderStyle.FixedSingle;
+            lblmsgViewAlarmS4.Location = new Point(86, 32);
+            lblmsgViewAlarmS4.Name = "lblmsgViewAlarmS4";
+            lblmsgViewAlarmS4.Size = new Size(815, 20);
+            lblmsgViewAlarmS4.TabIndex = 57;
+            lblmsgViewAlarmS4.Text = "lblmsgViewAlarmS4";
+            // 
+            // lblmsgViewAlarmS5
+            // 
+            lblmsgViewAlarmS5.BackColor = Color.White;
+            lblmsgViewAlarmS5.BorderStyle = BorderStyle.FixedSingle;
+            lblmsgViewAlarmS5.Location = new Point(86, 32);
+            lblmsgViewAlarmS5.Name = "lblmsgViewAlarmS5";
+            lblmsgViewAlarmS5.Size = new Size(815, 20);
+            lblmsgViewAlarmS5.TabIndex = 58;
+            lblmsgViewAlarmS5.Text = "lblmsgViewAlarmS5";
+            // 
+            // lblmsgViewAlarmS6
+            // 
+            lblmsgViewAlarmS6.BackColor = Color.White;
+            lblmsgViewAlarmS6.BorderStyle = BorderStyle.FixedSingle;
+            lblmsgViewAlarmS6.Location = new Point(86, 32);
+            lblmsgViewAlarmS6.Name = "lblmsgViewAlarmS6";
+            lblmsgViewAlarmS6.Size = new Size(815, 20);
+            lblmsgViewAlarmS6.TabIndex = 59;
+            lblmsgViewAlarmS6.Text = "lblmsgViewAlarmS6";
+            // 
+            // lblmsgViewPromptMachine
+            // 
+            lblmsgViewPromptMachine.BackColor = Color.White;
+            lblmsgViewPromptMachine.BorderStyle = BorderStyle.FixedSingle;
+            lblmsgViewPromptMachine.Location = new Point(86, 93);
+            lblmsgViewPromptMachine.Name = "lblmsgViewPromptMachine";
+            lblmsgViewPromptMachine.Size = new Size(815, 20);
+            lblmsgViewPromptMachine.TabIndex = 60;
+            lblmsgViewPromptMachine.Text = "msgViewPromptMachine";
+            lblmsgViewPromptMachine.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lblmsgViewPromptsS1
+            // 
+            lblmsgViewPromptsS1.BackColor = Color.White;
+            lblmsgViewPromptsS1.BorderStyle = BorderStyle.FixedSingle;
+            lblmsgViewPromptsS1.Location = new Point(86, 93);
+            lblmsgViewPromptsS1.Name = "lblmsgViewPromptsS1";
+            lblmsgViewPromptsS1.Size = new Size(815, 20);
+            lblmsgViewPromptsS1.TabIndex = 61;
+            lblmsgViewPromptsS1.Text = "msgViewPromptsS1";
+            lblmsgViewPromptsS1.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lblmsgViewPromptsS2
+            // 
+            lblmsgViewPromptsS2.BackColor = Color.White;
+            lblmsgViewPromptsS2.BorderStyle = BorderStyle.FixedSingle;
+            lblmsgViewPromptsS2.Location = new Point(86, 93);
+            lblmsgViewPromptsS2.Name = "lblmsgViewPromptsS2";
+            lblmsgViewPromptsS2.Size = new Size(815, 20);
+            lblmsgViewPromptsS2.TabIndex = 62;
+            lblmsgViewPromptsS2.Text = "msgViewPromptsS2";
+            lblmsgViewPromptsS2.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lblmsgViewPromptsS3
+            // 
+            lblmsgViewPromptsS3.BackColor = Color.White;
+            lblmsgViewPromptsS3.BorderStyle = BorderStyle.FixedSingle;
+            lblmsgViewPromptsS3.Location = new Point(86, 93);
+            lblmsgViewPromptsS3.Name = "lblmsgViewPromptsS3";
+            lblmsgViewPromptsS3.Size = new Size(815, 20);
+            lblmsgViewPromptsS3.TabIndex = 63;
+            lblmsgViewPromptsS3.Text = "msgViewPromptsS3";
+            lblmsgViewPromptsS3.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lblmsgViewPromptsS4
+            // 
+            lblmsgViewPromptsS4.BackColor = Color.White;
+            lblmsgViewPromptsS4.BorderStyle = BorderStyle.FixedSingle;
+            lblmsgViewPromptsS4.Location = new Point(86, 93);
+            lblmsgViewPromptsS4.Name = "lblmsgViewPromptsS4";
+            lblmsgViewPromptsS4.Size = new Size(815, 20);
+            lblmsgViewPromptsS4.TabIndex = 64;
+            lblmsgViewPromptsS4.Text = "msgViewPromptsS4";
+            lblmsgViewPromptsS4.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lblmsgViewPromptsS5
+            // 
+            lblmsgViewPromptsS5.BackColor = Color.White;
+            lblmsgViewPromptsS5.BorderStyle = BorderStyle.FixedSingle;
+            lblmsgViewPromptsS5.Location = new Point(86, 93);
+            lblmsgViewPromptsS5.Name = "lblmsgViewPromptsS5";
+            lblmsgViewPromptsS5.Size = new Size(815, 20);
+            lblmsgViewPromptsS5.TabIndex = 65;
+            lblmsgViewPromptsS5.Text = "msgViewPromptsS5";
+            lblmsgViewPromptsS5.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lblmsgViewPromptsS6
+            // 
+            lblmsgViewPromptsS6.BackColor = Color.White;
+            lblmsgViewPromptsS6.BorderStyle = BorderStyle.FixedSingle;
+            lblmsgViewPromptsS6.Location = new Point(86, 93);
+            lblmsgViewPromptsS6.Name = "lblmsgViewPromptsS6";
+            lblmsgViewPromptsS6.Size = new Size(815, 20);
+            lblmsgViewPromptsS6.TabIndex = 66;
+            lblmsgViewPromptsS6.Text = "msgViewPromptsS6";
+            lblmsgViewPromptsS6.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lblmsgViewWarningMachine
+            // 
+            lblmsgViewWarningMachine.BackColor = Color.White;
+            lblmsgViewWarningMachine.BorderStyle = BorderStyle.FixedSingle;
+            lblmsgViewWarningMachine.Location = new Point(86, 62);
+            lblmsgViewWarningMachine.Name = "lblmsgViewWarningMachine";
+            lblmsgViewWarningMachine.Size = new Size(815, 20);
+            lblmsgViewWarningMachine.TabIndex = 67;
+            lblmsgViewWarningMachine.Text = "msgViewWarningMachine";
+            // 
+            // lblmsgViewWarningS1
+            // 
+            lblmsgViewWarningS1.BackColor = Color.White;
+            lblmsgViewWarningS1.BorderStyle = BorderStyle.FixedSingle;
+            lblmsgViewWarningS1.Location = new Point(86, 62);
+            lblmsgViewWarningS1.Name = "lblmsgViewWarningS1";
+            lblmsgViewWarningS1.Size = new Size(815, 20);
+            lblmsgViewWarningS1.TabIndex = 68;
+            lblmsgViewWarningS1.Text = "msgViewWarningS1";
+            // 
+            // lblmsgViewWarningS2
+            // 
+            lblmsgViewWarningS2.BackColor = Color.White;
+            lblmsgViewWarningS2.BorderStyle = BorderStyle.FixedSingle;
+            lblmsgViewWarningS2.Location = new Point(86, 62);
+            lblmsgViewWarningS2.Name = "lblmsgViewWarningS2";
+            lblmsgViewWarningS2.Size = new Size(815, 20);
+            lblmsgViewWarningS2.TabIndex = 69;
+            lblmsgViewWarningS2.Text = "msgViewWarningS2";
+            // 
+            // lblmsgViewWarningS3
+            // 
+            lblmsgViewWarningS3.BackColor = Color.White;
+            lblmsgViewWarningS3.BorderStyle = BorderStyle.FixedSingle;
+            lblmsgViewWarningS3.Location = new Point(86, 62);
+            lblmsgViewWarningS3.Name = "lblmsgViewWarningS3";
+            lblmsgViewWarningS3.Size = new Size(815, 20);
+            lblmsgViewWarningS3.TabIndex = 70;
+            lblmsgViewWarningS3.Text = "msgViewWarningS4";
+            // 
+            // lblmsgViewWarningS4
+            // 
+            lblmsgViewWarningS4.BackColor = Color.White;
+            lblmsgViewWarningS4.BorderStyle = BorderStyle.FixedSingle;
+            lblmsgViewWarningS4.Location = new Point(86, 62);
+            lblmsgViewWarningS4.Name = "lblmsgViewWarningS4";
+            lblmsgViewWarningS4.Size = new Size(815, 20);
+            lblmsgViewWarningS4.TabIndex = 71;
+            lblmsgViewWarningS4.Text = "msgViewWarningS4";
+            // 
+            // lblmsgViewWarningS5
+            // 
+            lblmsgViewWarningS5.BackColor = Color.White;
+            lblmsgViewWarningS5.BorderStyle = BorderStyle.FixedSingle;
+            lblmsgViewWarningS5.Location = new Point(86, 62);
+            lblmsgViewWarningS5.Name = "lblmsgViewWarningS5";
+            lblmsgViewWarningS5.Size = new Size(815, 20);
+            lblmsgViewWarningS5.TabIndex = 72;
+            lblmsgViewWarningS5.Text = "msgViewWarningS5";
+            // 
+            // lblmsgViewWarningS6
+            // 
+            lblmsgViewWarningS6.BackColor = Color.White;
+            lblmsgViewWarningS6.BorderStyle = BorderStyle.FixedSingle;
+            lblmsgViewWarningS6.Location = new Point(86, 62);
+            lblmsgViewWarningS6.Name = "lblmsgViewWarningS6";
+            lblmsgViewWarningS6.Size = new Size(815, 20);
+            lblmsgViewWarningS6.TabIndex = 73;
+            lblmsgViewWarningS6.Text = "msgViewWarningS6";
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1008, 729);
+            Controls.Add(lblmsgViewWarningS6);
+            Controls.Add(lblmsgViewWarningS5);
+            Controls.Add(lblmsgViewWarningS4);
+            Controls.Add(lblmsgViewWarningS3);
+            Controls.Add(lblmsgViewWarningS2);
+            Controls.Add(lblmsgViewWarningS1);
+            Controls.Add(lblmsgViewWarningMachine);
+            Controls.Add(lblmsgViewPromptsS6);
+            Controls.Add(lblmsgViewPromptsS5);
+            Controls.Add(lblmsgViewPromptsS4);
+            Controls.Add(lblmsgViewPromptsS3);
+            Controls.Add(lblmsgViewPromptsS2);
+            Controls.Add(lblmsgViewPromptsS1);
+            Controls.Add(lblmsgViewPromptMachine);
+            Controls.Add(lblmsgViewAlarmS6);
+            Controls.Add(lblmsgViewAlarmS5);
+            Controls.Add(lblmsgViewAlarmS4);
+            Controls.Add(lblmsgViewAlarmS3);
+            Controls.Add(lblmsgViewAlarmS2);
+            Controls.Add(lblmsgViewAlarmS1);
+            Controls.Add(lblmsgViewAlarmMachine);
             Controls.Add(lblAnyFaultsExist);
             Controls.Add(lbFoundFiles);
             Controls.Add(btnParse);
@@ -701,5 +961,26 @@
         private Button btnParse;
         private ListBox lbFoundFiles;
         private Label lblAnyFaultsExist;
+        private Label lblmsgViewAlarmMachine;
+        private Label lblmsgViewAlarmS1;
+        private Label lblmsgViewAlarmS2;
+        private Label lblmsgViewAlarmS3;
+        private Label lblmsgViewAlarmS4;
+        private Label lblmsgViewAlarmS5;
+        private Label lblmsgViewAlarmS6;
+        private Label lblmsgViewPromptMachine;
+        private Label lblmsgViewPromptsS1;
+        private Label lblmsgViewPromptsS2;
+        private Label lblmsgViewPromptsS3;
+        private Label lblmsgViewPromptsS4;
+        private Label lblmsgViewPromptsS5;
+        private Label lblmsgViewPromptsS6;
+        private Label lblmsgViewWarningMachine;
+        private Label lblmsgViewWarningS1;
+        private Label lblmsgViewWarningS2;
+        private Label lblmsgViewWarningS3;
+        private Label lblmsgViewWarningS4;
+        private Label lblmsgViewWarningS5;
+        private Label lblmsgViewWarningS6;
     }
 }
