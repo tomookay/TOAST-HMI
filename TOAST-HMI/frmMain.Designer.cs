@@ -83,6 +83,7 @@
             txbSpecialXML = new TextBox();
             btnParse = new Button();
             lbFoundFiles = new ListBox();
+            lblAnyFaultsExist = new Label();
             SuspendLayout();
             // 
             // btnPowerOn
@@ -93,6 +94,7 @@
             btnPowerOn.TabIndex = 0;
             btnPowerOn.Text = "POWER ON";
             btnPowerOn.UseVisualStyleBackColor = true;
+            btnPowerOn.Click += btnPowerOn_Click;
             // 
             // btnPowerOff
             // 
@@ -473,6 +475,7 @@
             lblCycleTypeState.TabIndex = 43;
             lblCycleTypeState.Text = "CycleTypeState,  header.cycleTypeFeedback , CycleType";
             lblCycleTypeState.TextAlign = ContentAlignment.MiddleCenter;
+            lblCycleTypeState.Click += lblCycleTypeState_Click;
             // 
             // lblFaultState
             // 
@@ -500,7 +503,7 @@
             // 
             lblAnyWarnings.BackColor = Color.White;
             lblAnyWarnings.BorderStyle = BorderStyle.FixedSingle;
-            lblAnyWarnings.Location = new Point(590, 0);
+            lblAnyWarnings.Location = new Point(590, 27);
             lblAnyWarnings.Name = "lblAnyWarnings";
             lblAnyWarnings.Size = new Size(173, 20);
             lblAnyWarnings.TabIndex = 46;
@@ -563,11 +566,23 @@
             lbFoundFiles.TabIndex = 51;
             lbFoundFiles.SelectedIndexChanged += lbFoundFiles_SelectedIndexChanged;
             // 
+            // lblAnyFaultsExist
+            // 
+            lblAnyFaultsExist.BackColor = Color.White;
+            lblAnyFaultsExist.BorderStyle = BorderStyle.FixedSingle;
+            lblAnyFaultsExist.Location = new Point(671, 60);
+            lblAnyFaultsExist.Name = "lblAnyFaultsExist";
+            lblAnyFaultsExist.Size = new Size(173, 20);
+            lblAnyFaultsExist.TabIndex = 52;
+            lblAnyFaultsExist.Text = "Any Faults Exist\r\n";
+            lblAnyFaultsExist.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1008, 729);
+            Controls.Add(lblAnyFaultsExist);
             Controls.Add(lbFoundFiles);
             Controls.Add(btnParse);
             Controls.Add(txbSpecialXML);
@@ -685,5 +700,6 @@
         private TextBox txbSpecialXML;
         private Button btnParse;
         private ListBox lbFoundFiles;
+        private Label lblAnyFaultsExist;
     }
 }

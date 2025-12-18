@@ -48,10 +48,27 @@ namespace TOAST_HMI
             " ",
             " "
         };
+        string[] AnyStationAlarmList = new string[]
+        {
+            " ",
+            " ",
+            " ",
+            " "
+        };
+         
+        string[] AnyStationWarningList = new string[]
+        {
+            " ",
+            " ",
+            " ",
+            " "
+        };
 
         private bool[] gStationEnabled = new bool[6];
 
         private bool[] gButtonFdbk = new bool[40];
+
+
 
 
 
@@ -390,6 +407,70 @@ namespace TOAST_HMI
             {
                 try
                 {
+
+                    //same with isAnyFaultState
+                    bool isAnyFaultState = ReadBoolArray("gHMIData.hmiHeader.isAnyFaultState", 1)[0];
+                    //if the isAnyFaultState is true, then dont hide the lblFaultState
+                    if (isAnyFaultState == true)
+                    {
+                        lblFaultState.Visible = true;
+                    }
+                    else
+                    {
+                        lblFaultState.Visible = false;
+                    }
+
+                    //read in text list 'AnyStationAlarmList' AnyStationAlarmList
+                    //read integer header.AnyStationFaultHeader from PLC
+                    try
+                    {
+                        int anyStationAlarmHeader = ReadInt16("gHMIData.hmiHeader.AnyStationFaultHeader");
+                        //if AnyStationAlarmList[] array contains text, then fill in the lblFaultState with those texts
+                        if (AnyStationAlarmList.Length >= 3 && anyStationAlarmHeader >= 0 && anyStationAlarmHeader <= 4)
+                        {
+                            lblFaultState.Text = AnyStationAlarmList[anyStationAlarmHeader];
+                            // return;
+                        }
+                    }
+                    catch
+                    {
+                        // ignore read errors for stationstate (optionally log)
+                    }
+
+
+
+
+
+
+                    //check warnings status from PLC from  .isAnyWarningState  
+                    bool isAnyWarningState = ReadBoolArray("gHMIData.hmiHeader.isAnyWarningState", 1)[0];
+                    //if the isAnyWarningState is true, then dont hide the lblAnyWarnings, but if  isAnyFaultState is TRUE then keep it hidden
+                    if (isAnyWarningState == true && isAnyFaultState == false)
+                    {
+                        lblAnyWarnings.Visible = true;
+                    }
+                    else
+                    {
+                        lblAnyWarnings.Visible = false;
+                    }
+                    //read in integer header.AnyStationWarningHeader from PLC
+                    try
+                    {
+                        int anyStationWarningHeader = ReadInt16("gHMIData.hmiHeader.AnyStationWarningHeader");
+                        //if AnyStationWarningList[] array contains text, then fill in the lblAnyWarnings with those texts
+                        if (AnyStationWarningList.Length >= 3 && anyStationWarningHeader >= 0 && anyStationWarningHeader <= 4)
+                        {
+                            lblAnyWarnings.Text = AnyStationWarningList[anyStationWarningHeader];
+                            // return;
+                        }
+                    }
+                    catch
+                    {
+                        // ignore read errors for stationstate (optionally log)
+                    }
+
+
+
 
                     //
 
@@ -838,7 +919,7 @@ namespace TOAST_HMI
 
             if (!string.IsNullOrEmpty(tc3ProjectPath))
             {
-                MessageBox.Show($"Loaded TC3 project: {tc3ProjectPath}", "TC3 Project", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // MessageBox.Show($"Loaded TC3 project: {tc3ProjectPath}", "TC3 Project", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             //search for all textlist files
@@ -863,7 +944,7 @@ namespace TOAST_HMI
                 if (lbFoundFiles != null && lbFoundFiles.Items.Count > 0)
                     lbFoundFiles.SelectedIndex = 0;
 
-                MessageBox.Show($"Found {textListFiles.Length} .TcTLO file(s).", "TC3 Text List", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // MessageBox.Show($"Found {textListFiles.Length} .TcTLO file(s).", "TC3 Text List", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             //each .TcTLO file is an XML file
@@ -886,7 +967,7 @@ namespace TOAST_HMI
                             // For demonstration, show each text entry found
                             // In a real application, you might want to store these in a data structure
                             // or display them in a list.
-                            MessageBox.Show($"ID: {id}, Text: {text}", "Text List Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            // MessageBox.Show($"ID: {id}, Text: {text}", "Text List Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                 }
@@ -899,7 +980,8 @@ namespace TOAST_HMI
             //find the text file called FaultState
             string FaultStateFile = textListFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Equals("FaultState", StringComparison.OrdinalIgnoreCase));
             //if found, parse it and put the entries into FaultState[] using FindAllTextDefaults
-            if (FaultStateFile != null) {
+            if (FaultStateFile != null)
+            {
                 try
                 {
                     string fileContent = File.ReadAllText(FaultStateFile);
@@ -909,7 +991,7 @@ namespace TOAST_HMI
                     {
                         FaultState[i] = entries[i].TextDefault;
                     }
-                    MessageBox.Show($"Loaded {entries.Count} fault states from FaultState.", "TC3 Text List", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // MessageBox.Show($"Loaded {entries.Count} fault states from FaultState.", "TC3 Text List", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
@@ -932,7 +1014,7 @@ namespace TOAST_HMI
                     {
                         HomeState[i] = entries[i].TextDefault;
                     }
-                    MessageBox.Show($"Loaded {entries.Count} home states from HomeState.", "TC3 Text List", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // MessageBox.Show($"Loaded {entries.Count} home states from HomeState.", "TC3 Text List", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
@@ -955,7 +1037,7 @@ namespace TOAST_HMI
                     {
                         StationNames[i] = entries[i].TextDefault;
                     }
-                    MessageBox.Show($"Loaded {entries.Count} station names from StationNames.", "TC3 Text List", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // MessageBox.Show($"Loaded {entries.Count} station names from StationNames.", "TC3 Text List", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
@@ -977,7 +1059,7 @@ namespace TOAST_HMI
                         {
                             CycleType[i] = entries[i].TextDefault;
                         }
-                        MessageBox.Show($"Loaded {entries.Count} cycle types from CycleType.", "TC3 Text List", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //   MessageBox.Show($"Loaded {entries.Count} cycle types from CycleType.", "TC3 Text List", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {
@@ -987,7 +1069,7 @@ namespace TOAST_HMI
             }
         }
 
-          // Add this helper to your frmMain class
+        // Add this helper to your frmMain class
         private List<(string Id, string Text)> ParseTextListEntriesFromXml(string xml)
         {
             if (string.IsNullOrWhiteSpace(xml))
@@ -1181,7 +1263,16 @@ namespace TOAST_HMI
 
 
         }
-             
+
+        private void lblCycleTypeState_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPowerOn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
