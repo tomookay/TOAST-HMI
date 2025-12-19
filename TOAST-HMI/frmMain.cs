@@ -389,7 +389,7 @@ namespace TOAST_HMI
                     try
                     {
                         // Read and populate all 9 motion rows into matching usrcontRow controls
-                        UpdateAllUsrcontRowsFromPlc(9);
+                        UpdateAllUsrcontRowsFromPlc();
                     }
                     catch
                     {
@@ -1561,7 +1561,7 @@ namespace TOAST_HMI
 
         }
 
-     
+
 
         private void OnRowAdvanceClicked(object? sender, EventArgs e)
         {
@@ -1598,7 +1598,7 @@ namespace TOAST_HMI
                 }
 
                 // existing behavior: show info and/or call PLC directly if desired
-              //  MessageBox.Show($"Advance clicked on row {row.RowIndex} ({row.RowName})", "Row Action", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //  MessageBox.Show($"Advance clicked on row {row.RowIndex} ({row.RowName})", "Row Action", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // If you need to call PLC writes directly for a simple click, use:
                 // WriteBool($"gManual.Row[{row.RowIndex}].AdvanceCmd", true);
@@ -1621,7 +1621,7 @@ namespace TOAST_HMI
 
                     if (returnBtn != null)
                     {
-                        string plcSymbol =$"gHMIMotionRows.gMotionRowButtons.gMotionRow{row.RowIndex}btn.btnReturn";
+                        string plcSymbol = $"gHMIMotionRows.gMotionRowButtons.gMotionRow{row.RowIndex}btn.btnReturn";
                         var tagKey = $"MomentaryWired:{plcSymbol}";
                         if (!(returnBtn.Tag is string existingTag && existingTag == tagKey))
                         {
@@ -1635,7 +1635,7 @@ namespace TOAST_HMI
                     // ignore wiring errors
                 }
 
-              //  MessageBox.Show($"Return clicked on row {row.RowIndex} ({row.RowName})", "Row Action", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //  MessageBox.Show($"Return clicked on row {row.RowIndex} ({row.RowName})", "Row Action", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 // WriteBool($"gManual.Row[{row.RowIndex}].ReturnCmd", true);
             }
         }
@@ -1821,31 +1821,8 @@ namespace TOAST_HMI
             return row;
         }
 
-        private void UpdateUsrcontRowFromMotionRow(usrcontRow rowCtrl, MotionRowDto dto, int plcRowIndex)
+        private void UpdateUsrcontRowFromMotionRow(usrcontRow rowCtrl, MotionRowDto dto)
         {
-            if (rowCtrl == null) return;
-
-            // set identity
-            rowCtrl.RowIndex = plcRowIndex;
-
-            // Name / visibility
-            try
-            {
-                // Use PLC IndexLocation if meaningful, otherwise show PLC row index
-                rowCtrl.RowName = dto.IndexLocation != 0 ? $"#{dto.IndexLocation}" : $"Row {plcRowIndex}";
-            }
-            catch { /* ignore */ }
-
-            // Position text and visibility
-            rowCtrl.PositionText = dto.StrPosn ?? string.Empty;
-            var lblPosn = rowCtrl.Controls.Find("lblRowPosn", true).FirstOrDefault() as Control;
-            if (lblPosn != null)
-                lblPosn.Visible = !dto.HidePosn;
-
-            var lblName = rowCtrl.Controls.Find("lblRowName", true).FirstOrDefault() as Control;
-            if (lblName != null)
-                lblName.Visible = !dto.HideName;
-
             // Buttons visibility
             rowCtrl.ShowAdvanceButton = !dto.Advance.HideButton;
             rowCtrl.ShowReturnButton = !dto.Return.HideButton;
@@ -1875,65 +1852,17 @@ namespace TOAST_HMI
             catch { /* ignore invalid colour */ }
         }
 
-        // Read N motion rows from PLC and populate matching usrcontRow controls found on the form.
-// - It will look for controls named "usrcontRow{n}" first.
-// - If not found, it will fall back to the list of all usrcontRow controls (designer or inside tpManualRows)
-//   and map by position (first to row 1, second to row 2, ...).
-private void UpdateAllUsrcontRowsFromPlc(int rowsCount = 9)
-{
-    // collect all usrcontRow instances on the form (including inside tpManualRows)
-    var allRows = this.Controls.OfType<usrcontRow>().ToList();
-    if (tpManualRows != null)
-        allRows.AddRange(tpManualRows.Controls.OfType<usrcontRow>());
 
-    // deduplicate and keep predictable ordering where possible
-    allRows = allRows.Distinct().OrderBy(r =>
-    {
-        if (!string.IsNullOrEmpty(r.Name) && r.Name.StartsWith("usrcontRow", StringComparison.OrdinalIgnoreCase))
+        private void UpdateAllUsrcontRowsFromPlc()
         {
-            var suffix = r.Name.Substring("usrcontRow".Length);
-            if (int.TryParse(suffix, out int n)) return n;
+            MotionRowDto dto;
+            dto = ReadMotionRowFromPlc(1);
+            UpdateUsrcontRowFromMotionRow(usrcontRow1, dto);
+
+
+
+
+
         }
-        return int.MaxValue;
-    }).ToList();
-
-    for (int plcIndex = 1; plcIndex <= rowsCount; plcIndex++)
-    {
-        MotionRowDto dto;
-        try
-        {
-            dto = ReadMotionRowFromPlc(plcIndex);
-        }
-        catch
-        {
-            // skip this row on read error
-            continue;
-        }
-
-        // 1) Try to find control by exact name "usrcontRow{n}"
-        usrcontRow? ctrl = this.Controls.Find($"usrcontRow{plcIndex}", true).FirstOrDefault() as usrcontRow;
-
-        // 2) If not found, fall back to positional mapping in the collected list
-        if (ctrl == null && allRows.Count >= plcIndex)
-            ctrl = allRows[plcIndex - 1];
-
-        // 3) final fallback: first control whose RowIndex already matches (useful after initial mapping)
-        if (ctrl == null)
-            ctrl = allRows.FirstOrDefault(r => r.RowIndex == plcIndex);
-
-        if (ctrl != null)
-        {
-            // update control on UI thread if needed
-            if (ctrl.InvokeRequired)
-            {
-                ctrl.Invoke(new Action(() => UpdateUsrcontRowFromMotionRow(ctrl, dto, plcIndex)));
-            }
-            else
-            {
-                UpdateUsrcontRowFromMotionRow(ctrl, dto, plcIndex);
-            }
-        }
-    }
-}
     }
 }
