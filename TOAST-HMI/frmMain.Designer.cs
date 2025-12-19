@@ -121,7 +121,7 @@
             // 
             // timGetPLCData
             // 
-            timGetPLCData.Interval = 1000;
+            timGetPLCData.Interval = 10000;
             timGetPLCData.Tick += timGetPLCData_Tick;
             // 
             // btnMainMenu

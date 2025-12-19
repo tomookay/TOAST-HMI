@@ -388,21 +388,12 @@ namespace TOAST_HMI
                     //call MotionRowDto
                     try
                     {
-                        // read PLC row 1 and update the designer usrcontRow1 control
-                        var plcRow = ReadMotionRowFromPlc(1);
-
-                       // MessageBox.Show(plcRow.StrPosn);
-
-
-                        var rowCtrl = this.Controls.Find("usrcontRow1", true).FirstOrDefault() as usrcontRow;
-                        if (rowCtrl != null)
-                        {
-                            UpdateUsrcontRowFromMotionRow(rowCtrl, plcRow, 1);
-                        }
+                        // Read and populate all 9 motion rows into matching usrcontRow controls
+                        UpdateAllUsrcontRowsFromPlc(9);
                     }
                     catch
                     {
-                        // ignore any read/update errors for the motion row
+                        // ignore any read/update errors for the motion rows
 
                         //show a message with the text from the exception
                         //ssageBox
@@ -1797,38 +1788,35 @@ namespace TOAST_HMI
                 string prefix = $"{baseSym}.{sideName}";
                 return new MotionSideDto
                 {
-                   RequestCoil = ReadBool($"{prefix}.RequestCoil"),
+                    RequestCoil = ReadBool($"{prefix}.RequestCoil"),
                     Depth = ReadBool($"{prefix}.Depth"),
-                   Prompt = ReadBool($"{prefix}.Prompt"),
+                    Prompt = ReadBool($"{prefix}.Prompt"),
                     InterlockOK = ReadBool($"{prefix}.InterlockOK"),
                     NumberOrder = ReadInt16($"{prefix}.NumberOrder"),
                     TimeTaken = ReadUInt32($"{prefix}.TimeTaken"),
                     ValCoil = ReadInt16($"{prefix}.valCoil"),
-                   ValDepth = ReadInt16($"{prefix}.valDepth"),
-                   HideCoil = ReadBool($"{prefix}.bHideCoil"),
-                   HideDepth = ReadBool($"{prefix}.bHideDepth"),
-                   HideInterlock = ReadBool($"{prefix}.bHideInterlock"),
+                    ValDepth = ReadInt16($"{prefix}.valDepth"),
+                    HideCoil = ReadBool($"{prefix}.bHideCoil"),
+                    HideDepth = ReadBool($"{prefix}.bHideDepth"),
+                    HideInterlock = ReadBool($"{prefix}.bHideInterlock"),
                     HidePrompt = ReadBool($"{prefix}.bHidePrompt"),
                     HideTime = ReadBool($"{prefix}.bHideTime"),
                     HideButton = ReadBool($"{prefix}.bHideButton"),
-                   FdbkColour = ReadUInt32($"{prefix}.FdbkColour"),
+                    FdbkColour = ReadUInt32($"{prefix}.FdbkColour"),
                     CoilColour = ReadUInt32($"{prefix}.CoilColour")
                 };
             }
 
             var row = new MotionRowDto
             {
-               Advance = ReadSide("Advance"),
+                Advance = ReadSide("Advance"),
                 Return = ReadSide("Returned"),
-              StrPosn = ReadPlcString($"{baseSym}.strPosn", 80),
-              IndexLocation = ReadInt16($"{baseSym}.IndexLocation"),
-               HidePosn = ReadBool($"{baseSym}.bHidePosn"),
-               HideName = ReadBool($"{baseSym}.bHideName"),
-              IsAbsSymSwitch = ReadBool($"{baseSym}.bIsAbsSymSwitch")
+                StrPosn = ReadPlcString($"{baseSym}.strPosn", 80),
+                IndexLocation = ReadInt16($"{baseSym}.IndexLocation"),
+                HidePosn = ReadBool($"{baseSym}.bHidePosn"),
+                HideName = ReadBool($"{baseSym}.bHideName"),
+                IsAbsSymSwitch = ReadBool($"{baseSym}.bIsAbsSymSwitch")
             };
-
-          
-             
 
             return row;
         }
@@ -1887,5 +1875,65 @@ namespace TOAST_HMI
             catch { /* ignore invalid colour */ }
         }
 
+        // Read N motion rows from PLC and populate matching usrcontRow controls found on the form.
+// - It will look for controls named "usrcontRow{n}" first.
+// - If not found, it will fall back to the list of all usrcontRow controls (designer or inside tpManualRows)
+//   and map by position (first to row 1, second to row 2, ...).
+private void UpdateAllUsrcontRowsFromPlc(int rowsCount = 9)
+{
+    // collect all usrcontRow instances on the form (including inside tpManualRows)
+    var allRows = this.Controls.OfType<usrcontRow>().ToList();
+    if (tpManualRows != null)
+        allRows.AddRange(tpManualRows.Controls.OfType<usrcontRow>());
+
+    // deduplicate and keep predictable ordering where possible
+    allRows = allRows.Distinct().OrderBy(r =>
+    {
+        if (!string.IsNullOrEmpty(r.Name) && r.Name.StartsWith("usrcontRow", StringComparison.OrdinalIgnoreCase))
+        {
+            var suffix = r.Name.Substring("usrcontRow".Length);
+            if (int.TryParse(suffix, out int n)) return n;
+        }
+        return int.MaxValue;
+    }).ToList();
+
+    for (int plcIndex = 1; plcIndex <= rowsCount; plcIndex++)
+    {
+        MotionRowDto dto;
+        try
+        {
+            dto = ReadMotionRowFromPlc(plcIndex);
+        }
+        catch
+        {
+            // skip this row on read error
+            continue;
+        }
+
+        // 1) Try to find control by exact name "usrcontRow{n}"
+        usrcontRow? ctrl = this.Controls.Find($"usrcontRow{plcIndex}", true).FirstOrDefault() as usrcontRow;
+
+        // 2) If not found, fall back to positional mapping in the collected list
+        if (ctrl == null && allRows.Count >= plcIndex)
+            ctrl = allRows[plcIndex - 1];
+
+        // 3) final fallback: first control whose RowIndex already matches (useful after initial mapping)
+        if (ctrl == null)
+            ctrl = allRows.FirstOrDefault(r => r.RowIndex == plcIndex);
+
+        if (ctrl != null)
+        {
+            // update control on UI thread if needed
+            if (ctrl.InvokeRequired)
+            {
+                ctrl.Invoke(new Action(() => UpdateUsrcontRowFromMotionRow(ctrl, dto, plcIndex)));
+            }
+            else
+            {
+                UpdateUsrcontRowFromMotionRow(ctrl, dto, plcIndex);
+            }
+        }
+    }
+}
     }
 }
