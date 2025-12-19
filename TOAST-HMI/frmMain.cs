@@ -383,6 +383,12 @@ namespace TOAST_HMI
                 try
                 {
 
+
+
+
+
+
+
                     //same with isAnyFaultState
                     bool isAnyFaultState = ReadBoolArray("gHMIData.hmiHeader.isAnyFaultState", 1)[0];
                     //if the isAnyFaultState is true, then dont hide the lblFaultState
@@ -1545,34 +1551,7 @@ namespace TOAST_HMI
 
         }
 
-        // call after InitializeComponent(): CreateManualRows(6);
-        //private void CreateManualRows(int count)
-        //{
-        //    tpManualRows.SuspendLayout();
-        //    tpManualRows.Controls.Clear();
-
-        //    for (int i = 0; i < count; i++)
-        //    {
-        //        var row = new frmRow
-        //        {
-        //            RowIndex = i,
-        //            RowName = $"Cylinder {i + 1}",
-        //            PositionText = "0.0 mm",
-        //            Dock = DockStyle.Top,
-        //            Margin = new Padding(0)
-        //        };
-
-        //        // subscribe to events
-        //        row.AdvanceClicked += OnRowAdvanceClicked;
-        //        row.ReturnClicked += OnRowReturnClicked;
-
-        //        // add to tabpage; use SetChildIndex to keep newly added row at top (stacking)
-        //        tpManualRows.Controls.Add(row);
-        //        tpManualRows.Controls.SetChildIndex(row, 0);
-        //    }
-
-        //    tpManualRows.ResumeLayout();
-        //}
+     
 
         private void OnRowAdvanceClicked(object? sender, EventArgs e)
         {
