@@ -384,10 +384,29 @@ namespace TOAST_HMI
                 {
 
 
+                    //MotionRowDto/
+                    //call MotionRowDto
+                    try
+                    {
+                        // read PLC row 1 and update the designer usrcontRow1 control
+                        var plcRow = ReadMotionRowFromPlc(1);
+
+                       // MessageBox.Show(plcRow.StrPosn);
 
 
+                        var rowCtrl = this.Controls.Find("usrcontRow1", true).FirstOrDefault() as usrcontRow;
+                        if (rowCtrl != null)
+                        {
+                            UpdateUsrcontRowFromMotionRow(rowCtrl, plcRow, 1);
+                        }
+                    }
+                    catch
+                    {
+                        // ignore any read/update errors for the motion row
 
-
+                        //show a message with the text from the exception
+                        //ssageBox
+                    }
 
                     //same with isAnyFaultState
                     bool isAnyFaultState = ReadBoolArray("gHMIData.hmiHeader.isAnyFaultState", 1)[0];
@@ -1676,5 +1695,197 @@ namespace TOAST_HMI
         {
 
         }
+
+        // DTOs and helpers added to frmMain (same partial class)
+        private record MotionSideDto
+        {
+            public bool RequestCoil { get; init; }
+            public bool Depth { get; init; }
+            public bool Prompt { get; init; }
+            public bool InterlockOK { get; init; }
+            public int NumberOrder { get; init; }
+            public uint TimeTaken { get; init; }
+            public int ValCoil { get; init; }
+            public int ValDepth { get; init; }
+            public bool HideCoil { get; init; }
+            public bool HideDepth { get; init; }
+            public bool HideInterlock { get; init; }
+            public bool HidePrompt { get; init; }
+            public bool HideTime { get; init; }
+            public bool HideButton { get; init; }
+            public uint FdbkColour { get; init; }
+            public uint CoilColour { get; init; }
+        }
+
+        private record MotionRowDto
+        {
+            public MotionSideDto Advance { get; init; } = new();
+            public MotionSideDto Return { get; init; } = new();
+            public string StrPosn { get; init; } = string.Empty;
+            public int IndexLocation { get; init; }
+            public bool HidePosn { get; init; }
+            public bool HideName { get; init; }
+            public bool IsAbsSymSwitch { get; init; }
+        }
+
+        private bool ReadBool(string plcSymbol)
+        {
+            if (_adsClient == null || !_adsClient.IsConnected) throw new InvalidOperationException("Not connected to PLC.");
+            uint handle = 0;
+            try
+            {
+                handle = _adsClient.CreateVariableHandle(plcSymbol);
+                var result = _adsClient.ReadAsResult(handle, sizeof(byte));
+                result.ThrowOnError();
+                byte[] buf = result.Data.ToArray();
+                return buf.Length > 0 && buf[0] != 0;
+            }
+            finally
+            {
+                if (handle != 0) try { _adsClient?.DeleteVariableHandle(handle); } catch { }
+            }
+        }
+
+        private int ReadInt32(string plcSymbol)
+        {
+            if (_adsClient == null || !_adsClient.IsConnected) throw new InvalidOperationException("Not connected to PLC.");
+            uint handle = 0;
+            try
+            {
+                handle = _adsClient.CreateVariableHandle(plcSymbol);
+                var result = _adsClient.ReadAsResult(handle, sizeof(int));
+                result.ThrowOnError();
+                byte[] buf = result.Data.ToArray();
+                if (buf.Length < 4) throw new InvalidOperationException($"Unexpected read length for {plcSymbol}");
+                return BitConverter.ToInt32(buf, 0);
+            }
+            finally
+            {
+                if (handle != 0) try { _adsClient?.DeleteVariableHandle(handle); } catch { }
+            }
+        }
+
+        private uint ReadUInt32(string plcSymbol)
+        {
+            if (_adsClient == null || !_adsClient.IsConnected) throw new InvalidOperationException("Not connected to PLC.");
+            uint handle = 0;
+            try
+            {
+                handle = _adsClient.CreateVariableHandle(plcSymbol);
+                var result = _adsClient.ReadAsResult(handle, sizeof(uint));
+                result.ThrowOnError();
+                byte[] buf = result.Data.ToArray();
+                if (buf.Length < 4) throw new InvalidOperationException($"Unexpected read length for {plcSymbol}");
+                return BitConverter.ToUInt32(buf, 0);
+            }
+            finally
+            {
+                if (handle != 0) try { _adsClient?.DeleteVariableHandle(handle); } catch { }
+            }
+        }
+
+        /// <summary>
+        /// Read gHMIMotionRows.gMotionRows.gMotionRow{rowIndex} into a MotionRowDto.
+        /// rowIndex: use the index that matches PLC naming (1-based in your sample).
+        /// </summary>
+        private MotionRowDto ReadMotionRowFromPlc(int rowIndex)
+        {
+            string baseSym = $"gHMIMotionRows.gMotionRows.gMotionRow{rowIndex}";
+
+            MotionSideDto ReadSide(string sideName)
+            {
+                string prefix = $"{baseSym}.{sideName}";
+                return new MotionSideDto
+                {
+                   RequestCoil = ReadBool($"{prefix}.RequestCoil"),
+                    Depth = ReadBool($"{prefix}.Depth"),
+                   Prompt = ReadBool($"{prefix}.Prompt"),
+                    InterlockOK = ReadBool($"{prefix}.InterlockOK"),
+                    NumberOrder = ReadInt16($"{prefix}.NumberOrder"),
+                    TimeTaken = ReadUInt32($"{prefix}.TimeTaken"),
+                    ValCoil = ReadInt16($"{prefix}.valCoil"),
+                   ValDepth = ReadInt16($"{prefix}.valDepth"),
+                   HideCoil = ReadBool($"{prefix}.bHideCoil"),
+                   HideDepth = ReadBool($"{prefix}.bHideDepth"),
+                   HideInterlock = ReadBool($"{prefix}.bHideInterlock"),
+                    HidePrompt = ReadBool($"{prefix}.bHidePrompt"),
+                    HideTime = ReadBool($"{prefix}.bHideTime"),
+                    HideButton = ReadBool($"{prefix}.bHideButton"),
+                   FdbkColour = ReadUInt32($"{prefix}.FdbkColour"),
+                    CoilColour = ReadUInt32($"{prefix}.CoilColour")
+                };
+            }
+
+            var row = new MotionRowDto
+            {
+               Advance = ReadSide("Advance"),
+                Return = ReadSide("Returned"),
+              StrPosn = ReadPlcString($"{baseSym}.strPosn", 80),
+              IndexLocation = ReadInt16($"{baseSym}.IndexLocation"),
+               HidePosn = ReadBool($"{baseSym}.bHidePosn"),
+               HideName = ReadBool($"{baseSym}.bHideName"),
+              IsAbsSymSwitch = ReadBool($"{baseSym}.bIsAbsSymSwitch")
+            };
+
+          
+             
+
+            return row;
+        }
+
+        private void UpdateUsrcontRowFromMotionRow(usrcontRow rowCtrl, MotionRowDto dto, int plcRowIndex)
+        {
+            if (rowCtrl == null) return;
+
+            // set identity
+            rowCtrl.RowIndex = plcRowIndex;
+
+            // Name / visibility
+            try
+            {
+                // Use PLC IndexLocation if meaningful, otherwise show PLC row index
+                rowCtrl.RowName = dto.IndexLocation != 0 ? $"#{dto.IndexLocation}" : $"Row {plcRowIndex}";
+            }
+            catch { /* ignore */ }
+
+            // Position text and visibility
+            rowCtrl.PositionText = dto.StrPosn ?? string.Empty;
+            var lblPosn = rowCtrl.Controls.Find("lblRowPosn", true).FirstOrDefault() as Control;
+            if (lblPosn != null)
+                lblPosn.Visible = !dto.HidePosn;
+
+            var lblName = rowCtrl.Controls.Find("lblRowName", true).FirstOrDefault() as Control;
+            if (lblName != null)
+                lblName.Visible = !dto.HideName;
+
+            // Buttons visibility
+            rowCtrl.ShowAdvanceButton = !dto.Advance.HideButton;
+            rowCtrl.ShowReturnButton = !dto.Return.HideButton;
+
+            // Basic textual mapping (use numeric values from PLC)
+            rowCtrl.AdvanceName = dto.Advance.ValCoil.ToString();
+            rowCtrl.AdvancedName = dto.Advance.ValDepth.ToString();
+            rowCtrl.ReturnName = dto.Return.ValCoil.ToString();
+            rowCtrl.ReturnedName = dto.Return.ValDepth.ToString();
+
+            // Set 'IsReturned' based on a PLC boolean (we choose InterlockOK as returned indicator)
+            rowCtrl.IsReturned = dto.Return.InterlockOK;
+
+            // Map feedback colours if present (safe conversion)
+            try
+            {
+                if (dto.Advance.FdbkColour != 0)
+                    rowCtrl.AdvancedNameBackColor = Color.FromArgb((int)dto.Advance.FdbkColour);
+            }
+            catch { /* ignore invalid colour */ }
+
+            try
+            {
+                if (dto.Return.FdbkColour != 0)
+                    rowCtrl.ReturnedNameBackColor = Color.FromArgb((int)dto.Return.FdbkColour);
+            }
+            catch { /* ignore invalid colour */ }
+        }
+
     }
 }
