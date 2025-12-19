@@ -29,41 +29,9 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            btnPowerOn = new Button();
-            btnPowerOff = new Button();
             timGetPLCData = new System.Windows.Forms.Timer(components);
-            btnStation1 = new Button();
-            btnStation2 = new Button();
-            btnStation3 = new Button();
-            btnStation4 = new Button();
-            btnStation5 = new Button();
-            btnStation6 = new Button();
-            btnAutoCycleStart = new Button();
-            btnAutoCycleStop = new Button();
-            btn10 = new Button();
-            btn11 = new Button();
-            btn13 = new Button();
-            btn12 = new Button();
-            btn16 = new Button();
-            btn15 = new Button();
-            btn14 = new Button();
-            btn26 = new Button();
-            btn25 = new Button();
-            btn24 = new Button();
-            btn23 = new Button();
-            btn22 = new Button();
-            btn21 = new Button();
-            btn20 = new Button();
-            btn06 = new Button();
-            btn05 = new Button();
-            btn04 = new Button();
-            btn03 = new Button();
-            btn02 = new Button();
-            btn01 = new Button();
-            btn00 = new Button();
             btnMainMenu = new Button();
             btnReset = new Button();
-            btnSelectAll = new Button();
             btnMode = new Button();
             btnControl = new Button();
             btnAutoMode = new Button();
@@ -79,7 +47,6 @@
             lblStationName = new Label();
             ofdTc3Project = new OpenFileDialog();
             button4 = new Button();
-            lbFoundFiles = new ListBox();
             lblAnyFaultsExist = new Label();
             lblmsgViewAlarmMachine = new Label();
             lblmsgViewAlarmS1 = new Label();
@@ -102,286 +69,52 @@
             lblmsgViewWarningS4 = new Label();
             lblmsgViewWarningS5 = new Label();
             lblmsgViewWarningS6 = new Label();
-            pageSetupDialog1 = new PageSetupDialog();
-            pnlMain = new Panel();
-            pnlMain.SuspendLayout();
+            btnStation6 = new Button();
+            btnStation5 = new Button();
+            btnStation4 = new Button();
+            btnStation3 = new Button();
+            btnStation2 = new Button();
+            btnStation1 = new Button();
+            btnSelectAll = new Button();
+            btnAutoCycleStart = new Button();
+            btnAutoCycleStop = new Button();
+            lbFoundFiles = new ListBox();
+            btn06 = new Button();
+            btn05 = new Button();
+            btn04 = new Button();
+            btn03 = new Button();
+            btn02 = new Button();
+            btn01 = new Button();
+            btn26 = new Button();
+            btn25 = new Button();
+            btn24 = new Button();
+            btn23 = new Button();
+            btn22 = new Button();
+            btn21 = new Button();
+            btn20 = new Button();
+            btn16 = new Button();
+            btn15 = new Button();
+            btn14 = new Button();
+            btn13 = new Button();
+            btn12 = new Button();
+            btn11 = new Button();
+            btn10 = new Button();
+            btn00 = new Button();
+            btnPowerOn = new Button();
+            btnPowerOff = new Button();
+            tabControl1 = new TabControl();
+            tpMode = new TabPage();
+            tpManualRows = new TabPage();
+            usrcontRow1 = new usrcontRow();
+            tabControl1.SuspendLayout();
+            tpMode.SuspendLayout();
+            tpManualRows.SuspendLayout();
             SuspendLayout();
-            // 
-            // btnPowerOn
-            // 
-            btnPowerOn.Location = new Point(3, 220);
-            btnPowerOn.Name = "btnPowerOn";
-            btnPowerOn.Size = new Size(80, 80);
-            btnPowerOn.TabIndex = 0;
-            btnPowerOn.Text = "POWER ON";
-            btnPowerOn.UseVisualStyleBackColor = true;
-            // 
-            // btnPowerOff
-            // 
-            btnPowerOff.Location = new Point(3, 134);
-            btnPowerOff.Name = "btnPowerOff";
-            btnPowerOff.Size = new Size(80, 80);
-            btnPowerOff.TabIndex = 1;
-            btnPowerOff.Text = "POWER OFF";
-            btnPowerOff.UseVisualStyleBackColor = true;
             // 
             // timGetPLCData
             // 
             timGetPLCData.Interval = 1000;
             timGetPLCData.Tick += timGetPLCData_Tick;
-            // 
-            // btnStation1
-            // 
-            btnStation1.Location = new Point(182, 435);
-            btnStation1.Name = "btnStation1";
-            btnStation1.Size = new Size(120, 80);
-            btnStation1.TabIndex = 3;
-            btnStation1.Text = "Station 1";
-            btnStation1.UseVisualStyleBackColor = true;
-            // 
-            // btnStation2
-            // 
-            btnStation2.Location = new Point(308, 435);
-            btnStation2.Name = "btnStation2";
-            btnStation2.Size = new Size(120, 80);
-            btnStation2.TabIndex = 4;
-            btnStation2.Text = "Station 2";
-            btnStation2.UseVisualStyleBackColor = true;
-            // 
-            // btnStation3
-            // 
-            btnStation3.Location = new Point(434, 435);
-            btnStation3.Name = "btnStation3";
-            btnStation3.Size = new Size(120, 80);
-            btnStation3.TabIndex = 5;
-            btnStation3.Text = "Station 3";
-            btnStation3.UseVisualStyleBackColor = true;
-            // 
-            // btnStation4
-            // 
-            btnStation4.Location = new Point(560, 435);
-            btnStation4.Name = "btnStation4";
-            btnStation4.Size = new Size(120, 80);
-            btnStation4.TabIndex = 6;
-            btnStation4.Text = "Station 4";
-            btnStation4.UseVisualStyleBackColor = true;
-            // 
-            // btnStation5
-            // 
-            btnStation5.Location = new Point(686, 435);
-            btnStation5.Name = "btnStation5";
-            btnStation5.Size = new Size(120, 80);
-            btnStation5.TabIndex = 7;
-            btnStation5.Text = "Station 5";
-            btnStation5.UseVisualStyleBackColor = true;
-            // 
-            // btnStation6
-            // 
-            btnStation6.Location = new Point(812, 435);
-            btnStation6.Name = "btnStation6";
-            btnStation6.Size = new Size(120, 80);
-            btnStation6.TabIndex = 8;
-            btnStation6.Text = "Station 6";
-            btnStation6.UseVisualStyleBackColor = true;
-            // 
-            // btnAutoCycleStart
-            // 
-            btnAutoCycleStart.Location = new Point(925, 220);
-            btnAutoCycleStart.Name = "btnAutoCycleStart";
-            btnAutoCycleStart.Size = new Size(80, 80);
-            btnAutoCycleStart.TabIndex = 10;
-            btnAutoCycleStart.Text = "START AUTO CYCLE";
-            btnAutoCycleStart.UseVisualStyleBackColor = true;
-            // 
-            // btnAutoCycleStop
-            // 
-            btnAutoCycleStop.Location = new Point(925, 134);
-            btnAutoCycleStop.Name = "btnAutoCycleStop";
-            btnAutoCycleStop.Size = new Size(80, 80);
-            btnAutoCycleStop.TabIndex = 9;
-            btnAutoCycleStop.Text = "STOP AUTO CYCLE";
-            btnAutoCycleStop.UseVisualStyleBackColor = true;
-            // 
-            // btn10
-            // 
-            btn10.Location = new Point(197, 194);
-            btn10.Name = "btn10";
-            btn10.Size = new Size(80, 80);
-            btn10.TabIndex = 11;
-            btn10.Text = "CONTINUOUS CYCLE";
-            btn10.UseVisualStyleBackColor = true;
-            // 
-            // btn11
-            // 
-            btn11.Location = new Point(283, 194);
-            btn11.Name = "btn11";
-            btn11.Size = new Size(80, 80);
-            btn11.TabIndex = 12;
-            btn11.Text = "DRY CYCLE";
-            btn11.UseVisualStyleBackColor = true;
-            // 
-            // btn13
-            // 
-            btn13.Location = new Point(455, 194);
-            btn13.Name = "btn13";
-            btn13.Size = new Size(80, 80);
-            btn13.TabIndex = 14;
-            btn13.Text = "SINGLE CYCLE";
-            btn13.UseVisualStyleBackColor = true;
-            // 
-            // btn12
-            // 
-            btn12.Location = new Point(369, 194);
-            btn12.Name = "btn12";
-            btn12.Size = new Size(80, 80);
-            btn12.TabIndex = 13;
-            btn12.Text = "STOP END OF CYCLE";
-            btn12.UseVisualStyleBackColor = true;
-            // 
-            // btn16
-            // 
-            btn16.Location = new Point(713, 194);
-            btn16.Name = "btn16";
-            btn16.Size = new Size(80, 80);
-            btn16.TabIndex = 17;
-            btn16.UseVisualStyleBackColor = true;
-            // 
-            // btn15
-            // 
-            btn15.Location = new Point(627, 194);
-            btn15.Name = "btn15";
-            btn15.Size = new Size(80, 80);
-            btn15.TabIndex = 16;
-            btn15.Text = "SILENCE HORN";
-            btn15.UseVisualStyleBackColor = true;
-            // 
-            // btn14
-            // 
-            btn14.Location = new Point(541, 194);
-            btn14.Name = "btn14";
-            btn14.Size = new Size(80, 80);
-            btn14.TabIndex = 15;
-            btn14.UseVisualStyleBackColor = true;
-            // 
-            // btn26
-            // 
-            btn26.Location = new Point(713, 280);
-            btn26.Name = "btn26";
-            btn26.Size = new Size(80, 80);
-            btn26.TabIndex = 24;
-            btn26.UseVisualStyleBackColor = true;
-            // 
-            // btn25
-            // 
-            btn25.Location = new Point(627, 280);
-            btn25.Name = "btn25";
-            btn25.Size = new Size(80, 80);
-            btn25.TabIndex = 23;
-            btn25.UseVisualStyleBackColor = true;
-            // 
-            // btn24
-            // 
-            btn24.Location = new Point(541, 280);
-            btn24.Name = "btn24";
-            btn24.Size = new Size(80, 80);
-            btn24.TabIndex = 22;
-            btn24.UseVisualStyleBackColor = true;
-            // 
-            // btn23
-            // 
-            btn23.Location = new Point(455, 280);
-            btn23.Name = "btn23";
-            btn23.Size = new Size(80, 80);
-            btn23.TabIndex = 21;
-            btn23.Text = "ENABLE PENDANT";
-            btn23.UseVisualStyleBackColor = true;
-            // 
-            // btn22
-            // 
-            btn22.Location = new Point(369, 280);
-            btn22.Name = "btn22";
-            btn22.Size = new Size(80, 80);
-            btn22.TabIndex = 20;
-            btn22.Text = "LOCK ACCESS GATE";
-            btn22.UseVisualStyleBackColor = true;
-            // 
-            // btn21
-            // 
-            btn21.Location = new Point(283, 280);
-            btn21.Name = "btn21";
-            btn21.Size = new Size(80, 80);
-            btn21.TabIndex = 19;
-            btn21.Text = "GATE 2 ACCESS REQUEST";
-            btn21.UseVisualStyleBackColor = true;
-            // 
-            // btn20
-            // 
-            btn20.Location = new Point(197, 280);
-            btn20.Name = "btn20";
-            btn20.Size = new Size(80, 80);
-            btn20.TabIndex = 18;
-            btn20.Text = "GATE 1 ACCESS REQUEST";
-            btn20.UseVisualStyleBackColor = true;
-            // 
-            // btn06
-            // 
-            btn06.Location = new Point(713, 108);
-            btn06.Name = "btn06";
-            btn06.Size = new Size(80, 80);
-            btn06.TabIndex = 31;
-            btn06.UseVisualStyleBackColor = true;
-            // 
-            // btn05
-            // 
-            btn05.Location = new Point(627, 108);
-            btn05.Name = "btn05";
-            btn05.Size = new Size(80, 80);
-            btn05.TabIndex = 30;
-            btn05.Text = "ENABLE REMOTE CONTROL";
-            btn05.UseVisualStyleBackColor = true;
-            // 
-            // btn04
-            // 
-            btn04.Location = new Point(541, 108);
-            btn04.Name = "btn04";
-            btn04.Size = new Size(80, 80);
-            btn04.TabIndex = 29;
-            btn04.UseVisualStyleBackColor = true;
-            // 
-            // btn03
-            // 
-            btn03.Location = new Point(455, 108);
-            btn03.Name = "btn03";
-            btn03.Size = new Size(80, 80);
-            btn03.TabIndex = 28;
-            btn03.UseVisualStyleBackColor = true;
-            // 
-            // btn02
-            // 
-            btn02.Location = new Point(369, 108);
-            btn02.Name = "btn02";
-            btn02.Size = new Size(80, 80);
-            btn02.TabIndex = 27;
-            btn02.Text = "SEMI-AUTO MODE";
-            btn02.UseVisualStyleBackColor = true;
-            // 
-            // btn01
-            // 
-            btn01.Location = new Point(283, 108);
-            btn01.Name = "btn01";
-            btn01.Size = new Size(80, 80);
-            btn01.TabIndex = 26;
-            btn01.Text = "MANUAL MODE";
-            btn01.UseVisualStyleBackColor = true;
-            // 
-            // btn00
-            // 
-            btn00.Location = new Point(197, 108);
-            btn00.Name = "btn00";
-            btn00.Size = new Size(80, 80);
-            btn00.TabIndex = 25;
-            btn00.Text = "AUTO MODE";
-            btn00.UseVisualStyleBackColor = true;
             // 
             // btnMainMenu
             // 
@@ -402,15 +135,6 @@
             btnReset.UseVisualStyleBackColor = true;
             btnReset.Click += btnReset_Click;
             // 
-            // btnSelectAll
-            // 
-            btnSelectAll.Location = new Point(96, 435);
-            btnSelectAll.Name = "btnSelectAll";
-            btnSelectAll.Size = new Size(80, 80);
-            btnSelectAll.TabIndex = 34;
-            btnSelectAll.Text = "Select All";
-            btnSelectAll.UseVisualStyleBackColor = true;
-            // 
             // btnMode
             // 
             btnMode.Location = new Point(0, 651);
@@ -419,6 +143,7 @@
             btnMode.TabIndex = 35;
             btnMode.Text = "Mode";
             btnMode.UseVisualStyleBackColor = true;
+            btnMode.Click += btnMode_Click;
             // 
             // btnControl
             // 
@@ -428,6 +153,7 @@
             btnControl.TabIndex = 36;
             btnControl.Text = "Control";
             btnControl.UseVisualStyleBackColor = true;
+            btnControl.Click += btnControl_Click;
             // 
             // btnAutoMode
             // 
@@ -437,6 +163,7 @@
             btnAutoMode.TabIndex = 37;
             btnAutoMode.Text = "AUTO MODE";
             btnAutoMode.UseVisualStyleBackColor = true;
+            btnAutoMode.Click += btnAutoMode_Click;
             // 
             // btnManualMode
             // 
@@ -555,16 +282,6 @@
             button4.Text = "button4";
             button4.UseVisualStyleBackColor = true;
             button4.Click += button4_Click;
-            // 
-            // lbFoundFiles
-            // 
-            lbFoundFiles.FormattingEnabled = true;
-            lbFoundFiles.ItemHeight = 15;
-            lbFoundFiles.Location = new Point(209, 140);
-            lbFoundFiles.Name = "lbFoundFiles";
-            lbFoundFiles.Size = new Size(477, 49);
-            lbFoundFiles.TabIndex = 51;
-            lbFoundFiles.SelectedIndexChanged += lbFoundFiles_SelectedIndexChanged;
             // 
             // lblAnyFaultsExist
             // 
@@ -829,51 +546,389 @@
             lblmsgViewWarningS6.TabIndex = 73;
             lblmsgViewWarningS6.Text = "msgViewWarningS6";
             // 
-            // pnlMain
+            // btnStation6
             // 
-            pnlMain.Controls.Add(btnPowerOff);
-            pnlMain.Controls.Add(btnPowerOn);
-            pnlMain.Controls.Add(btn00);
-            pnlMain.Controls.Add(btn10);
-            pnlMain.Controls.Add(btn11);
-            pnlMain.Controls.Add(btn12);
-            pnlMain.Controls.Add(btn13);
-            pnlMain.Controls.Add(btn14);
-            pnlMain.Controls.Add(btn15);
-            pnlMain.Controls.Add(btn16);
-            pnlMain.Controls.Add(btn20);
-            pnlMain.Controls.Add(btn21);
-            pnlMain.Controls.Add(btn22);
-            pnlMain.Controls.Add(btn23);
-            pnlMain.Controls.Add(btn24);
-            pnlMain.Controls.Add(btn25);
-            pnlMain.Controls.Add(btn26);
-            pnlMain.Controls.Add(btn01);
-            pnlMain.Controls.Add(btn02);
-            pnlMain.Controls.Add(btn03);
-            pnlMain.Controls.Add(btn04);
-            pnlMain.Controls.Add(btn05);
-            pnlMain.Controls.Add(btn06);
-            pnlMain.Controls.Add(btnAutoCycleStop);
-            pnlMain.Controls.Add(btnAutoCycleStart);
-            pnlMain.Controls.Add(btnSelectAll);
-            pnlMain.Controls.Add(btnStation1);
-            pnlMain.Controls.Add(btnStation2);
-            pnlMain.Controls.Add(btnStation3);
-            pnlMain.Controls.Add(btnStation4);
-            pnlMain.Controls.Add(btnStation5);
-            pnlMain.Controls.Add(btnStation6);
-            pnlMain.Location = new Point(0, 101);
-            pnlMain.Name = "pnlMain";
-            pnlMain.Size = new Size(1008, 544);
-            pnlMain.TabIndex = 74;
+            btnStation6.Location = new Point(775, 428);
+            btnStation6.Name = "btnStation6";
+            btnStation6.Size = new Size(120, 80);
+            btnStation6.TabIndex = 8;
+            btnStation6.Text = "Station 6";
+            btnStation6.UseVisualStyleBackColor = true;
+            // 
+            // btnStation5
+            // 
+            btnStation5.Location = new Point(649, 428);
+            btnStation5.Name = "btnStation5";
+            btnStation5.Size = new Size(120, 80);
+            btnStation5.TabIndex = 7;
+            btnStation5.Text = "Station 5";
+            btnStation5.UseVisualStyleBackColor = true;
+            // 
+            // btnStation4
+            // 
+            btnStation4.Location = new Point(523, 428);
+            btnStation4.Name = "btnStation4";
+            btnStation4.Size = new Size(120, 80);
+            btnStation4.TabIndex = 6;
+            btnStation4.Text = "Station 4";
+            btnStation4.UseVisualStyleBackColor = true;
+            // 
+            // btnStation3
+            // 
+            btnStation3.Location = new Point(397, 428);
+            btnStation3.Name = "btnStation3";
+            btnStation3.Size = new Size(120, 80);
+            btnStation3.TabIndex = 5;
+            btnStation3.Text = "Station 3";
+            btnStation3.UseVisualStyleBackColor = true;
+            // 
+            // btnStation2
+            // 
+            btnStation2.Location = new Point(271, 428);
+            btnStation2.Name = "btnStation2";
+            btnStation2.Size = new Size(120, 80);
+            btnStation2.TabIndex = 4;
+            btnStation2.Text = "Station 2";
+            btnStation2.UseVisualStyleBackColor = true;
+            // 
+            // btnStation1
+            // 
+            btnStation1.Location = new Point(145, 428);
+            btnStation1.Name = "btnStation1";
+            btnStation1.Size = new Size(120, 80);
+            btnStation1.TabIndex = 3;
+            btnStation1.Text = "Station 1";
+            btnStation1.UseVisualStyleBackColor = true;
+            // 
+            // btnSelectAll
+            // 
+            btnSelectAll.Location = new Point(59, 428);
+            btnSelectAll.Name = "btnSelectAll";
+            btnSelectAll.Size = new Size(80, 80);
+            btnSelectAll.TabIndex = 34;
+            btnSelectAll.Text = "Select All";
+            btnSelectAll.UseVisualStyleBackColor = true;
+            // 
+            // btnAutoCycleStart
+            // 
+            btnAutoCycleStart.Location = new Point(912, 207);
+            btnAutoCycleStart.Name = "btnAutoCycleStart";
+            btnAutoCycleStart.Size = new Size(80, 80);
+            btnAutoCycleStart.TabIndex = 10;
+            btnAutoCycleStart.Text = "START AUTO CYCLE";
+            btnAutoCycleStart.UseVisualStyleBackColor = true;
+            // 
+            // btnAutoCycleStop
+            // 
+            btnAutoCycleStop.Location = new Point(912, 121);
+            btnAutoCycleStop.Name = "btnAutoCycleStop";
+            btnAutoCycleStop.Size = new Size(80, 80);
+            btnAutoCycleStop.TabIndex = 9;
+            btnAutoCycleStop.Text = "STOP AUTO CYCLE";
+            btnAutoCycleStop.UseVisualStyleBackColor = true;
+            // 
+            // lbFoundFiles
+            // 
+            lbFoundFiles.FormattingEnabled = true;
+            lbFoundFiles.ItemHeight = 15;
+            lbFoundFiles.Location = new Point(203, 32);
+            lbFoundFiles.Name = "lbFoundFiles";
+            lbFoundFiles.Size = new Size(477, 49);
+            lbFoundFiles.TabIndex = 51;
+            lbFoundFiles.SelectedIndexChanged += lbFoundFiles_SelectedIndexChanged;
+            // 
+            // btn06
+            // 
+            btn06.Location = new Point(686, 110);
+            btn06.Name = "btn06";
+            btn06.Size = new Size(80, 80);
+            btn06.TabIndex = 31;
+            btn06.UseVisualStyleBackColor = true;
+            // 
+            // btn05
+            // 
+            btn05.Location = new Point(600, 110);
+            btn05.Name = "btn05";
+            btn05.Size = new Size(80, 80);
+            btn05.TabIndex = 30;
+            btn05.Text = "ENABLE REMOTE CONTROL";
+            btn05.UseVisualStyleBackColor = true;
+            // 
+            // btn04
+            // 
+            btn04.Location = new Point(514, 110);
+            btn04.Name = "btn04";
+            btn04.Size = new Size(80, 80);
+            btn04.TabIndex = 29;
+            btn04.UseVisualStyleBackColor = true;
+            // 
+            // btn03
+            // 
+            btn03.Location = new Point(428, 110);
+            btn03.Name = "btn03";
+            btn03.Size = new Size(80, 80);
+            btn03.TabIndex = 28;
+            btn03.UseVisualStyleBackColor = true;
+            // 
+            // btn02
+            // 
+            btn02.Location = new Point(342, 110);
+            btn02.Name = "btn02";
+            btn02.Size = new Size(80, 80);
+            btn02.TabIndex = 27;
+            btn02.Text = "SEMI-AUTO MODE";
+            btn02.UseVisualStyleBackColor = true;
+            // 
+            // btn01
+            // 
+            btn01.Location = new Point(256, 110);
+            btn01.Name = "btn01";
+            btn01.Size = new Size(80, 80);
+            btn01.TabIndex = 26;
+            btn01.Text = "MANUAL MODE";
+            btn01.UseVisualStyleBackColor = true;
+            // 
+            // btn26
+            // 
+            btn26.Location = new Point(686, 282);
+            btn26.Name = "btn26";
+            btn26.Size = new Size(80, 80);
+            btn26.TabIndex = 24;
+            btn26.UseVisualStyleBackColor = true;
+            // 
+            // btn25
+            // 
+            btn25.Location = new Point(600, 282);
+            btn25.Name = "btn25";
+            btn25.Size = new Size(80, 80);
+            btn25.TabIndex = 23;
+            btn25.UseVisualStyleBackColor = true;
+            // 
+            // btn24
+            // 
+            btn24.Location = new Point(514, 282);
+            btn24.Name = "btn24";
+            btn24.Size = new Size(80, 80);
+            btn24.TabIndex = 22;
+            btn24.UseVisualStyleBackColor = true;
+            // 
+            // btn23
+            // 
+            btn23.Location = new Point(428, 282);
+            btn23.Name = "btn23";
+            btn23.Size = new Size(80, 80);
+            btn23.TabIndex = 21;
+            btn23.Text = "ENABLE PENDANT";
+            btn23.UseVisualStyleBackColor = true;
+            // 
+            // btn22
+            // 
+            btn22.Location = new Point(342, 282);
+            btn22.Name = "btn22";
+            btn22.Size = new Size(80, 80);
+            btn22.TabIndex = 20;
+            btn22.Text = "LOCK ACCESS GATE";
+            btn22.UseVisualStyleBackColor = true;
+            // 
+            // btn21
+            // 
+            btn21.Location = new Point(256, 282);
+            btn21.Name = "btn21";
+            btn21.Size = new Size(80, 80);
+            btn21.TabIndex = 19;
+            btn21.Text = "GATE 2 ACCESS REQUEST";
+            btn21.UseVisualStyleBackColor = true;
+            // 
+            // btn20
+            // 
+            btn20.Location = new Point(170, 282);
+            btn20.Name = "btn20";
+            btn20.Size = new Size(80, 80);
+            btn20.TabIndex = 18;
+            btn20.Text = "GATE 1 ACCESS REQUEST";
+            btn20.UseVisualStyleBackColor = true;
+            // 
+            // btn16
+            // 
+            btn16.Location = new Point(686, 196);
+            btn16.Name = "btn16";
+            btn16.Size = new Size(80, 80);
+            btn16.TabIndex = 17;
+            btn16.UseVisualStyleBackColor = true;
+            // 
+            // btn15
+            // 
+            btn15.Location = new Point(600, 196);
+            btn15.Name = "btn15";
+            btn15.Size = new Size(80, 80);
+            btn15.TabIndex = 16;
+            btn15.Text = "SILENCE HORN";
+            btn15.UseVisualStyleBackColor = true;
+            // 
+            // btn14
+            // 
+            btn14.Location = new Point(514, 196);
+            btn14.Name = "btn14";
+            btn14.Size = new Size(80, 80);
+            btn14.TabIndex = 15;
+            btn14.UseVisualStyleBackColor = true;
+            // 
+            // btn13
+            // 
+            btn13.Location = new Point(428, 196);
+            btn13.Name = "btn13";
+            btn13.Size = new Size(80, 80);
+            btn13.TabIndex = 14;
+            btn13.Text = "SINGLE CYCLE";
+            btn13.UseVisualStyleBackColor = true;
+            // 
+            // btn12
+            // 
+            btn12.Location = new Point(342, 196);
+            btn12.Name = "btn12";
+            btn12.Size = new Size(80, 80);
+            btn12.TabIndex = 13;
+            btn12.Text = "STOP END OF CYCLE";
+            btn12.UseVisualStyleBackColor = true;
+            // 
+            // btn11
+            // 
+            btn11.Location = new Point(256, 196);
+            btn11.Name = "btn11";
+            btn11.Size = new Size(80, 80);
+            btn11.TabIndex = 12;
+            btn11.Text = "DRY CYCLE";
+            btn11.UseVisualStyleBackColor = true;
+            // 
+            // btn10
+            // 
+            btn10.Location = new Point(170, 196);
+            btn10.Name = "btn10";
+            btn10.Size = new Size(80, 80);
+            btn10.TabIndex = 11;
+            btn10.Text = "CONTINUOUS CYCLE";
+            btn10.UseVisualStyleBackColor = true;
+            // 
+            // btn00
+            // 
+            btn00.Location = new Point(170, 110);
+            btn00.Name = "btn00";
+            btn00.Size = new Size(80, 80);
+            btn00.TabIndex = 25;
+            btn00.Text = "AUTO MODE";
+            btn00.UseVisualStyleBackColor = true;
+            // 
+            // btnPowerOn
+            // 
+            btnPowerOn.Location = new Point(3, 207);
+            btnPowerOn.Name = "btnPowerOn";
+            btnPowerOn.Size = new Size(80, 80);
+            btnPowerOn.TabIndex = 0;
+            btnPowerOn.Text = "POWER ON";
+            btnPowerOn.UseVisualStyleBackColor = true;
+            // 
+            // btnPowerOff
+            // 
+            btnPowerOff.Location = new Point(3, 121);
+            btnPowerOff.Name = "btnPowerOff";
+            btnPowerOff.Size = new Size(80, 80);
+            btnPowerOff.TabIndex = 1;
+            btnPowerOff.Text = "POWER OFF";
+            btnPowerOff.UseVisualStyleBackColor = true;
+            // 
+            // tabControl1
+            // 
+            tabControl1.Controls.Add(tpMode);
+            tabControl1.Controls.Add(tpManualRows);
+            tabControl1.Location = new Point(0, 86);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(1008, 559);
+            tabControl1.TabIndex = 52;
+            // 
+            // tpMode
+            // 
+            tpMode.Controls.Add(btnPowerOff);
+            tpMode.Controls.Add(btnAutoCycleStop);
+            tpMode.Controls.Add(btn00);
+            tpMode.Controls.Add(btnAutoCycleStart);
+            tpMode.Controls.Add(btn10);
+            tpMode.Controls.Add(btnSelectAll);
+            tpMode.Controls.Add(btnStation1);
+            tpMode.Controls.Add(btnPowerOn);
+            tpMode.Controls.Add(btnStation2);
+            tpMode.Controls.Add(btn11);
+            tpMode.Controls.Add(btnStation3);
+            tpMode.Controls.Add(lbFoundFiles);
+            tpMode.Controls.Add(btnStation4);
+            tpMode.Controls.Add(btn12);
+            tpMode.Controls.Add(btnStation5);
+            tpMode.Controls.Add(btn06);
+            tpMode.Controls.Add(btnStation6);
+            tpMode.Controls.Add(btn13);
+            tpMode.Controls.Add(btn05);
+            tpMode.Controls.Add(btn14);
+            tpMode.Controls.Add(btn04);
+            tpMode.Controls.Add(btn15);
+            tpMode.Controls.Add(btn03);
+            tpMode.Controls.Add(btn16);
+            tpMode.Controls.Add(btn02);
+            tpMode.Controls.Add(btn20);
+            tpMode.Controls.Add(btn01);
+            tpMode.Controls.Add(btn21);
+            tpMode.Controls.Add(btn26);
+            tpMode.Controls.Add(btn22);
+            tpMode.Controls.Add(btn25);
+            tpMode.Controls.Add(btn23);
+            tpMode.Controls.Add(btn24);
+            tpMode.Location = new Point(4, 24);
+            tpMode.Name = "tpMode";
+            tpMode.Padding = new Padding(3);
+            tpMode.Size = new Size(1000, 531);
+            tpMode.TabIndex = 0;
+            tpMode.Text = "Mode";
+            tpMode.UseVisualStyleBackColor = true;
+            // 
+            // tpManualRows
+            // 
+            tpManualRows.Controls.Add(usrcontRow1);
+            tpManualRows.Location = new Point(4, 24);
+            tpManualRows.Name = "tpManualRows";
+            tpManualRows.Padding = new Padding(3);
+            tpManualRows.Size = new Size(1000, 531);
+            tpManualRows.TabIndex = 1;
+            tpManualRows.Text = "Manual";
+            tpManualRows.UseVisualStyleBackColor = true;
+            // 
+            // usrcontRow1
+            // 
+            usrcontRow1.AdvancedName = "Advance";
+            usrcontRow1.AdvancedNameBackColor = Color.Transparent;
+            usrcontRow1.AdvanceName = "Advance";
+            usrcontRow1.AdvanceNameBackColor = Color.Transparent;
+            usrcontRow1.IsReturned = true;
+            usrcontRow1.Location = new Point(0, 3);
+            usrcontRow1.Name = "usrcontRow1";
+            usrcontRow1.PositionText = "0.0 mm";
+            usrcontRow1.ReturnedName = "Returned";
+            usrcontRow1.ReturnedNameBackColor = Color.Transparent;
+            usrcontRow1.ReturnName = "Return";
+            usrcontRow1.ReturnNameBackColor = Color.Transparent;
+            usrcontRow1.RowIndex = 0;
+            usrcontRow1.RowName = "Cylinder A1";
+            usrcontRow1.ShowAdvanceButton = true;
+            usrcontRow1.ShowAdvanceLabel = true;
+            usrcontRow1.ShowReturnButton = true;
+            usrcontRow1.Size = new Size(1000, 52);
+            usrcontRow1.TabIndex = 0;
+            usrcontRow1.Load += usrcontRow1_Load;
             // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1008, 729);
-            Controls.Add(pnlMain);
+            Controls.Add(tabControl1);
             Controls.Add(lblmsgViewWarningS6);
             Controls.Add(lblmsgViewWarningS5);
             Controls.Add(lblmsgViewWarningS4);
@@ -896,7 +951,6 @@
             Controls.Add(lblmsgViewAlarmS1);
             Controls.Add(lblmsgViewAlarmMachine);
             Controls.Add(lblAnyFaultsExist);
-            Controls.Add(lbFoundFiles);
             Controls.Add(button4);
             Controls.Add(lblStationName);
             Controls.Add(lblAnyWarnings);
@@ -919,47 +973,17 @@
             Name = "frmMain";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Main Screen";
-            pnlMain.ResumeLayout(false);
+            Load += frmMain_Load_1;
+            tabControl1.ResumeLayout(false);
+            tpMode.ResumeLayout(false);
+            tpManualRows.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-
-        private Button btnPowerOn;
-        private Button btnPowerOff;
         private System.Windows.Forms.Timer timGetPLCData;
-        private Button btnStation1;
-        private Button btnStation2;
-        private Button btnStation3;
-        private Button btnStation4;
-        private Button btnStation5;
-        private Button btnStation6;
-        private Button btnAutoCycleStart;
-        private Button btnAutoCycleStop;
-        private Button btn10;
-        private Button btn11;
-        private Button btn13;
-        private Button btn12;
-        private Button btn16;
-        private Button btn15;
-        private Button btn14;
-        private Button btn26;
-        private Button btn25;
-        private Button btn24;
-        private Button btn23;
-        private Button btn22;
-        private Button btn21;
-        private Button btn20;
-        private Button btn06;
-        private Button btn05;
-        private Button btn04;
-        private Button btn03;
-        private Button btn02;
-        private Button btn01;
-        private Button btn00;
         private Button btnMainMenu;
         private Button btnReset;
-        private Button btnSelectAll;
         private Button btnMode;
         private Button btnControl;
         private Button btnAutoMode;
@@ -975,7 +999,6 @@
         private Label lblStationName;
         private OpenFileDialog ofdTc3Project;
         private Button button4;
-        private ListBox lbFoundFiles;
         private Label lblAnyFaultsExist;
         private Label lblmsgViewAlarmMachine;
         private Label lblmsgViewAlarmS1;
@@ -998,7 +1021,43 @@
         private Label lblmsgViewWarningS4;
         private Label lblmsgViewWarningS5;
         private Label lblmsgViewWarningS6;
-        private PageSetupDialog pageSetupDialog1;
-        private Panel pnlMain;
+        private Button btnStation6;
+        private Button btnStation5;
+        private Button btnStation4;
+        private Button btnStation3;
+        private Button btnStation2;
+        private Button btnStation1;
+        private Button btnSelectAll;
+        private Button btnAutoCycleStart;
+        private Button btnAutoCycleStop;
+        private ListBox lbFoundFiles;
+        private Button btn06;
+        private Button btn05;
+        private Button btn04;
+        private Button btn03;
+        private Button btn02;
+        private Button btn01;
+        private Button btn26;
+        private Button btn25;
+        private Button btn24;
+        private Button btn23;
+        private Button btn22;
+        private Button btn21;
+        private Button btn20;
+        private Button btn16;
+        private Button btn15;
+        private Button btn14;
+        private Button btn13;
+        private Button btn12;
+        private Button btn11;
+        private Button btn10;
+        private Button btn00;
+        private Button btnPowerOn;
+        private Button btnPowerOff;
+        private TabControl tabControl1;
+        private TabPage tpMode;
+        private TabPage tpManualRows;
+        private usrcontRow frmRow1;
+        private usrcontRow usrcontRow1;
     }
 }

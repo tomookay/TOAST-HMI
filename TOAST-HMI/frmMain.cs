@@ -70,6 +70,8 @@ namespace TOAST_HMI
         public frmMain()
         {
             InitializeComponent();
+            SubscribeToRows();
+
             this.Load += FrmMain_Load;
             this.FormClosing += FrmMain_FormClosing;
 
@@ -157,6 +159,8 @@ namespace TOAST_HMI
             WireMomentary(btnSEOC, "gHMIButtons.btnMode.btnFooterAutoCycleStopEOC");
             WireMomentary(btnReturnHome, "gHMIButtons.btnMode.btnFooterReturnHome");
 
+            // Create manual rows for demonstration
+            //CreateManualRows(6);
         }
 
         private void FrmMain_Load(object? sender, EventArgs e)
@@ -679,7 +683,7 @@ namespace TOAST_HMI
                         lblmsgViewWarningS6.Text = ReadPlcString("GlobalMessages.gMsgS6.Warning.topMessage");
 
                     }
-        
+
                     //check warnings status from PLC from  .isAnyWarningState  
                     bool isAnyWarningState = ReadBoolArray("gHMIData.hmiHeader.isAnyWarningState", 1)[0];
                     //if the isAnyWarningState is true, then dont hide the lblAnyWarnings, but if  isAnyFaultState is TRUE then keep it hidden
@@ -742,7 +746,7 @@ namespace TOAST_HMI
                         btnPowerOn.BackColor = SystemColors.Control;
                     }
 
-                     //read all gHMIButtons.btnFdbk, which is 40 bools into gButtonFdbk array
+                    //read all gHMIButtons.btnFdbk, which is 40 bools into gButtonFdbk array
                     var buttonFdbkValues = ReadBoolArray("gHMIButtons.btnFdbk", 32);
                     if (buttonFdbkValues.Length == gButtonFdbk.Length)
                     {
@@ -1028,14 +1032,14 @@ namespace TOAST_HMI
                             lblHomeState.Text = HomeState[homestate];
                             // return;
                         }
-                   }
+                    }
 
                     catch
                     {
                         // ignore read errors for stationstate (optionally log)
                     }
 
-                  
+
 
                     //Station Name, header.stationNameSelect, StationNames
                     try
@@ -1411,10 +1415,10 @@ namespace TOAST_HMI
                 }
             }
 
-           return results;
+            return results;
         }
 
-       
+
 
         private void lbFoundFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1435,7 +1439,7 @@ namespace TOAST_HMI
                     foreach (var entry in entries)
                         sb.AppendLine($"TextID: \"{entry.TextId}\" → TextDefault: \"{entry.TextDefault}\"");
                     // Show results in the text box
-                  //  txbSpecialXML.Text = sb.ToString();
+                    //  txbSpecialXML.Text = sb.ToString();
                     //MessageBox.Show($"Found {entries.Count} entries in the selected file.", "Parse result", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MessageBox.Show(sb.ToString(), $"Found {entries.Count} entries", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -1453,7 +1457,7 @@ namespace TOAST_HMI
             timGetPLCData.Start();
         }
 
-           // Read a PLC STRING (e.g. GlobalMessages.gMsgS1.Prompts.topMessage).
+        // Read a PLC STRING (e.g. GlobalMessages.gMsgS1.Prompts.topMessage).
         // maxBytes should match the PLC STRING maximum length (buffer size) you expect.
         private string ReadPlcString(string plcSymbol, int maxBytes = 256)
         {
@@ -1526,6 +1530,116 @@ namespace TOAST_HMI
                     try { _adsClient?.DeleteVariableHandle(handle); } catch { /* ignore */ }
                 }
             }
+        }
+
+        private void btnMode_Click(object sender, EventArgs e)
+        {
+
+
+
+        }
+
+        private void btnControl_Click(object sender, EventArgs e)
+        {
+
+
+        }
+
+        // call after InitializeComponent(): CreateManualRows(6);
+        //private void CreateManualRows(int count)
+        //{
+        //    tpManualRows.SuspendLayout();
+        //    tpManualRows.Controls.Clear();
+
+        //    for (int i = 0; i < count; i++)
+        //    {
+        //        var row = new frmRow
+        //        {
+        //            RowIndex = i,
+        //            RowName = $"Cylinder {i + 1}",
+        //            PositionText = "0.0 mm",
+        //            Dock = DockStyle.Top,
+        //            Margin = new Padding(0)
+        //        };
+
+        //        // subscribe to events
+        //        row.AdvanceClicked += OnRowAdvanceClicked;
+        //        row.ReturnClicked += OnRowReturnClicked;
+
+        //        // add to tabpage; use SetChildIndex to keep newly added row at top (stacking)
+        //        tpManualRows.Controls.Add(row);
+        //        tpManualRows.Controls.SetChildIndex(row, 0);
+        //    }
+
+        //    tpManualRows.ResumeLayout();
+        //}
+
+        private void OnRowAdvanceClicked(object? sender, EventArgs e)
+        {
+            if (sender is usrcontRow row)
+            {
+                // example: send PLC command or update UI
+                MessageBox.Show($"Advance clicked on row {row.RowIndex} ({row.RowName})", "Row Action", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // If you need to call PLC writes, do it here:
+                // WriteBool($"gManual.Row[{row.RowIndex}].AdvanceCmd", true);
+            }
+        }
+
+        private void OnRowReturnClicked(object? sender, EventArgs e)
+        {
+            if (sender is usrcontRow row)
+            {
+                MessageBox.Show($"Return clicked on row {row.RowIndex} ({row.RowName})", "Row Action", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // WriteBool($"gManual.Row[{row.RowIndex}].ReturnCmd", true);
+            }
+        }
+
+        private void btnAutoMode_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void usrcontRow1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SubscribeToRows()
+        {
+            // 1) Attach handlers for any designer-created usrcontRow controls placed on the form
+            foreach (var row in this.Controls.Find("usrcontRow1", true).OfType<usrcontRow>())
+            {
+                // remove first to avoid duplicate subscriptions after designer reloads
+                row.AdvanceClicked -= OnRowAdvanceClicked;
+                row.ReturnClicked -= OnRowReturnClicked;
+
+                row.AdvanceClicked += OnRowAdvanceClicked;
+                row.ReturnClicked += OnRowReturnClicked;
+
+                // optionally make the buttons visible
+                row.EnsureActionButtonsVisible();
+            }
+
+            // 2) Attach handlers for all usrcontRow instances inside the manual rows container (if you use tpManualRows)
+            if (tpManualRows != null)
+            {
+                foreach (var row in tpManualRows.Controls.OfType<usrcontRow>())
+                {
+                    row.AdvanceClicked -= OnRowAdvanceClicked;
+                    row.ReturnClicked -= OnRowReturnClicked;
+
+                    row.AdvanceClicked += OnRowAdvanceClicked;
+                    row.ReturnClicked += OnRowReturnClicked;
+
+                    row.EnsureActionButtonsVisible();
+                }
+            }
+        }
+
+        private void frmMain_Load_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
