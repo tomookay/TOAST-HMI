@@ -1414,34 +1414,7 @@ namespace TOAST_HMI
            return results;
         }
 
-        private void btnParse_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var entries = FindAllTextDefaults(txbSpecialXML.Text);
-
-                if (entries.Count == 0)
-                {
-                    MessageBox.Show("No TextID / TextDefault pairs found.", "Parse result", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-
-                var sb = new System.Text.StringBuilder();
-                foreach (var entry in entries)
-                    sb.AppendLine($"TextID: \"{entry.TextId}\" → TextDefault: \"{entry.TextDefault}\"");
-
-                // If the output is large prefer writing to a file or showing in a dedicated window.
-                MessageBox.Show(sb.ToString(), $"Found {entries.Count} entries", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (System.Xml.XmlException ex)
-            {
-                MessageBox.Show($"XML error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error parsing XML: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+       
 
         private void lbFoundFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1462,7 +1435,7 @@ namespace TOAST_HMI
                     foreach (var entry in entries)
                         sb.AppendLine($"TextID: \"{entry.TextId}\" → TextDefault: \"{entry.TextDefault}\"");
                     // Show results in the text box
-                    txbSpecialXML.Text = sb.ToString();
+                  //  txbSpecialXML.Text = sb.ToString();
                     //MessageBox.Show($"Found {entries.Count} entries in the selected file.", "Parse result", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MessageBox.Show(sb.ToString(), $"Found {entries.Count} entries", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             btnPowerOn = new Button();
             btnPowerOff = new Button();
             timGetPLCData = new System.Windows.Forms.Timer(components);
@@ -80,8 +79,6 @@
             lblStationName = new Label();
             ofdTc3Project = new OpenFileDialog();
             button4 = new Button();
-            txbSpecialXML = new TextBox();
-            btnParse = new Button();
             lbFoundFiles = new ListBox();
             lblAnyFaultsExist = new Label();
             lblmsgViewAlarmMachine = new Label();
@@ -105,19 +102,23 @@
             lblmsgViewWarningS4 = new Label();
             lblmsgViewWarningS5 = new Label();
             lblmsgViewWarningS6 = new Label();
+            pageSetupDialog1 = new PageSetupDialog();
+            pnlMain = new Panel();
+            pnlMain.SuspendLayout();
             SuspendLayout();
             // 
             // btnPowerOn
             // 
-            btnPowerOn.Location = new Point(12, 253);
+            btnPowerOn.Location = new Point(3, 220);
             btnPowerOn.Name = "btnPowerOn";
             btnPowerOn.Size = new Size(80, 80);
             btnPowerOn.TabIndex = 0;
             btnPowerOn.Text = "POWER ON";
             btnPowerOn.UseVisualStyleBackColor = true;
+            // 
             // btnPowerOff
             // 
-            btnPowerOff.Location = new Point(12, 167);
+            btnPowerOff.Location = new Point(3, 134);
             btnPowerOff.Name = "btnPowerOff";
             btnPowerOff.Size = new Size(80, 80);
             btnPowerOff.TabIndex = 1;
@@ -131,7 +132,7 @@
             // 
             // btnStation1
             // 
-            btnStation1.Location = new Point(139, 540);
+            btnStation1.Location = new Point(182, 435);
             btnStation1.Name = "btnStation1";
             btnStation1.Size = new Size(120, 80);
             btnStation1.TabIndex = 3;
@@ -140,7 +141,7 @@
             // 
             // btnStation2
             // 
-            btnStation2.Location = new Point(265, 540);
+            btnStation2.Location = new Point(308, 435);
             btnStation2.Name = "btnStation2";
             btnStation2.Size = new Size(120, 80);
             btnStation2.TabIndex = 4;
@@ -149,7 +150,7 @@
             // 
             // btnStation3
             // 
-            btnStation3.Location = new Point(391, 540);
+            btnStation3.Location = new Point(434, 435);
             btnStation3.Name = "btnStation3";
             btnStation3.Size = new Size(120, 80);
             btnStation3.TabIndex = 5;
@@ -158,7 +159,7 @@
             // 
             // btnStation4
             // 
-            btnStation4.Location = new Point(517, 540);
+            btnStation4.Location = new Point(560, 435);
             btnStation4.Name = "btnStation4";
             btnStation4.Size = new Size(120, 80);
             btnStation4.TabIndex = 6;
@@ -167,7 +168,7 @@
             // 
             // btnStation5
             // 
-            btnStation5.Location = new Point(643, 540);
+            btnStation5.Location = new Point(686, 435);
             btnStation5.Name = "btnStation5";
             btnStation5.Size = new Size(120, 80);
             btnStation5.TabIndex = 7;
@@ -176,7 +177,7 @@
             // 
             // btnStation6
             // 
-            btnStation6.Location = new Point(769, 540);
+            btnStation6.Location = new Point(812, 435);
             btnStation6.Name = "btnStation6";
             btnStation6.Size = new Size(120, 80);
             btnStation6.TabIndex = 8;
@@ -185,7 +186,7 @@
             // 
             // btnAutoCycleStart
             // 
-            btnAutoCycleStart.Location = new Point(916, 270);
+            btnAutoCycleStart.Location = new Point(925, 220);
             btnAutoCycleStart.Name = "btnAutoCycleStart";
             btnAutoCycleStart.Size = new Size(80, 80);
             btnAutoCycleStart.TabIndex = 10;
@@ -194,7 +195,7 @@
             // 
             // btnAutoCycleStop
             // 
-            btnAutoCycleStop.Location = new Point(916, 184);
+            btnAutoCycleStop.Location = new Point(925, 134);
             btnAutoCycleStop.Name = "btnAutoCycleStop";
             btnAutoCycleStop.Size = new Size(80, 80);
             btnAutoCycleStop.TabIndex = 9;
@@ -203,7 +204,7 @@
             // 
             // btn10
             // 
-            btn10.Location = new Point(188, 295);
+            btn10.Location = new Point(197, 194);
             btn10.Name = "btn10";
             btn10.Size = new Size(80, 80);
             btn10.TabIndex = 11;
@@ -212,7 +213,7 @@
             // 
             // btn11
             // 
-            btn11.Location = new Point(274, 295);
+            btn11.Location = new Point(283, 194);
             btn11.Name = "btn11";
             btn11.Size = new Size(80, 80);
             btn11.TabIndex = 12;
@@ -221,7 +222,7 @@
             // 
             // btn13
             // 
-            btn13.Location = new Point(446, 295);
+            btn13.Location = new Point(455, 194);
             btn13.Name = "btn13";
             btn13.Size = new Size(80, 80);
             btn13.TabIndex = 14;
@@ -230,7 +231,7 @@
             // 
             // btn12
             // 
-            btn12.Location = new Point(360, 295);
+            btn12.Location = new Point(369, 194);
             btn12.Name = "btn12";
             btn12.Size = new Size(80, 80);
             btn12.TabIndex = 13;
@@ -239,7 +240,7 @@
             // 
             // btn16
             // 
-            btn16.Location = new Point(704, 295);
+            btn16.Location = new Point(713, 194);
             btn16.Name = "btn16";
             btn16.Size = new Size(80, 80);
             btn16.TabIndex = 17;
@@ -247,7 +248,7 @@
             // 
             // btn15
             // 
-            btn15.Location = new Point(618, 295);
+            btn15.Location = new Point(627, 194);
             btn15.Name = "btn15";
             btn15.Size = new Size(80, 80);
             btn15.TabIndex = 16;
@@ -256,7 +257,7 @@
             // 
             // btn14
             // 
-            btn14.Location = new Point(532, 295);
+            btn14.Location = new Point(541, 194);
             btn14.Name = "btn14";
             btn14.Size = new Size(80, 80);
             btn14.TabIndex = 15;
@@ -264,7 +265,7 @@
             // 
             // btn26
             // 
-            btn26.Location = new Point(704, 381);
+            btn26.Location = new Point(713, 280);
             btn26.Name = "btn26";
             btn26.Size = new Size(80, 80);
             btn26.TabIndex = 24;
@@ -272,7 +273,7 @@
             // 
             // btn25
             // 
-            btn25.Location = new Point(618, 381);
+            btn25.Location = new Point(627, 280);
             btn25.Name = "btn25";
             btn25.Size = new Size(80, 80);
             btn25.TabIndex = 23;
@@ -280,7 +281,7 @@
             // 
             // btn24
             // 
-            btn24.Location = new Point(532, 381);
+            btn24.Location = new Point(541, 280);
             btn24.Name = "btn24";
             btn24.Size = new Size(80, 80);
             btn24.TabIndex = 22;
@@ -288,7 +289,7 @@
             // 
             // btn23
             // 
-            btn23.Location = new Point(446, 381);
+            btn23.Location = new Point(455, 280);
             btn23.Name = "btn23";
             btn23.Size = new Size(80, 80);
             btn23.TabIndex = 21;
@@ -297,7 +298,7 @@
             // 
             // btn22
             // 
-            btn22.Location = new Point(360, 381);
+            btn22.Location = new Point(369, 280);
             btn22.Name = "btn22";
             btn22.Size = new Size(80, 80);
             btn22.TabIndex = 20;
@@ -306,7 +307,7 @@
             // 
             // btn21
             // 
-            btn21.Location = new Point(274, 381);
+            btn21.Location = new Point(283, 280);
             btn21.Name = "btn21";
             btn21.Size = new Size(80, 80);
             btn21.TabIndex = 19;
@@ -315,7 +316,7 @@
             // 
             // btn20
             // 
-            btn20.Location = new Point(188, 381);
+            btn20.Location = new Point(197, 280);
             btn20.Name = "btn20";
             btn20.Size = new Size(80, 80);
             btn20.TabIndex = 18;
@@ -324,7 +325,7 @@
             // 
             // btn06
             // 
-            btn06.Location = new Point(704, 209);
+            btn06.Location = new Point(713, 108);
             btn06.Name = "btn06";
             btn06.Size = new Size(80, 80);
             btn06.TabIndex = 31;
@@ -332,7 +333,7 @@
             // 
             // btn05
             // 
-            btn05.Location = new Point(618, 209);
+            btn05.Location = new Point(627, 108);
             btn05.Name = "btn05";
             btn05.Size = new Size(80, 80);
             btn05.TabIndex = 30;
@@ -341,7 +342,7 @@
             // 
             // btn04
             // 
-            btn04.Location = new Point(532, 209);
+            btn04.Location = new Point(541, 108);
             btn04.Name = "btn04";
             btn04.Size = new Size(80, 80);
             btn04.TabIndex = 29;
@@ -349,7 +350,7 @@
             // 
             // btn03
             // 
-            btn03.Location = new Point(446, 209);
+            btn03.Location = new Point(455, 108);
             btn03.Name = "btn03";
             btn03.Size = new Size(80, 80);
             btn03.TabIndex = 28;
@@ -357,7 +358,7 @@
             // 
             // btn02
             // 
-            btn02.Location = new Point(360, 209);
+            btn02.Location = new Point(369, 108);
             btn02.Name = "btn02";
             btn02.Size = new Size(80, 80);
             btn02.TabIndex = 27;
@@ -366,7 +367,7 @@
             // 
             // btn01
             // 
-            btn01.Location = new Point(274, 209);
+            btn01.Location = new Point(283, 108);
             btn01.Name = "btn01";
             btn01.Size = new Size(80, 80);
             btn01.TabIndex = 26;
@@ -375,7 +376,7 @@
             // 
             // btn00
             // 
-            btn00.Location = new Point(188, 209);
+            btn00.Location = new Point(197, 108);
             btn00.Name = "btn00";
             btn00.Size = new Size(80, 80);
             btn00.TabIndex = 25;
@@ -403,7 +404,7 @@
             // 
             // btnSelectAll
             // 
-            btnSelectAll.Location = new Point(53, 540);
+            btnSelectAll.Location = new Point(96, 435);
             btnSelectAll.Name = "btnSelectAll";
             btnSelectAll.Size = new Size(80, 80);
             btnSelectAll.TabIndex = 34;
@@ -412,7 +413,7 @@
             // 
             // btnMode
             // 
-            btnMode.Location = new Point(12, 637);
+            btnMode.Location = new Point(0, 651);
             btnMode.Name = "btnMode";
             btnMode.Size = new Size(80, 80);
             btnMode.TabIndex = 35;
@@ -421,7 +422,7 @@
             // 
             // btnControl
             // 
-            btnControl.Location = new Point(98, 637);
+            btnControl.Location = new Point(80, 651);
             btnControl.Name = "btnControl";
             btnControl.Size = new Size(80, 80);
             btnControl.TabIndex = 36;
@@ -430,7 +431,7 @@
             // 
             // btnAutoMode
             // 
-            btnAutoMode.Location = new Point(234, 637);
+            btnAutoMode.Location = new Point(197, 651);
             btnAutoMode.Name = "btnAutoMode";
             btnAutoMode.Size = new Size(80, 80);
             btnAutoMode.TabIndex = 37;
@@ -439,7 +440,7 @@
             // 
             // btnManualMode
             // 
-            btnManualMode.Location = new Point(320, 637);
+            btnManualMode.Location = new Point(283, 651);
             btnManualMode.Name = "btnManualMode";
             btnManualMode.Size = new Size(80, 80);
             btnManualMode.TabIndex = 38;
@@ -448,7 +449,7 @@
             // 
             // btnStartAutoCycle
             // 
-            btnStartAutoCycle.Location = new Point(406, 637);
+            btnStartAutoCycle.Location = new Point(369, 651);
             btnStartAutoCycle.Name = "btnStartAutoCycle";
             btnStartAutoCycle.Size = new Size(80, 80);
             btnStartAutoCycle.TabIndex = 39;
@@ -457,7 +458,7 @@
             // 
             // btnSEOC
             // 
-            btnSEOC.Location = new Point(492, 637);
+            btnSEOC.Location = new Point(455, 651);
             btnSEOC.Name = "btnSEOC";
             btnSEOC.Size = new Size(80, 80);
             btnSEOC.TabIndex = 40;
@@ -466,7 +467,7 @@
             // 
             // btnReturnHome
             // 
-            btnReturnHome.Location = new Point(578, 637);
+            btnReturnHome.Location = new Point(541, 651);
             btnReturnHome.Name = "btnReturnHome";
             btnReturnHome.Size = new Size(80, 80);
             btnReturnHome.TabIndex = 41;
@@ -554,25 +555,6 @@
             button4.Text = "button4";
             button4.UseVisualStyleBackColor = true;
             button4.Click += button4_Click;
-            // 
-            // txbSpecialXML
-            // 
-            txbSpecialXML.Location = new Point(826, 400);
-            txbSpecialXML.Multiline = true;
-            txbSpecialXML.Name = "txbSpecialXML";
-            txbSpecialXML.Size = new Size(100, 95);
-            txbSpecialXML.TabIndex = 49;
-            txbSpecialXML.Text = resources.GetString("txbSpecialXML.Text");
-            // 
-            // btnParse
-            // 
-            btnParse.Location = new Point(826, 501);
-            btnParse.Name = "btnParse";
-            btnParse.Size = new Size(75, 23);
-            btnParse.TabIndex = 50;
-            btnParse.Text = "button5";
-            btnParse.UseVisualStyleBackColor = true;
-            btnParse.Click += btnParse_Click;
             // 
             // lbFoundFiles
             // 
@@ -847,11 +829,51 @@
             lblmsgViewWarningS6.TabIndex = 73;
             lblmsgViewWarningS6.Text = "msgViewWarningS6";
             // 
+            // pnlMain
+            // 
+            pnlMain.Controls.Add(btnPowerOff);
+            pnlMain.Controls.Add(btnPowerOn);
+            pnlMain.Controls.Add(btn00);
+            pnlMain.Controls.Add(btn10);
+            pnlMain.Controls.Add(btn11);
+            pnlMain.Controls.Add(btn12);
+            pnlMain.Controls.Add(btn13);
+            pnlMain.Controls.Add(btn14);
+            pnlMain.Controls.Add(btn15);
+            pnlMain.Controls.Add(btn16);
+            pnlMain.Controls.Add(btn20);
+            pnlMain.Controls.Add(btn21);
+            pnlMain.Controls.Add(btn22);
+            pnlMain.Controls.Add(btn23);
+            pnlMain.Controls.Add(btn24);
+            pnlMain.Controls.Add(btn25);
+            pnlMain.Controls.Add(btn26);
+            pnlMain.Controls.Add(btn01);
+            pnlMain.Controls.Add(btn02);
+            pnlMain.Controls.Add(btn03);
+            pnlMain.Controls.Add(btn04);
+            pnlMain.Controls.Add(btn05);
+            pnlMain.Controls.Add(btn06);
+            pnlMain.Controls.Add(btnAutoCycleStop);
+            pnlMain.Controls.Add(btnAutoCycleStart);
+            pnlMain.Controls.Add(btnSelectAll);
+            pnlMain.Controls.Add(btnStation1);
+            pnlMain.Controls.Add(btnStation2);
+            pnlMain.Controls.Add(btnStation3);
+            pnlMain.Controls.Add(btnStation4);
+            pnlMain.Controls.Add(btnStation5);
+            pnlMain.Controls.Add(btnStation6);
+            pnlMain.Location = new Point(0, 101);
+            pnlMain.Name = "pnlMain";
+            pnlMain.Size = new Size(1008, 544);
+            pnlMain.TabIndex = 74;
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1008, 729);
+            Controls.Add(pnlMain);
             Controls.Add(lblmsgViewWarningS6);
             Controls.Add(lblmsgViewWarningS5);
             Controls.Add(lblmsgViewWarningS4);
@@ -875,8 +897,6 @@
             Controls.Add(lblmsgViewAlarmMachine);
             Controls.Add(lblAnyFaultsExist);
             Controls.Add(lbFoundFiles);
-            Controls.Add(btnParse);
-            Controls.Add(txbSpecialXML);
             Controls.Add(button4);
             Controls.Add(lblStationName);
             Controls.Add(lblAnyWarnings);
@@ -891,48 +911,16 @@
             Controls.Add(btnAutoMode);
             Controls.Add(btnControl);
             Controls.Add(btnMode);
-            Controls.Add(btnSelectAll);
             Controls.Add(btnReset);
             Controls.Add(btnMainMenu);
-            Controls.Add(btn06);
-            Controls.Add(btn05);
-            Controls.Add(btn04);
-            Controls.Add(btn03);
-            Controls.Add(btn02);
-            Controls.Add(btn01);
-            Controls.Add(btn00);
-            Controls.Add(btn26);
-            Controls.Add(btn25);
-            Controls.Add(btn24);
-            Controls.Add(btn23);
-            Controls.Add(btn22);
-            Controls.Add(btn21);
-            Controls.Add(btn20);
-            Controls.Add(btn16);
-            Controls.Add(btn15);
-            Controls.Add(btn14);
-            Controls.Add(btn13);
-            Controls.Add(btn12);
-            Controls.Add(btn11);
-            Controls.Add(btn10);
-            Controls.Add(btnAutoCycleStart);
-            Controls.Add(btnAutoCycleStop);
-            Controls.Add(btnStation6);
-            Controls.Add(btnStation5);
-            Controls.Add(btnStation4);
-            Controls.Add(btnStation3);
-            Controls.Add(btnStation2);
-            Controls.Add(btnStation1);
-            Controls.Add(btnPowerOff);
-            Controls.Add(btnPowerOn);
             HelpButton = true;
             MaximumSize = new Size(1024, 768);
             MinimumSize = new Size(640, 480);
             Name = "frmMain";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Main Screen";
+            pnlMain.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -987,8 +975,6 @@
         private Label lblStationName;
         private OpenFileDialog ofdTc3Project;
         private Button button4;
-        private TextBox txbSpecialXML;
-        private Button btnParse;
         private ListBox lbFoundFiles;
         private Label lblAnyFaultsExist;
         private Label lblmsgViewAlarmMachine;
@@ -1012,5 +998,7 @@
         private Label lblmsgViewWarningS4;
         private Label lblmsgViewWarningS5;
         private Label lblmsgViewWarningS6;
+        private PageSetupDialog pageSetupDialog1;
+        private Panel pnlMain;
     }
 }
