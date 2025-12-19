@@ -1578,10 +1578,40 @@ namespace TOAST_HMI
         {
             if (sender is usrcontRow row)
             {
-                // example: send PLC command or update UI
-                MessageBox.Show($"Advance clicked on row {row.RowIndex} ({row.RowName})", "Row Action", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Wire the row's inner advance button for momentary mouse-down / mouse-up behaviour.
+                // We try to find a button named "btnAdvance" inside the usrcontRow; if not found,
+                // find the first button whose name contains "advance" (case-insensitive).
+                try
+                {
+                    Button? advanceBtn = row.Controls.Find("btnAdvance", true).FirstOrDefault() as Button;
+                    if (advanceBtn == null)
+                    {
+                        advanceBtn = row.Controls.OfType<Button>()
+                            .FirstOrDefault(b => b.Name.IndexOf("advance", StringComparison.OrdinalIgnoreCase) >= 0);
+                    }
 
-                // If you need to call PLC writes, do it here:
+                    if (advanceBtn != null)
+                    {
+                        string plcSymbol = $"gHMIMotionRows.gMotionRowButtons.gMotionRow{row.RowIndex}btn.btnAdvance";
+
+                        // Avoid double-wiring: use Tag to mark wired controls.
+                        var tagKey = $"MomentaryWired:{plcSymbol}";
+                        if (!(advanceBtn.Tag is string existingTag && existingTag == tagKey))
+                        {
+                            WireMomentary(advanceBtn, plcSymbol);
+                            advanceBtn.Tag = tagKey;
+                        }
+                    }
+                }
+                catch
+                {
+                    // ignore wiring errors
+                }
+
+                // existing behavior: show info and/or call PLC directly if desired
+              //  MessageBox.Show($"Advance clicked on row {row.RowIndex} ({row.RowName})", "Row Action", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // If you need to call PLC writes directly for a simple click, use:
                 // WriteBool($"gManual.Row[{row.RowIndex}].AdvanceCmd", true);
             }
         }
@@ -1590,7 +1620,33 @@ namespace TOAST_HMI
         {
             if (sender is usrcontRow row)
             {
-                MessageBox.Show($"Return clicked on row {row.RowIndex} ({row.RowName})", "Row Action", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Wire the row's inner return button for momentary mouse-down / mouse-up behaviour.
+                try
+                {
+                    Button? returnBtn = row.Controls.Find("btnReturn", true).FirstOrDefault() as Button;
+                    if (returnBtn == null)
+                    {
+                        returnBtn = row.Controls.OfType<Button>()
+                            .FirstOrDefault(b => b.Name.IndexOf("return", StringComparison.OrdinalIgnoreCase) >= 0);
+                    }
+
+                    if (returnBtn != null)
+                    {
+                        string plcSymbol =$"gHMIMotionRows.gMotionRowButtons.gMotionRow{row.RowIndex}btn.btnReturn";
+                        var tagKey = $"MomentaryWired:{plcSymbol}";
+                        if (!(returnBtn.Tag is string existingTag && existingTag == tagKey))
+                        {
+                            WireMomentary(returnBtn, plcSymbol);
+                            returnBtn.Tag = tagKey;
+                        }
+                    }
+                }
+                catch
+                {
+                    // ignore wiring errors
+                }
+
+              //  MessageBox.Show($"Return clicked on row {row.RowIndex} ({row.RowName})", "Row Action", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 // WriteBool($"gManual.Row[{row.RowIndex}].ReturnCmd", true);
             }
         }

@@ -105,15 +105,15 @@
             tabControl1 = new TabControl();
             tpMode = new TabPage();
             tpManualRows = new TabPage();
+            usrcontRow9 = new usrcontRow();
+            usrcontRow8 = new usrcontRow();
+            usrcontRow7 = new usrcontRow();
+            usrcontRow6 = new usrcontRow();
+            usrcontRow5 = new usrcontRow();
+            usrcontRow4 = new usrcontRow();
             usrcontRow3 = new usrcontRow();
             usrcontRow2 = new usrcontRow();
             usrcontRow1 = new usrcontRow();
-            usrcontRow4 = new usrcontRow();
-            usrcontRow5 = new usrcontRow();
-            usrcontRow6 = new usrcontRow();
-            usrcontRow7 = new usrcontRow();
-            usrcontRow8 = new usrcontRow();
-            usrcontRow9 = new usrcontRow();
             tabControl1.SuspendLayout();
             tpMode.SuspendLayout();
             tpManualRows.SuspendLayout();
@@ -916,6 +916,138 @@
             tpManualRows.Text = "Manual";
             tpManualRows.UseVisualStyleBackColor = true;
             // 
+            // usrcontRow9
+            // 
+            usrcontRow9.AdvancedName = "Advance";
+            usrcontRow9.AdvancedNameBackColor = Color.Transparent;
+            usrcontRow9.AdvanceName = "Advance";
+            usrcontRow9.AdvanceNameBackColor = Color.Transparent;
+            usrcontRow9.IsReturned = true;
+            usrcontRow9.Location = new Point(0, 471);
+            usrcontRow9.Name = "usrcontRow9";
+            usrcontRow9.PositionText = "0.0 mm";
+            usrcontRow9.ReturnedName = "Returned";
+            usrcontRow9.ReturnedNameBackColor = Color.Transparent;
+            usrcontRow9.ReturnName = "Return";
+            usrcontRow9.ReturnNameBackColor = Color.Transparent;
+            usrcontRow9.RowIndex = 9;
+            usrcontRow9.RowName = "Cylinder A9";
+            usrcontRow9.ShowAdvanceButton = true;
+            usrcontRow9.ShowAdvanceLabel = true;
+            usrcontRow9.ShowReturnButton = true;
+            usrcontRow9.Size = new Size(1000, 52);
+            usrcontRow9.TabIndex = 8;
+            // 
+            // usrcontRow8
+            // 
+            usrcontRow8.AdvancedName = "Advance";
+            usrcontRow8.AdvancedNameBackColor = Color.Transparent;
+            usrcontRow8.AdvanceName = "Advance";
+            usrcontRow8.AdvanceNameBackColor = Color.Transparent;
+            usrcontRow8.IsReturned = true;
+            usrcontRow8.Location = new Point(0, 413);
+            usrcontRow8.Name = "usrcontRow8";
+            usrcontRow8.PositionText = "0.0 mm";
+            usrcontRow8.ReturnedName = "Returned";
+            usrcontRow8.ReturnedNameBackColor = Color.Transparent;
+            usrcontRow8.ReturnName = "Return";
+            usrcontRow8.ReturnNameBackColor = Color.Transparent;
+            usrcontRow8.RowIndex = 8;
+            usrcontRow8.RowName = "Cylinder A8";
+            usrcontRow8.ShowAdvanceButton = true;
+            usrcontRow8.ShowAdvanceLabel = true;
+            usrcontRow8.ShowReturnButton = true;
+            usrcontRow8.Size = new Size(1000, 52);
+            usrcontRow8.TabIndex = 7;
+            // 
+            // usrcontRow7
+            // 
+            usrcontRow7.AdvancedName = "Advance";
+            usrcontRow7.AdvancedNameBackColor = Color.Transparent;
+            usrcontRow7.AdvanceName = "Advance";
+            usrcontRow7.AdvanceNameBackColor = Color.Transparent;
+            usrcontRow7.IsReturned = true;
+            usrcontRow7.Location = new Point(0, 355);
+            usrcontRow7.Name = "usrcontRow7";
+            usrcontRow7.PositionText = "0.0 mm";
+            usrcontRow7.ReturnedName = "Returned";
+            usrcontRow7.ReturnedNameBackColor = Color.Transparent;
+            usrcontRow7.ReturnName = "Return";
+            usrcontRow7.ReturnNameBackColor = Color.Transparent;
+            usrcontRow7.RowIndex = 7;
+            usrcontRow7.RowName = "Cylinder A7";
+            usrcontRow7.ShowAdvanceButton = true;
+            usrcontRow7.ShowAdvanceLabel = true;
+            usrcontRow7.ShowReturnButton = true;
+            usrcontRow7.Size = new Size(1000, 52);
+            usrcontRow7.TabIndex = 6;
+            // 
+            // usrcontRow6
+            // 
+            usrcontRow6.AdvancedName = "Advance";
+            usrcontRow6.AdvancedNameBackColor = Color.Transparent;
+            usrcontRow6.AdvanceName = "Advance";
+            usrcontRow6.AdvanceNameBackColor = Color.Transparent;
+            usrcontRow6.IsReturned = true;
+            usrcontRow6.Location = new Point(0, 297);
+            usrcontRow6.Name = "usrcontRow6";
+            usrcontRow6.PositionText = "0.0 mm";
+            usrcontRow6.ReturnedName = "Returned";
+            usrcontRow6.ReturnedNameBackColor = Color.Transparent;
+            usrcontRow6.ReturnName = "Return";
+            usrcontRow6.ReturnNameBackColor = Color.Transparent;
+            usrcontRow6.RowIndex = 6;
+            usrcontRow6.RowName = "Cylinder A6";
+            usrcontRow6.ShowAdvanceButton = true;
+            usrcontRow6.ShowAdvanceLabel = true;
+            usrcontRow6.ShowReturnButton = true;
+            usrcontRow6.Size = new Size(1000, 52);
+            usrcontRow6.TabIndex = 5;
+            // 
+            // usrcontRow5
+            // 
+            usrcontRow5.AdvancedName = "Advance";
+            usrcontRow5.AdvancedNameBackColor = Color.Transparent;
+            usrcontRow5.AdvanceName = "Advance";
+            usrcontRow5.AdvanceNameBackColor = Color.Transparent;
+            usrcontRow5.IsReturned = true;
+            usrcontRow5.Location = new Point(0, 239);
+            usrcontRow5.Name = "usrcontRow5";
+            usrcontRow5.PositionText = "0.0 mm";
+            usrcontRow5.ReturnedName = "Returned";
+            usrcontRow5.ReturnedNameBackColor = Color.Transparent;
+            usrcontRow5.ReturnName = "Return";
+            usrcontRow5.ReturnNameBackColor = Color.Transparent;
+            usrcontRow5.RowIndex = 5;
+            usrcontRow5.RowName = "Cylinder A5";
+            usrcontRow5.ShowAdvanceButton = true;
+            usrcontRow5.ShowAdvanceLabel = true;
+            usrcontRow5.ShowReturnButton = true;
+            usrcontRow5.Size = new Size(1000, 52);
+            usrcontRow5.TabIndex = 4;
+            // 
+            // usrcontRow4
+            // 
+            usrcontRow4.AdvancedName = "Advance";
+            usrcontRow4.AdvancedNameBackColor = Color.Transparent;
+            usrcontRow4.AdvanceName = "Advance";
+            usrcontRow4.AdvanceNameBackColor = Color.Transparent;
+            usrcontRow4.IsReturned = true;
+            usrcontRow4.Location = new Point(0, 177);
+            usrcontRow4.Name = "usrcontRow4";
+            usrcontRow4.PositionText = "0.0 mm";
+            usrcontRow4.ReturnedName = "Returned";
+            usrcontRow4.ReturnedNameBackColor = Color.Transparent;
+            usrcontRow4.ReturnName = "Return";
+            usrcontRow4.ReturnNameBackColor = Color.Transparent;
+            usrcontRow4.RowIndex = 4;
+            usrcontRow4.RowName = "Cylinder A4";
+            usrcontRow4.ShowAdvanceButton = true;
+            usrcontRow4.ShowAdvanceLabel = true;
+            usrcontRow4.ShowReturnButton = true;
+            usrcontRow4.Size = new Size(1000, 52);
+            usrcontRow4.TabIndex = 3;
+            // 
             // usrcontRow3
             // 
             usrcontRow3.AdvancedName = "Advance";
@@ -930,7 +1062,7 @@
             usrcontRow3.ReturnedNameBackColor = Color.Transparent;
             usrcontRow3.ReturnName = "Return";
             usrcontRow3.ReturnNameBackColor = Color.Transparent;
-            usrcontRow3.RowIndex = 0;
+            usrcontRow3.RowIndex = 3;
             usrcontRow3.RowName = "Cylinder A3";
             usrcontRow3.ShowAdvanceButton = true;
             usrcontRow3.ShowAdvanceLabel = true;
@@ -952,7 +1084,7 @@
             usrcontRow2.ReturnedNameBackColor = Color.Transparent;
             usrcontRow2.ReturnName = "Return";
             usrcontRow2.ReturnNameBackColor = Color.Transparent;
-            usrcontRow2.RowIndex = 0;
+            usrcontRow2.RowIndex = 2;
             usrcontRow2.RowName = "Cylinder A2";
             usrcontRow2.ShowAdvanceButton = true;
             usrcontRow2.ShowAdvanceLabel = true;
@@ -974,7 +1106,7 @@
             usrcontRow1.ReturnedNameBackColor = Color.Transparent;
             usrcontRow1.ReturnName = "Return";
             usrcontRow1.ReturnNameBackColor = Color.Transparent;
-            usrcontRow1.RowIndex = 0;
+            usrcontRow1.RowIndex = 1;
             usrcontRow1.RowName = "Cylinder A1";
             usrcontRow1.ShowAdvanceButton = true;
             usrcontRow1.ShowAdvanceLabel = true;
@@ -982,138 +1114,6 @@
             usrcontRow1.Size = new Size(1000, 52);
             usrcontRow1.TabIndex = 0;
             usrcontRow1.Load += usrcontRow1_Load;
-            // 
-            // usrcontRow4
-            // 
-            usrcontRow4.AdvancedName = "Advance";
-            usrcontRow4.AdvancedNameBackColor = Color.Transparent;
-            usrcontRow4.AdvanceName = "Advance";
-            usrcontRow4.AdvanceNameBackColor = Color.Transparent;
-            usrcontRow4.IsReturned = true;
-            usrcontRow4.Location = new Point(0, 177);
-            usrcontRow4.Name = "usrcontRow4";
-            usrcontRow4.PositionText = "0.0 mm";
-            usrcontRow4.ReturnedName = "Returned";
-            usrcontRow4.ReturnedNameBackColor = Color.Transparent;
-            usrcontRow4.ReturnName = "Return";
-            usrcontRow4.ReturnNameBackColor = Color.Transparent;
-            usrcontRow4.RowIndex = 0;
-            usrcontRow4.RowName = "Cylinder A4";
-            usrcontRow4.ShowAdvanceButton = true;
-            usrcontRow4.ShowAdvanceLabel = true;
-            usrcontRow4.ShowReturnButton = true;
-            usrcontRow4.Size = new Size(1000, 52);
-            usrcontRow4.TabIndex = 3;
-            // 
-            // usrcontRow5
-            // 
-            usrcontRow5.AdvancedName = "Advance";
-            usrcontRow5.AdvancedNameBackColor = Color.Transparent;
-            usrcontRow5.AdvanceName = "Advance";
-            usrcontRow5.AdvanceNameBackColor = Color.Transparent;
-            usrcontRow5.IsReturned = true;
-            usrcontRow5.Location = new Point(0, 239);
-            usrcontRow5.Name = "usrcontRow5";
-            usrcontRow5.PositionText = "0.0 mm";
-            usrcontRow5.ReturnedName = "Returned";
-            usrcontRow5.ReturnedNameBackColor = Color.Transparent;
-            usrcontRow5.ReturnName = "Return";
-            usrcontRow5.ReturnNameBackColor = Color.Transparent;
-            usrcontRow5.RowIndex = 0;
-            usrcontRow5.RowName = "Cylinder A5";
-            usrcontRow5.ShowAdvanceButton = true;
-            usrcontRow5.ShowAdvanceLabel = true;
-            usrcontRow5.ShowReturnButton = true;
-            usrcontRow5.Size = new Size(1000, 52);
-            usrcontRow5.TabIndex = 4;
-            // 
-            // usrcontRow6
-            // 
-            usrcontRow6.AdvancedName = "Advance";
-            usrcontRow6.AdvancedNameBackColor = Color.Transparent;
-            usrcontRow6.AdvanceName = "Advance";
-            usrcontRow6.AdvanceNameBackColor = Color.Transparent;
-            usrcontRow6.IsReturned = true;
-            usrcontRow6.Location = new Point(0, 297);
-            usrcontRow6.Name = "usrcontRow6";
-            usrcontRow6.PositionText = "0.0 mm";
-            usrcontRow6.ReturnedName = "Returned";
-            usrcontRow6.ReturnedNameBackColor = Color.Transparent;
-            usrcontRow6.ReturnName = "Return";
-            usrcontRow6.ReturnNameBackColor = Color.Transparent;
-            usrcontRow6.RowIndex = 0;
-            usrcontRow6.RowName = "Cylinder A6";
-            usrcontRow6.ShowAdvanceButton = true;
-            usrcontRow6.ShowAdvanceLabel = true;
-            usrcontRow6.ShowReturnButton = true;
-            usrcontRow6.Size = new Size(1000, 52);
-            usrcontRow6.TabIndex = 5;
-            // 
-            // usrcontRow7
-            // 
-            usrcontRow7.AdvancedName = "Advance";
-            usrcontRow7.AdvancedNameBackColor = Color.Transparent;
-            usrcontRow7.AdvanceName = "Advance";
-            usrcontRow7.AdvanceNameBackColor = Color.Transparent;
-            usrcontRow7.IsReturned = true;
-            usrcontRow7.Location = new Point(0, 355);
-            usrcontRow7.Name = "usrcontRow7";
-            usrcontRow7.PositionText = "0.0 mm";
-            usrcontRow7.ReturnedName = "Returned";
-            usrcontRow7.ReturnedNameBackColor = Color.Transparent;
-            usrcontRow7.ReturnName = "Return";
-            usrcontRow7.ReturnNameBackColor = Color.Transparent;
-            usrcontRow7.RowIndex = 0;
-            usrcontRow7.RowName = "Cylinder A7";
-            usrcontRow7.ShowAdvanceButton = true;
-            usrcontRow7.ShowAdvanceLabel = true;
-            usrcontRow7.ShowReturnButton = true;
-            usrcontRow7.Size = new Size(1000, 52);
-            usrcontRow7.TabIndex = 6;
-            // 
-            // usrcontRow8
-            // 
-            usrcontRow8.AdvancedName = "Advance";
-            usrcontRow8.AdvancedNameBackColor = Color.Transparent;
-            usrcontRow8.AdvanceName = "Advance";
-            usrcontRow8.AdvanceNameBackColor = Color.Transparent;
-            usrcontRow8.IsReturned = true;
-            usrcontRow8.Location = new Point(0, 413);
-            usrcontRow8.Name = "usrcontRow8";
-            usrcontRow8.PositionText = "0.0 mm";
-            usrcontRow8.ReturnedName = "Returned";
-            usrcontRow8.ReturnedNameBackColor = Color.Transparent;
-            usrcontRow8.ReturnName = "Return";
-            usrcontRow8.ReturnNameBackColor = Color.Transparent;
-            usrcontRow8.RowIndex = 0;
-            usrcontRow8.RowName = "Cylinder A8";
-            usrcontRow8.ShowAdvanceButton = true;
-            usrcontRow8.ShowAdvanceLabel = true;
-            usrcontRow8.ShowReturnButton = true;
-            usrcontRow8.Size = new Size(1000, 52);
-            usrcontRow8.TabIndex = 7;
-            // 
-            // usrcontRow9
-            // 
-            usrcontRow9.AdvancedName = "Advance";
-            usrcontRow9.AdvancedNameBackColor = Color.Transparent;
-            usrcontRow9.AdvanceName = "Advance";
-            usrcontRow9.AdvanceNameBackColor = Color.Transparent;
-            usrcontRow9.IsReturned = true;
-            usrcontRow9.Location = new Point(0, 471);
-            usrcontRow9.Name = "usrcontRow9";
-            usrcontRow9.PositionText = "0.0 mm";
-            usrcontRow9.ReturnedName = "Returned";
-            usrcontRow9.ReturnedNameBackColor = Color.Transparent;
-            usrcontRow9.ReturnName = "Return";
-            usrcontRow9.ReturnNameBackColor = Color.Transparent;
-            usrcontRow9.RowIndex = 0;
-            usrcontRow9.RowName = "Cylinder A9";
-            usrcontRow9.ShowAdvanceButton = true;
-            usrcontRow9.ShowAdvanceLabel = true;
-            usrcontRow9.ShowReturnButton = true;
-            usrcontRow9.Size = new Size(1000, 52);
-            usrcontRow9.TabIndex = 8;
             // 
             // frmMain
             // 
