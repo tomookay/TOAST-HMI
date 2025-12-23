@@ -115,6 +115,8 @@
             usrcontRow2 = new usrcontRow();
             usrcontRow1 = new usrcontRow();
             tabPage1 = new TabPage();
+            button1 = new Button();
+            treeViewSymbols = new TreeView();
             btnReadStructure = new Button();
             lsbReadSymbols = new ListBox();
             tabControl1.SuspendLayout();
@@ -1122,6 +1124,8 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(button1);
+            tabPage1.Controls.Add(treeViewSymbols);
             tabPage1.Controls.Add(btnReadStructure);
             tabPage1.Controls.Add(lsbReadSymbols);
             tabPage1.Location = new Point(4, 24);
@@ -1131,6 +1135,23 @@
             tabPage1.TabIndex = 2;
             tabPage1.Text = "ReadSymbols";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(451, 468);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 76;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // treeViewSymbols
+            // 
+            treeViewSymbols.Location = new Point(431, 30);
+            treeViewSymbols.Name = "treeViewSymbols";
+            treeViewSymbols.Size = new Size(491, 349);
+            treeViewSymbols.TabIndex = 75;
             // 
             // btnReadStructure
             // 
@@ -1146,10 +1167,11 @@
             // 
             lsbReadSymbols.FormattingEnabled = true;
             lsbReadSymbols.ItemHeight = 15;
-            lsbReadSymbols.Location = new Point(36, 30);
+            lsbReadSymbols.Location = new Point(23, 30);
             lsbReadSymbols.Name = "lsbReadSymbols";
-            lsbReadSymbols.Size = new Size(937, 409);
+            lsbReadSymbols.Size = new Size(387, 409);
             lsbReadSymbols.TabIndex = 0;
+            lsbReadSymbols.SelectedIndexChanged += lsbReadSymbols_SelectedIndexChanged;
             // 
             // frmMain
             // 
@@ -1299,5 +1321,7 @@
         private Button btnReadStructure;
         private TabPage tabPage1;
         private ListBox lsbReadSymbols;
+        private TreeView treeViewSymbols;
+        private Button button1;
     }
 }

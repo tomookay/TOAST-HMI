@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Diagnostics.Eventing.Reader;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Xml.Linq;
 using TwinCAT;
@@ -126,7 +128,7 @@ namespace TOAST_HMI
             WireMomentary(btn05, "gHMIButtons.btnMode.btn05Pressed");
             WireMomentary(btn06, "gHMIButtons.btnMode.btn06Pressed");
             //WireMomentary(btn07, "gHMIButtons.btnMode.btn07Pressed");
-            //WireMomentary(btn08, "gHMIButtons.btnMode.btn08Pressed");
+            //WireMomentary(btn08, "gHMIButtons.btnMode.btn08Pressed";
             //WireMomentary(btn09, "gHMIButtons.btnMode.btn09Pressed");
             WireMomentary(btn10, "gHMIButtons.btnMode.btn10Pressed");
             WireMomentary(btn11, "gHMIButtons.btnMode.btn11Pressed");
@@ -135,9 +137,9 @@ namespace TOAST_HMI
             WireMomentary(btn14, "gHMIButtons.btnMode.btn14Pressed");
             WireMomentary(btn15, "gHMIButtons.btnMode.btn15Pressed");
             WireMomentary(btn16, "gHMIButtons.btnMode.btn16Pressed");
-            //WireMomentary(btn17, "gHMIButtons.btnMode.btn17Pressed");
-            //WireMomentary(btn18, "gHMIButtons.btnMode.btn18Pressed");
-            //WireMomentary(btn19, "gHMIButtons.btnMode.btn19Pressed");
+            //WireMomentary(btn17, "gHMIButtons.btnMode.btn17Pressed";
+            //WireMomentary(btn18, "gHMIButtons.btnMode.btn18Pressed";
+            //WireMomentary(btn19, "gHMIButtons.btnMode.btn19Pressed";
             WireMomentary(btn20, "gHMIButtons.btnMode.btn20Pressed");
             WireMomentary(btn21, "gHMIButtons.btnMode.btn21Pressed");
             WireMomentary(btn22, "gHMIButtons.btnMode.btn22Pressed");
@@ -145,21 +147,21 @@ namespace TOAST_HMI
             WireMomentary(btn24, "gHMIButtons.btnMode.btn24Pressed");
             WireMomentary(btn25, "gHMIButtons.btnMode.btn25Pressed");
             WireMomentary(btn26, "gHMIButtons.btnMode.btn26Pressed");
-            //WireMomentary(btn27, "gHMIButtons.btnMode.btn27Pressed");
-            //WireMomentary(btn28, "gHMIButtons.btnMode.btn28Pressed");
-            //WireMomentary(btn29, "gHMIButtons.btnMode.btn29Pressed");
+            //WireMomentary(btn27, "gHMIButtons.btnMode.btn27Pressed";
+            //WireMomentary(btn28, "gHMIButtons.btnMode.btn28Pressed";
+            //WireMomentary(btn29, "gHMIButtons.btnMode.btn29Pressed";
 
 
-            //WireMomentary(btn30, "gHMIButtons.btnMode.btn30Pressed");
-            //WireMomentary(btn31, "gHMIButtons.btnMode.btn31Pressed");
-            //WireMomentary(btn32, "gHMIButtons.btnMode.btn32Pressed");
-            //WireMomentary(btn33, "gHMIButtons.btnMode.btn33Pressed");
-            //WireMomentary(btn34, "gHMIButtons.btnMode.btn34Pressed");
-            //WireMomentary(btn35, "gHMIButtons.btnMode.btn35Pressed");
-            //WireMomentary(btn36, "gHMIButtons.btnMode.btn36Pressed");
-            //WireMomentary(btn37, "gHMIButtons.btnMode.btn37Pressed");
-            //WireMomentary(btn38, "gHMIButtons.btnMode.btn38Pressed");
-            //WireMomentary(btn39, "gHMIButtons.btnMode.btn39Pressed");
+            //WireMomentary(btn30, "gHMIButtons.btnMode.btn30Pressed";
+            //WireMomentary(btn31, "gHMIButtons.btnMode.btn31Pressed";
+            //WireMomentary(btn32, "gHMIButtons.btnMode.btn32Pressed";
+            //WireMomentary(btn33, "gHMIButtons.btnMode.btn33Pressed";
+            //WireMomentary(btn34, "gHMIButtons.btnMode.btn34Pressed";
+            //WireMomentary(btn35, "gHMIButtons.btnMode.btn35Pressed";
+            //WireMomentary(btn36, "gHMIButtons.btnMode.btn36Pressed";
+            //WireMomentary(btn37, "gHMIButtons.btnMode.btn37Pressed";
+            //WireMomentary(btn38, "gHMIButtons.btnMode.btn38Pressed";
+            //WireMomentary(btn39, "gHMIButtons.btnMode.btn39Pressed";
 
 
             WireMomentary(btnAutoMode, "gHMIButtons.btnMode.btnFooterAutoMode");
@@ -1897,39 +1899,213 @@ namespace TOAST_HMI
                 //    // Clear any previous results
                 lsbReadSymbols?.Items.Clear();
 
-                    // Enumerate and display useful information about each symbol.
-                    foreach (var symbol in symbols)
+                // Enumerate and display useful information about each symbol.
+                foreach (var symbol in symbols)
+                {
+                    try
                     {
-                        try
-                        {
-                            string path = symbol.InstancePath +""+ symbol.InstanceName + "(unknown)";
-                            string typeName = symbol.DataType + ""+ symbol.TypeName ?? "(type)";
-                            int size = symbol.Size;
+                        string path = symbol.InstancePath + "" + symbol.InstanceName + "(unknown)";
+                        string typeName = symbol.DataType + "" + symbol.TypeName ?? "(type)";
+                        int size = symbol.Size;
                         lsbReadSymbols?.Items.Add($"{path}  —  {typeName}  [{size} bytes]");
-                        }
-                        catch
-                        {
+                    }
+                    catch
+                    {
                         lsbReadSymbols?.Items.Add("(symbol metadata unavailable)");
-                        }
+                    }
+                }
+
+                if (lsbReadSymbols != null && lsbReadSymbols.Items.Count > 0)
+                    lsbReadSymbols.SelectedIndex = 0;
+            }
+            catch (AdsErrorException ex)
+            {
+                MessageBox.Show($"ADS error while reading symbol table: {ex.Message}", "ADS Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error while reading symbol table: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void lsbReadSymbols_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            var symbolLoader = (IDynamicSymbolLoader)SymbolLoaderFactory.Create(_adsClient, new SymbolLoaderSettings(SymbolsLoadMode.DynamicTree));
+
+            var symbols = (DynamicSymbolsCollection)symbolLoader.SymbolsDynamic;
+
+            //search for gHMIData in symbols and populate the treeViewSymbols with the dynamic members
+            try
+            {
+
+                treeViewSymbols.Nodes.Clear();
+                DynamicSymbol? gHMIDataSymbol = (DynamicSymbol?)symbols.FirstOrDefault(s => s.InstanceName == "gHMIData");
+                if (gHMIDataSymbol != null)
+                {
+                    // Populate the TreeView with the dynamic structure of gHMIData
+                    PopulateDynamicSymbolTree(gHMIDataSymbol);
+                }
+                else
+                {
+                    MessageBox.Show("gHMIData symbol not found.");
+                }
+
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+
+
+
+
+
+
+            //treeViewSymbols.Nodes.Clear();
+            //try
+            //{
+            //    if (!cbFlat.Checked)
+            //    {
+            //        TcAdsSymbolInfo symbol = symbolLoader.GetFirstSymbol(true);
+            //        while (symbol != null)
+            //        {
+            //            treeViewSymbols.Nodes.Add(CreateNewNode(symbol));
+            //            symbol = symbol.NextSymbol;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        foreach (TcAdsSymbolInfo symbol in symbolLoader)
+            //        {
+            //            TreeNode node = new TreeNode(symbol.Name);
+            //            node.Tag = symbol;
+            //            treeViewSymbols.Nodes.Add(node);
+            //        }
+            //    }
+            //}
+            //catch (Exception err)
+            //{
+            //    MessageBox.Show(err.Message);
+            //}
+        }
+
+        // Added helper methods and a small change in button1_Click to populate treeViewSymbols
+        // with the dynamic members of gHMIDataSymbol using reflection so it works regardless
+        // of the concrete collection property name used by the TwinCAT dynamic symbol type.
+
+        private void PopulateDynamicSymbolTree(DynamicSymbol rootSymbol)
+        {
+            if (rootSymbol == null) return;
+
+            treeViewSymbols.BeginUpdate();
+            try
+            {
+                treeViewSymbols.Nodes.Clear();
+                var rootNode = CreateNodeForSymbol(rootSymbol);
+                treeViewSymbols.Nodes.Add(rootNode);
+                AddDynamicMembersRecursive(rootNode, rootSymbol);
+                rootNode.Expand();
+            }
+            finally
+            {
+                treeViewSymbols.EndUpdate();
+            }
+        }
+
+        private TreeNode CreateNodeForSymbol(object symbolObj)
+        {
+            if (symbolObj == null) return new TreeNode("(null)");
+
+            var t = symbolObj.GetType();
+            string name = GetPropertyString(symbolObj, "InstanceName")
+                        ?? GetPropertyString(symbolObj, "Name")
+                        ?? "(unnamed)";
+            string path = GetPropertyString(symbolObj, "InstancePath") ?? string.Empty;
+            string typeName = GetPropertyString(symbolObj, "TypeName")
+                            ?? GetPropertyString(symbolObj, "DataType")
+                            ?? GetPropertyString(symbolObj, "Type");
+            string text = string.IsNullOrEmpty(path) ? $"{name} : {typeName}" : $"{path}.{name} : {typeName}";
+
+            var node = new TreeNode(text) { Tag = symbolObj };
+            return node;
+        }
+
+        private string? GetPropertyString(object obj, string propName)
+        {
+            var p = obj.GetType().GetProperty(propName, BindingFlags.Public | BindingFlags.Instance);
+            if (p == null) return null;
+            var v = p.GetValue(obj);
+            return v?.ToString();
+        }
+
+        private void AddDynamicMembersRecursive(TreeNode parentNode, object symbolObj)
+        {
+            if (symbolObj == null) return;
+
+            // Candidate property names used by different versions of TwinCAT dynamic types
+            string[] candidateProps = new[] { "Members", "Children", "ChildSymbols", "Symbols", "NestedSymbols" };
+
+            foreach (var propName in candidateProps)
+            {
+                var prop = symbolObj.GetType().GetProperty(propName, BindingFlags.Public | BindingFlags.Instance);
+                if (prop == null) continue;
+
+                var val = prop.GetValue(symbolObj);
+                if (val is IEnumerable enumerable)
+                {
+                    foreach (var child in enumerable)
+                    {
+                        if (child == null) continue;
+
+                        // Ensure child looks like a symbol (has InstanceName or Name)
+                        if (child.GetType().GetProperty("InstanceName") == null && child.GetType().GetProperty("Name") == null)
+                            continue;
+
+                        var childNode = CreateNodeForSymbol(child);
+                        parentNode.Nodes.Add(childNode);
+
+                        // Recurse into child's members
+                        AddDynamicMembersRecursive(childNode, child);
                     }
 
-                    if (lsbReadSymbols != null && lsbReadSymbols.Items.Count > 0)
-                    lsbReadSymbols.SelectedIndex = 0;
-                }
-                catch (AdsErrorException ex)
-                {
-                    MessageBox.Show($"ADS error while reading symbol table: {ex.Message}", "ADS Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-               }
-                catch (Exception ex)
-                {
-                   MessageBox.Show($"Error while reading symbol table: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // Found a members collection and handled it — stop searching further candidates
+                    return;
                 }
             }
-         
 
-    }
+            // No standard members collection found — try scanning all public properties that are IEnumerable
+            // and contain symbol-like elements (fallback).
+            var allProps = symbolObj.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (var p in allProps)
+            {
+                if (p.GetIndexParameters().Length > 0) continue; // skip indexers
+                if (!typeof(IEnumerable).IsAssignableFrom(p.PropertyType)) continue;
 
+                var val = p.GetValue(symbolObj);
+                if (val is IEnumerable enumerable)
+                {
+                    foreach (var child in enumerable)
+                    {
+                        if (child == null) continue;
+                        if (child.GetType().GetProperty("InstanceName") == null && child.GetType().GetProperty("Name") == null)
+                            continue;
+
+                        var childNode = CreateNodeForSymbol(child);
+                        parentNode.Nodes.Add(childNode);
+                        AddDynamicMembersRecursive(childNode, child);
+                    }
+                }
+            }
+        }
     }
+}
+
 
      
 
