@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
     <RootNamespace>TOAST_HMI</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
@@ -10,7 +10,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Beckhoff.TwinCAT.Ads" Version="7.0.123" />
+    <PackageReference Include="Beckhoff.TwinCAT.Ads" Version="7.0.132" />
+    <PackageReference Include="Beckhoff.TwinCAT.Ads.Abstractions" Version="7.0.132" />
+    <PackageReference Include="Beckhoff.TwinCAT.Ads.Reactive" Version="7.0.132" />
+    <PackageReference Include="Beckhoff.TwinCAT.Ads.Server" Version="7.0.132" />
+    <PackageReference Include="Beckhoff.TwinCAT.Ads.TcpRouter" Version="7.0.132" />
+    <PackageReference Include="System.Reactive" Version="6.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="TwinCAT.Ads">
+      <HintPath>..\..\..\..\..\..\..\TwinCAT\AdsApi\.NET\v4.0.30319\TwinCAT.Ads.dll</HintPath>
+    </Reference>
+    <Reference Include="TwinCAT.Ads.Reactive">
+      <HintPath>..\..\..\..\..\..\..\TwinCAT\AdsApi\.NET\v4.0.30319\TwinCAT.Ads.Reactive.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

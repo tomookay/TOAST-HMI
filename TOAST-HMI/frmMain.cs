@@ -1,6 +1,14 @@
-using TwinCAT.Ads;
-using System.Xml.Linq;
+using System;
 using System.Diagnostics.Eventing.Reader;
+using System.Reflection;
+using System.Xml.Linq;
+using TwinCAT;
+using TwinCAT.Ads;
+using TwinCAT.Ads.Reactive;
+using TwinCAT.Ads.TypeSystem;
+using TwinCAT.TypeSystem;
+
+
 
 namespace TOAST_HMI
 {
@@ -66,6 +74,7 @@ namespace TOAST_HMI
         private bool[] gStationEnabled = new bool[6];
 
         private bool[] gButtonFdbk = new bool[40];
+        private object symbolLoader;
 
         public frmMain()
         {
@@ -389,7 +398,7 @@ namespace TOAST_HMI
                     try
                     {
                         // Read and populate all 9 motion rows into matching usrcontRow controls
-                        UpdateAllUsrcontRowsFromPlc();
+                        //    UpdateAllUsrcontRowsFromPlc();
                     }
                     catch
                     {
@@ -1861,8 +1870,67 @@ namespace TOAST_HMI
 
 
 
-
-
         }
+
+        private void btnReadStructure_Click(object sender, EventArgs e)
+        {
+            if (_adsClient == null || !_adsClient.IsConnected)
+            {
+                MessageBox.Show("Not connected to PLC.", "ADS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                // Use the ISymbolLoaderFactory interface to get the symbol loader
+                //  var symbolLoader = TwinCAT.Ads.SymbolLoaderFactory.Create(_adsClient, SymbolLoaderSettings.Default);
+
+
+                var symbolLoader = (IDynamicSymbolLoader)SymbolLoaderFactory.Create(_adsClient, new SymbolLoaderSettings(SymbolsLoadMode.DynamicTree));
+
+                var symbols = (DynamicSymbolsCollection)symbolLoader.SymbolsDynamic;
+
+
+                // Load all symbols from the PLC's symbol table.
+                //    var symbols = symbolLoader.Symbols;
+
+                //    // Clear any previous results
+                lsbReadSymbols?.Items.Clear();
+
+                    // Enumerate and display useful information about each symbol.
+                    foreach (var symbol in symbols)
+                    {
+                        try
+                        {
+                            string path = symbol.InstancePath +""+ symbol.InstanceName + "(unknown)";
+                            string typeName = symbol.DataType + ""+ symbol.TypeName ?? "(type)";
+                            int size = symbol.Size;
+                        lsbReadSymbols?.Items.Add($"{path}  —  {typeName}  [{size} bytes]");
+                        }
+                        catch
+                        {
+                        lsbReadSymbols?.Items.Add("(symbol metadata unavailable)");
+                        }
+                    }
+
+                    if (lsbReadSymbols != null && lsbReadSymbols.Items.Count > 0)
+                    lsbReadSymbols.SelectedIndex = 0;
+                }
+                catch (AdsErrorException ex)
+                {
+                    MessageBox.Show($"ADS error while reading symbol table: {ex.Message}", "ADS Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+               }
+                catch (Exception ex)
+                {
+                   MessageBox.Show($"Error while reading symbol table: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+         
+
     }
-}
+
+    }
+
+     
+
+
