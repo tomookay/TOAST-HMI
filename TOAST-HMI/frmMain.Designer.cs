@@ -115,6 +115,7 @@
             usrcontRow2 = new usrcontRow();
             usrcontRow1 = new usrcontRow();
             tabPage1 = new TabPage();
+            btnReadStruct2 = new Button();
             button1 = new Button();
             treeViewSymbols = new TreeView();
             btnReadStructure = new Button();
@@ -1124,6 +1125,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(btnReadStruct2);
             tabPage1.Controls.Add(button1);
             tabPage1.Controls.Add(treeViewSymbols);
             tabPage1.Controls.Add(btnReadStructure);
@@ -1135,6 +1137,16 @@
             tabPage1.TabIndex = 2;
             tabPage1.Text = "ReadSymbols";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btnReadStruct2
+            // 
+            btnReadStruct2.Location = new Point(586, 452);
+            btnReadStruct2.Name = "btnReadStruct2";
+            btnReadStruct2.Size = new Size(75, 23);
+            btnReadStruct2.TabIndex = 77;
+            btnReadStruct2.Text = "ReadStructure";
+            btnReadStruct2.UseVisualStyleBackColor = true;
+            btnReadStruct2.Click += btnReadStruct2_Click;
             // 
             // button1
             // 
@@ -1323,5 +1335,6 @@
         private ListBox lsbReadSymbols;
         private TreeView treeViewSymbols;
         private Button button1;
+        private Button btnReadStruct2;
     }
 }

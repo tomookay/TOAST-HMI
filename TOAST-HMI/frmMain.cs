@@ -1,14 +1,18 @@
 using System;
 using System.Collections;
 using System.Diagnostics.Eventing.Reader;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Xml.Linq;
 using TwinCAT;
 using TwinCAT.Ads;
+using TwinCAT.Ads;
 using TwinCAT.Ads.Reactive;
 using TwinCAT.Ads.TypeSystem;
 using TwinCAT.TypeSystem;
+
+
 
 
 
@@ -21,6 +25,9 @@ namespace TOAST_HMI
         // TODO: set to your PLC AMS Net ID (e.g. "5.25.123.1.1") and port (default 851)
         private readonly string _amsNetId = "5.132.152.5.1.1";
         private readonly int _adsPort = 851;
+
+
+
 
         private bool[] gStationSelected = new bool[6];
 
@@ -2028,7 +2035,7 @@ namespace TOAST_HMI
                         ?? "(unnamed)";
             string path = GetPropertyString(symbolObj, "InstancePath") ?? string.Empty;
             string typeName = GetPropertyString(symbolObj, "TypeName")
-                            ?? GetPropertyString(symbolObj, "DataType")
+                            //   ?? GetPropertyString(symbolObj, "DataType")
                             ?? GetPropertyString(symbolObj, "Type");
             string text = string.IsNullOrEmpty(path) ? $"{name} : {typeName}" : $"{path}.{name} : {typeName}";
 
@@ -2101,6 +2108,39 @@ namespace TOAST_HMI
                         AddDynamicMembersRecursive(childNode, child);
                     }
                 }
+            }
+        }
+
+   
+        
+    private void btnReadStruct2_Click(object sender, EventArgs e)
+        {
+            using (AdsClient client = new())
+            {
+                client.Connect(_amsNetId, 851);
+                var symbolLoader = (IDynamicSymbolLoader)SymbolLoaderFactory.Create
+                (
+                    client,
+                    new SymbolLoaderSettings(SymbolsLoadMode.DynamicTree)
+                );
+
+                var symbols = (DynamicSymbolsCollection)symbolLoader.SymbolsDynamic;
+
+                foreach (var symbol in symbols) Console.WriteLine(symbol.InstancePath);
+                Console.WriteLine();
+
+                dynamic MAIN = symbols["gHMIData"];
+
+               // foreach (var symbol in MAIN.SubSymbols) MessageBox.Show((symbol.InstancePath));
+
+                //dynamic MAIN = symbols["MAIN"];
+                dynamic plcStructValue = MAIN.hmiHeader.ReadValue();
+               // dynamic plcstrucglobal = MAIN.gHMIData.Read
+
+
+                 Console.WriteLine("\nPress any key to exit...\n");
+                // Console.ReadKey(true);
+               
             }
         }
     }
