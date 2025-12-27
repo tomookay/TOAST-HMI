@@ -2126,19 +2126,20 @@ namespace TOAST_HMI
 
                 var symbols = (DynamicSymbolsCollection)symbolLoader.SymbolsDynamic;
 
-                foreach (var symbol in symbols) Console.WriteLine(symbol.InstancePath);
-                Console.WriteLine();
+                //assign the symbols of gTOASTHMI to a dynamic variable
+                dynamic gTOASTHMI = symbols["gTOASTHMI"];
+                             
+                //pick out the gHMI and gButtons
+                dynamic gHMI = gTOASTHMI.gData.hmi.ReadValue();
+                dynamic gbtns = gTOASTHMI.gData.btns.ReadValue();
 
-                dynamic MAIN = symbols["gHMIData"];
-
-               // foreach (var symbol in MAIN.SubSymbols) MessageBox.Show((symbol.InstancePath));
-
-                //dynamic MAIN = symbols["MAIN"];
-                dynamic plcStructValue = MAIN.hmiHeader.ReadValue();
-               // dynamic plcstrucglobal = MAIN.gHMIData.Read
+                //gData now contains;
+                //hmi: structHMI;
+                //btns: structHMIBtns;
 
 
-                 Console.WriteLine("\nPress any key to exit...\n");
+
+                Console.WriteLine("\nPress any key to exit...\n");
                 // Console.ReadKey(true);
                
             }
