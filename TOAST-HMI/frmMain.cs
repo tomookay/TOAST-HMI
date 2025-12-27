@@ -861,7 +861,7 @@ namespace TOAST_HMI
                     for (int i = 0; i < 40; i++)
                     {
                         //use reflection to get the value of each bool inside the btnFdbk structure
-                        var propertyInfo = gbtns.btnFdbk.GetType().GetProperty($"Item{i}");
+                        var propertyInfo = gbtns.btnFdbk.GetType().GetProperty($"btn{i}");
                         if (propertyInfo != null)
                         {
                             buttonFdbkValues[i] = (bool)propertyInfo.GetValue(gbtns.btnFdbk);
@@ -919,19 +919,19 @@ namespace TOAST_HMI
 
                     //read all gHMIButtons.btnHides, which is 32 bools into gButtonHides array
                     //var buttonHidesValues = ReadBoolArray("gHMIButtons.btnHides", 32);
-                    //  var buttonHidesValues = gbtns.btnHides;
+
+                 //  dynamic gbtnHides = gTOASTHMI.gData.btns.btnHides.ReadValue();
+                    //gbtnHides contains multiple bytes inside it, so we need to read it into a bool array called buttonHidesValues
+
+                   // bool[] buttonHidesValues = gTOASTHMI.gData.btns.btnHides.ReadValue();
                     bool[] buttonHidesValues;
-                    buttonHidesValues = new bool[40];
-                    //for the length of the structure of btnHides, we need to read each bool into the array using a for loop
-                    for (int i = 0; i < 40; i++)
-                    {
-                        //use reflection to get the value of each bool inside the btnHides structure
-                        var propertyInfo = gbtns.btnHides.GetType().GetProperty($"Item{i}");
-                        if (propertyInfo != null)
-                        {
-                            buttonHidesValues[i] = (bool)propertyInfo.GetValue(gbtns.btnHides);
-                        }
-                    }
+
+                    // using System.Linq;
+                    // Read dynamic wrapper
+                   
+                        buttonHidesValues = ReadBoolArray("gHMIButtons.btnHides", 40);
+                    
+
                     if (buttonHidesValues.Length == gButtonFdbk.Length)
                     {
                         //update button visibility based on gButtonHides values
