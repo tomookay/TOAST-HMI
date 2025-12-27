@@ -402,6 +402,27 @@ namespace TOAST_HMI
                 {
 
 
+                    var symbolLoader = (IDynamicSymbolLoader)SymbolLoaderFactory.Create
+              (
+                  _adsClient,
+                  new SymbolLoaderSettings(SymbolsLoadMode.DynamicTree)
+              );
+
+                    var symbols = (DynamicSymbolsCollection)symbolLoader.SymbolsDynamic;
+
+                    //assign the symbols of gTOASTHMI to a dynamic variable
+                    dynamic gTOASTHMI = symbols["gTOASTHMI"];
+
+                    //pick out the gHMI and gButtons
+                    dynamic gHMI = gTOASTHMI.gData.hmi.ReadValue();
+                    dynamic gbtns = gTOASTHMI.gData.btns.ReadValue();
+                   
+
+                    //gData now contains;
+                    //hmi: structHMI;
+                    //btns: structHMIBtns;
+
+
                     //MotionRowDto/
                     //call MotionRowDto
                     try
@@ -418,7 +439,9 @@ namespace TOAST_HMI
                     }
 
                     //same with isAnyFaultState
-                    bool isAnyFaultState = ReadBoolArray("gHMIData.hmiHeader.isAnyFaultState", 1)[0];
+                   // bool isAnyFaultState = ReadBoolArray("gHMIData.hmiHeader.isAnyFaultState", 1)[0];
+                    bool isAnyFaultState = gHMI.hmiHeader.isAnyFaultState;
+
                     //if the isAnyFaultState is true, then dont hide the lblFaultState
                     if (isAnyFaultState == true)
                     {
@@ -433,7 +456,8 @@ namespace TOAST_HMI
                     //read integer header.AnyStationFaultHeader from PLC
                     try
                     {
-                        int anyStationAlarmHeader = ReadInt16("gHMIData.hmiHeader.AnyStationFaultHeader");
+                        //int anyStationAlarmHeader = ReadInt16("gHMIData.hmiHeader.AnyStationFaultHeader");
+                        int anyStationAlarmHeader = gHMI.hmiHeader.AnyStationFaultHeader;
                         //if AnyStationAlarmList[] array contains text, then fill in the lblFaultState with those texts
                         if (AnyStationAlarmList.Length >= 3 && anyStationAlarmHeader >= 0 && anyStationAlarmHeader <= 4)
                         {
@@ -447,7 +471,8 @@ namespace TOAST_HMI
                     }
 
                     //if gHMIData.gHideDisplayElementAlarmView.McEnabled is TRUE, then hide lblmsgViewAlarmMachine
-                    bool hideAlarmView = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.McEnabled", 1)[0];
+                    //bool hideAlarmView = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.McEnabled", 1)[0];
+                    bool hideAlarmView = gHMI.gHideDisplayElementAlarmView.McEnabled;
                     if (hideAlarmView == true)
                     {
                         lblmsgViewAlarmMachine.Visible = false;
@@ -456,12 +481,15 @@ namespace TOAST_HMI
                     {
                         lblmsgViewAlarmMachine.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgMc.Alarm.topMessage
-                        lblmsgViewAlarmMachine.Text = ReadPlcString("GlobalMessages.gMsgMc.Alarm.topMessage");
-
+                        //lblmsgViewAlarmMachine.Text = ReadPlcString("GlobalMessages.gMsgMc.Alarm.topMessage");
+                        lblmsgViewAlarmMachine.Text = gHMI.GlobalMessages.gMsgMc.Alarm.topMessage;
+                    
                     }
 
                     //if gHMIData.gHideDisplayElementAlarmView.S1Enabled is TRUE then hide lblmsgViewAlarmStation1
-                    bool hideAlarmViewS1 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S1Enabled", 1)[0];
+                    //bool hideAlarmViewS1 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S1Enabled", 1)[0];
+                    bool hideAlarmViewS1 = gHMI.gHideDisplayElementAlarmView.S1Enabled;
+
                     if (hideAlarmViewS1 == true)
                     {
                         lblmsgViewAlarmS1.Visible = false;
@@ -470,11 +498,13 @@ namespace TOAST_HMI
                     {
                         lblmsgViewAlarmS1.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS1.Alarm.topMessage
-                        lblmsgViewAlarmS1.Text = ReadPlcString("GlobalMessages.gMsgS1.Alarm.topMessage");
+                       // lblmsgViewAlarmS1.Text = ReadPlcString("GlobalMessages.gMsgS1.Alarm.topMessage");
+                        lblmsgViewAlarmS1.Text = gHMI.GlobalMessages.gMsgS1.Alarm.topMessage;
 
                     }
                     //if gHMIData.gHideDisplayElementAlarmView.S2Enabled is TRUE then hide lblmsgViewAlarmStation2
-                    bool hideAlarmViewS2 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S2Enabled", 1)[0];
+                   // bool hideAlarmViewS2 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S2Enabled", 1)[0];
+                    bool hideAlarmViewS2 = gHMI.gHideDisplayElementAlarmView.S2Enabled;
                     if (hideAlarmViewS2 == true)
                     {
                         lblmsgViewAlarmS2.Visible = false;
@@ -483,11 +513,13 @@ namespace TOAST_HMI
                     {
                         lblmsgViewAlarmS2.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS2.Alarm.topMessage
-                        lblmsgViewAlarmS2.Text = ReadPlcString("GlobalMessages.gMsgS2.Alarm.topMessage");
+                        //lblmsgViewAlarmS2.Text = ReadPlcString("GlobalMessages.gMsgS2.Alarm.topMessage");
+                        lblmsgViewAlarmS2.Text = gHMI.GlobalMessages.gMsgS2.Alarm.topMessage;
 
                     }
                     //if gHMIData.gHideDisplayElementAlarmView.S3Enabled is TRUE then hide lblmsgViewAlarmStation3
-                    bool hideAlarmViewS3 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S3Enabled", 1)[0];
+                   // bool hideAlarmViewS3 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S3Enabled", 1)[0];
+                    bool hideAlarmViewS3 = gHMI.gHideDisplayElementAlarmView.S3Enabled;
                     if (hideAlarmViewS3 == true)
                     {
                         lblmsgViewAlarmS3.Visible = false;
@@ -496,11 +528,13 @@ namespace TOAST_HMI
                     {
                         lblmsgViewAlarmS3.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS3.Alarm.topMessage
-                        lblmsgViewAlarmS3.Text = ReadPlcString("GlobalMessages.gMsgS3.Alarm.topMessage");
+                        //lblmsgViewAlarmS3.Text = ReadPlcString("GlobalMessages.gMsgS3.Alarm.topMessage");
+                        lblmsgViewAlarmS3.Text = gHMI.GlobalMessages.gMsgS3.Alarm.topMessage;
 
                     }
                     //if gHMIData.gHideDisplayElementAlarmView.S4Enabled is TRUE then hide lblmsgViewAlarmStation4
-                    bool hideAlarmViewS4 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S4Enabled", 1)[0];
+                    //bool hideAlarmViewS4 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S4Enabled", 1)[0];
+                    bool hideAlarmViewS4 = gHMI.gHideDisplayElementAlarmView.S4Enabled;
                     if (hideAlarmViewS4 == true)
                     {
                         lblmsgViewAlarmS4.Visible = false;
@@ -509,11 +543,13 @@ namespace TOAST_HMI
                     {
                         lblmsgViewAlarmS4.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS4.Alarm.topMessage
-                        lblmsgViewAlarmS4.Text = ReadPlcString("GlobalMessages.gMsgS4.Alarm.topMessage");
+                        //lblmsgViewAlarmS4.Text = ReadPlcString("GlobalMessages.gMsgS4.Alarm.topMessage");
+                        lblmsgViewAlarmS4.Text = gHMI.GlobalMessages.gMsgS4.Alarm.topMessage;
 
                     }
                     //if gHMIData.gHideDisplayElementAlarmView.S5Enabled is TRUE then hide lblmsgViewAlarmStation5
-                    bool hideAlarmViewS5 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S5Enabled", 1)[0];
+                    //bool hideAlarmViewS5 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S5Enabled", 1)[0];
+                    bool hideAlarmViewS5 = gHMI.gHideDisplayElementAlarmView.S5Enabled;
                     if (hideAlarmViewS5 == true)
                     {
                         lblmsgViewAlarmS5.Visible = false;
@@ -522,11 +558,14 @@ namespace TOAST_HMI
                     {
                         lblmsgViewAlarmS5.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS5.Alarm.topMessage
-                        lblmsgViewAlarmS5.Text = ReadPlcString("GlobalMessages.gMsgS5.Alarm.topMessage");
+                        //lblmsgViewAlarmS5.Text = ReadPlcString("GlobalMessages.gMsgS5.Alarm.topMessage");
+                        lblmsgViewAlarmS5.Text = gHMI.GlobalMessages.gMsgS5.Alarm.topMessage;
+
 
                     }
                     //if gHMIData.gHideDisplayElementAlarmView.S6Enabled is TRUE then hide lblmsgViewAlarmStation6
-                    bool hideAlarmViewS6 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S6Enabled", 1)[0];
+                   // bool hideAlarmViewS6 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S6Enabled", 1)[0];
+                    bool hideAlarmViewS6 = gHMI.gHideDisplayElementAlarmView.S6Enabled;
                     if (hideAlarmViewS6 == true)
                     {
                         lblmsgViewAlarmS6.Visible = false;
@@ -535,12 +574,14 @@ namespace TOAST_HMI
                     {
                         lblmsgViewAlarmS6.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS6.Alarm.topMessage
-                        lblmsgViewAlarmS6.Text = ReadPlcString("GlobalMessages.gMsgS6.Alarm.topMessage");
+                        //lblmsgViewAlarmS6.Text = ReadPlcString("GlobalMessages.gMsgS6.Alarm.topMessage");
+                        lblmsgViewAlarmS6.Text = gHMI.GlobalMessages.gMsgS6.Alarm.topMessage;
 
                     }
 
                     //read gHMIData.gHideDisplayElementPromptView.McEnabled for prompts
-                    bool hidePromptView = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.McEnabled", 1)[0];
+                   // bool hidePromptView = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.McEnabled", 1)[0];
+                    bool hidePromptView = gHMI.gHideDisplayElementPromptView.McEnabled;
                     if (hidePromptView == true)
                     {
                         lblmsgViewPromptMachine.Visible = false;
@@ -550,7 +591,8 @@ namespace TOAST_HMI
                         lblmsgViewPromptMachine.Visible = true;
                     }
                     //read gHMIData.gHideDisplayElementPromptView.S1Enabled for prompts
-                    bool hidePromptViewS1 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S1Enabled", 1)[0];
+                    //bool hidePromptViewS1 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S1Enabled", 1)[0];
+                    bool hidePromptViewS1 = gHMI.gHideDisplayElementPromptView.S1Enabled;
                     if (hidePromptViewS1 == true)
                     {
                         lblmsgViewPromptsS1.Visible = false;
@@ -560,10 +602,12 @@ namespace TOAST_HMI
                         lblmsgViewPromptsS1.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS1.Prompts.topMessage
                         //read string from PLC
-                        lblmsgViewPromptsS1.Text = ReadPlcString("GlobalMessages.gMsgS1.Prompts.topMessage");
+                        //lblmsgViewPromptsS1.Text = ReadPlcString("GlobalMessages.gMsgS1.Prompts.topMessage");
+                        lblmsgViewPromptsS1.Text = gHMI.GlobalMessages.gMsgS1.Prompts.topMessage;
                     }
                     //read gHMIData.gHideDisplayElementPromptView.S2Enabled for prompts
-                    bool hidePromptViewS2 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S2Enabled", 1)[0];
+                    //bool hidePromptViewS2 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S2Enabled", 1)[0];
+                    bool hidePromptViewS2 = gHMI.gHideDisplayElementPromptView.S2Enabled;
                     if (hidePromptViewS2 == true)
                     {
                         lblmsgViewPromptsS2.Visible = false;
@@ -572,11 +616,13 @@ namespace TOAST_HMI
                     {
                         lblmsgViewPromptsS2.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS2.Prompts.topMessage
-                        lblmsgViewPromptsS2.Text = ReadPlcString("GlobalMessages.gMsgS2.Prompts.topMessage");
+                       //lblmsgViewPromptsS2.Text = ReadPlcString("GlobalMessages.gMsgS2.Prompts.topMessage");
+                        lblmsgViewPromptsS2.Text = gHMI.GlobalMessages.gMsgS2.Prompts.topMessage;
 
                     }
                     //read gHMIData.gHideDisplayElementPromptView.S3Enabled for prompts
-                    bool hidePromptViewS3 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S3Enabled", 1)[0];
+                   //bool hidePromptViewS3 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S3Enabled", 1)[0];
+                    bool hidePromptViewS3 = gHMI.gHideDisplayElementPromptView.S3Enabled;
                     if (hidePromptViewS3 == true)
                     {
                         lblmsgViewPromptsS3.Visible = false;
@@ -585,11 +631,13 @@ namespace TOAST_HMI
                     {
                         lblmsgViewPromptsS3.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS3.Prompts.topMessage
-                        lblmsgViewPromptsS3.Text = ReadPlcString("GlobalMessages.gMsgS3.Prompts.topMessage");
+                        //lblmsgViewPromptsS3.Text = ReadPlcString("GlobalMessages.gMsgS3.Prompts.topMessage");
+                        lblmsgViewPromptsS3.Text = gHMI.GlobalMessages.gMsgS3.Prompts.topMessage;
 
                     }
                     //read gHMIData.gHideDisplayElementPromptView.S4Enabled for prompts
-                    bool hidePromptViewS4 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S4Enabled", 1)[0];
+                    //bool hidePromptViewS4 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S4Enabled", 1)[0];
+                    bool hidePromptViewS4 = gHMI.gHideDisplayElementPromptView.S4Enabled;
                     if (hidePromptViewS4 == true)
                     {
                         lblmsgViewPromptsS4.Visible = false;
@@ -598,11 +646,13 @@ namespace TOAST_HMI
                     {
                         lblmsgViewPromptsS4.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS4.Prompts.topMessage
-                        lblmsgViewPromptsS4.Text = ReadPlcString("GlobalMessages.gMsgS4.Prompts.topMessage");
+                    //    lblmsgViewPromptsS4.Text = ReadPlcString("GlobalMessages.gMsgS4.Prompts.topMessage");
+                        lblmsgViewPromptsS4.Text = gHMI.GlobalMessages.gMsgS4.Prompts.topMessage;
 
                     }
                     //read gHMIData.gHideDisplayElementPromptView.S5Enabled for prompts
-                    bool hidePromptViewS5 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S5Enabled", 1)[0];
+                    //bool hidePromptViewS5 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S5Enabled", 1)[0];
+                    bool hidePromptViewS5 = gHMI.gHideDisplayElementPromptView.S5Enabled;
                     if (hidePromptViewS5 == true)
                     {
                         lblmsgViewPromptsS5.Visible = false;
@@ -612,7 +662,8 @@ namespace TOAST_HMI
                         lblmsgViewPromptsS5.Visible = true;
                     }
                     //read gHMIData.gHideDisplayElementPromptView.S6Enabled for prompts
-                    bool hidePromptViewS6 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S6Enabled", 1)[0];
+                    //bool hidePromptViewS6 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S6Enabled", 1)[0];
+                    bool hidePromptViewS6 = gHMI.gHideDisplayElementPromptView.S6Enabled;
                     if (hidePromptViewS6 == true)
                     {
                         lblmsgViewPromptsS6.Visible = false;
@@ -621,13 +672,15 @@ namespace TOAST_HMI
                     {
                         lblmsgViewPromptsS6.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS6.Prompts.topMessage
-                        lblmsgViewPromptsS6.Text = ReadPlcString("GlobalMessages.gMsgS6.Prompts.topMessage");
+                        //lblmsgViewPromptsS6.Text = ReadPlcString("GlobalMessages.gMsgS6.Prompts.topMessage");
+                        lblmsgViewPromptsS6.Text = gHMI.GlobalMessages.gMsgS6.Prompts.topMessage;
 
                     }
 
                     //now the same for warnings
                     //read gHMIData.gHideDisplayElementWarningView.McEnabled
-                    bool hideWarningView = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.McEnabled", 1)[0];
+                    //bool hideWarningView = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.McEnabled", 1)[0];
+                    bool hideWarningView = gHMI.gHideDisplayElementWarningView.McEnabled;
                     if (hideWarningView == true)
                     {
                         lblmsgViewWarningMachine.Visible = false;
@@ -636,11 +689,14 @@ namespace TOAST_HMI
                     {
                         lblmsgViewWarningMachine.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgMc.Warning.topMessage
-                        lblmsgViewWarningMachine.Text = ReadPlcString("GlobalMessages.gMsgMc.Warning.topMessage");
+                        //lblmsgViewWarningMachine.Text = ReadPlcString("GlobalMessages.gMsgMc.Warning.topMessage");
+                        lblmsgViewWarningMachine.Text = gHMI.GlobalMessages.gMsgMc.Warning.topMessage;
 
                     }
                     //read gHMIData.gHideDisplayElementWarningView.S1Enabled
-                    bool hideWarningViewS1 = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.S1Enabled", 1)[0];
+                    //bool hideWarningViewS1 = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.S1Enabled", 1)[0];
+                    bool hideWarningViewS1 = gHMI.gHideDisplayElementWarningView.S1Enabled;
+
                     if (hideWarningViewS1 == true)
                     {
                         lblmsgViewWarningS1.Visible = false;
@@ -649,11 +705,13 @@ namespace TOAST_HMI
                     {
                         lblmsgViewWarningS1.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS1.Warning.topMessage
-                        lblmsgViewWarningS1.Text = ReadPlcString("GlobalMessages.gMsgS1.Warning.topMessage");
+                        //lblmsgViewWarningS1.Text = ReadPlcString("GlobalMessages.gMsgS1.Warning.topMessage");
+                        lblmsgViewWarningS1.Text = gHMI.GlobalMessages.gMsgS1.Warning.topMessage;
 
                     }
                     //read gHMIData.gHideDisplayElementWarningView.S2Enabled
-                    bool hideWarningViewS2 = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.S2Enabled", 1)[0];
+                    //bool hideWarningViewS2 = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.S2Enabled", 1)[0];
+                    bool hideWarningViewS2 = gHMI.gHideDisplayElementWarningView.S2Enabled;
                     if (hideWarningViewS2 == true)
                     {
                         lblmsgViewWarningS2.Visible = false;
@@ -662,11 +720,13 @@ namespace TOAST_HMI
                     {
                         lblmsgViewWarningS2.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS2.Warning.topMessage
-                        lblmsgViewWarningS2.Text = ReadPlcString("GlobalMessages.gMsgS2.Warning.topMessage");
+                        //lblmsgViewWarningS2.Text = ReadPlcString("GlobalMessages.gMsgS2.Warning.topMessage");
+                        lblmsgViewWarningS2.Text = gHMI.GlobalMessages.gMsgS2.Warning.topMessage;
 
                     }
                     //read gHMIData.gHideDisplayElementWarningView.S3Enabled
-                    bool hideWarningViewS3 = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.S3Enabled", 1)[0];
+                    //bool hideWarningViewS3 = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.S3Enabled", 1)[0];
+                    bool hideWarningViewS3 = gHMI.gHideDisplayElementWarningView.S3Enabled;
                     if (hideWarningViewS3 == true)
                     {
                         lblmsgViewWarningS3.Visible = false;
@@ -675,11 +735,13 @@ namespace TOAST_HMI
                     {
                         lblmsgViewWarningS3.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS3.Warning.topMessage
-                        lblmsgViewWarningS3.Text = ReadPlcString("GlobalMessages.gMsgS3.Warning.topMessage");
+                        //lblmsgViewWarningS3.Text = ReadPlcString("GlobalMessages.gMsgS3.Warning.topMessage");
+                        lblmsgViewWarningS3.Text = gHMI.GlobalMessages.gMsgS3.Warning.topMessage;
 
                     }
                     //read gHMIData.gHideDisplayElementWarningView.S4Enabled
-                    bool hideWarningViewS4 = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.S4Enabled", 1)[0];
+                    //bool hideWarningViewS4 = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.S4Enabled", 1)[0];
+                    bool hideWarningViewS4 = gHMI.gHideDisplayElementWarningView.S4Enabled;
                     if (hideWarningViewS4 == true)
                     {
                         lblmsgViewWarningS4.Visible = false;
@@ -688,11 +750,13 @@ namespace TOAST_HMI
                     {
                         lblmsgViewWarningS4.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS4.Warning.topMessage
-                        lblmsgViewWarningS4.Text = ReadPlcString("GlobalMessages.gMsgS4.Warning.topMessage");
+                        //lblmsgViewWarningS4.Text = ReadPlcString("GlobalMessages.gMsgS4.Warning.topMessage");
+                        lblmsgViewWarningS4.Text = gHMI.GlobalMessages.gMsgS4.Warning.topMessage;
 
                     }
                     //read gHMIData.gHideDisplayElementWarningView.S5Enabled
-                    bool hideWarningViewS5 = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.S5Enabled", 1)[0];
+                    //bool hideWarningViewS5 = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.S5Enabled", 1)[0];
+                    bool hideWarningViewS5 = gHMI.gHideDisplayElementWarningView.S5Enabled;
                     if (hideWarningViewS5 == true)
                     {
                         lblmsgViewWarningS5.Visible = false;
@@ -701,11 +765,13 @@ namespace TOAST_HMI
                     {
                         lblmsgViewWarningS5.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS5.Warning.topMessage
-                        lblmsgViewWarningS5.Text = ReadPlcString("GlobalMessages.gMsgS5.Warning.topMessage");
+                        //lblmsgViewWarningS5.Text = ReadPlcString("GlobalMessages.gMsgS5.Warning.topMessage");
+                        lblmsgViewWarningS5.Text = gHMI.GlobalMessages.gMsgS5.Warning.topMessage;
 
                     }
                     //read gHMIData.gHideDisplayElementWarningView.S6Enabled
-                    bool hideWarningViewS6 = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.S6Enabled", 1)[0];
+                    //bool hideWarningViewS6 = ReadBoolArray("gHMIData.gHideDisplayElementWarningView.S6Enabled", 1)[0];
+                    bool hideWarningViewS6 = gHMI.gHideDisplayElementWarningView.S6Enabled;
                     if (hideWarningViewS6 == true)
                     {
                         lblmsgViewWarningS6.Visible = false;
@@ -714,12 +780,14 @@ namespace TOAST_HMI
                     {
                         lblmsgViewWarningS6.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS6.Warning.topMessage
-                        lblmsgViewWarningS6.Text = ReadPlcString("GlobalMessages.gMsgS6.Warning.topMessage");
+                        //lblmsgViewWarningS6.Text = ReadPlcString("GlobalMessages.gMsgS6.Warning.topMessage");
+                        lblmsgViewWarningS6.Text = gHMI.GlobalMessages.gMsgS6.Warning.topMessage;
 
                     }
 
                     //check warnings status from PLC from  .isAnyWarningState  
-                    bool isAnyWarningState = ReadBoolArray("gHMIData.hmiHeader.isAnyWarningState", 1)[0];
+                    //bool isAnyWarningState = ReadBoolArray("gHMIData.hmiHeader.isAnyWarningState", 1)[0];
+                    bool isAnyWarningState = gHMI.hmiHeader.isAnyWarningState;
                     //if the isAnyWarningState is true, then dont hide the lblAnyWarnings, but if  isAnyFaultState is TRUE then keep it hidden
                     if (isAnyWarningState == true && isAnyFaultState == false)
                     {
@@ -732,7 +800,8 @@ namespace TOAST_HMI
                     //read in integer header.AnyStationWarningHeader from PLC
                     try
                     {
-                        int anyStationWarningHeader = ReadInt16("gHMIData.hmiHeader.AnyStationWarningHeader");
+                        //int anyStationWarningHeader = ReadInt16("gHMIData.hmiHeader.AnyStationWarningHeader");
+                        int anyStationWarningHeader = gHMI.hmiHeader.AnyStationWarningHeader;
                         //if AnyStationWarningList[] array contains text, then fill in the lblAnyWarnings with those texts
                         if (AnyStationWarningList.Length >= 3 && anyStationWarningHeader >= 0 && anyStationWarningHeader <= 4)
                         {
@@ -747,7 +816,8 @@ namespace TOAST_HMI
 
                     //gHMIButtons.btnFdbk.btnIsHomeFdbk
                     //read status of is home feedback
-                    bool isHomeFdbk = ReadBoolArray("gHMIButtons.btnFdbk.btnIsHomeFdbk", 1)[0];
+                    //bool isHomeFdbk = ReadBoolArray("gHMIButtons.btnFdbk.btnIsHomeFdbk", 1)[0];
+                    bool isHomeFdbk = gbtns.btnFdbk.btnIsHomeFdbk;
                     if (isHomeFdbk == true)
                     {
                         btnReturnHome.BackColor = Color.LightGreen;
@@ -759,7 +829,8 @@ namespace TOAST_HMI
 
                     //gHMIButtons.btnFdbk.btnAutoCyclingFdbk
                     //read status of auto cycling feedback
-                    bool autoCyclingFdbk = ReadBoolArray("gHMIButtons.btnFdbk.btnAutoCyclingFdbk", 1)[0];
+                    //bool autoCyclingFdbk = ReadBoolArray("gHMIButtons.btnFdbk.btnAutoCyclingFdbk", 1)[0];
+                    bool autoCyclingFdbk = gbtns.btnFdbk.btnAutoCyclingFdbk;
                     if (autoCyclingFdbk == true)
                     {
                         btnAutoCycleStart.BackColor = Color.LightGreen;
@@ -771,6 +842,7 @@ namespace TOAST_HMI
 
                     //read power on status from Mc_Global.PowerOnFdbk
                     bool powerOnFdbk = ReadBoolArray("Mc_Global.PowerOnFdbk", 1)[0];
+                    //bool powerOnFdbk = gbtns.btnModes.PowerOnFdbk;
                     if (powerOnFdbk == true)
                     {
                         btnPowerOn.BackColor = Color.LightGreen;
@@ -781,8 +853,22 @@ namespace TOAST_HMI
                     }
 
                     //read all gHMIButtons.btnFdbk, which is 40 bools into gButtonFdbk array
-                    var buttonFdbkValues = ReadBoolArray("gHMIButtons.btnFdbk", 32);
-                    if (buttonFdbkValues.Length == gButtonFdbk.Length)
+                    // var buttonFdbkValues = ReadBoolArray("gHMIButtons.btnFdbk", 32);
+                    bool[] buttonFdbkValues;
+                    //gbtns.btnFdbk contains multiple bools inside it, so we need to read it into a bool array called buttonFdbkValues
+                    buttonFdbkValues = new bool[40];
+                    //for the length of the structure of btnFdbk, we need to read each bool into the array using a for loop
+                    for (int i = 0; i < 40; i++)
+                    {
+                        //use reflection to get the value of each bool inside the btnFdbk structure
+                        var propertyInfo = gbtns.btnFdbk.GetType().GetProperty($"Item{i}");
+                        if (propertyInfo != null)
+                        {
+                            buttonFdbkValues[i] = (bool)propertyInfo.GetValue(gbtns.btnFdbk);
+                        }
+                    }
+
+                   if (buttonFdbkValues.Length == gButtonFdbk.Length)
                     {
                         Array.Copy(buttonFdbkValues, gButtonFdbk, buttonFdbkValues.Length);
                         //update button backcolors based on gButtonFdbk values
@@ -832,7 +918,20 @@ namespace TOAST_HMI
                     }
 
                     //read all gHMIButtons.btnHides, which is 32 bools into gButtonHides array
-                    var buttonHidesValues = ReadBoolArray("gHMIButtons.btnHides", 32);
+                    //var buttonHidesValues = ReadBoolArray("gHMIButtons.btnHides", 32);
+                    //  var buttonHidesValues = gbtns.btnHides;
+                    bool[] buttonHidesValues;
+                    buttonHidesValues = new bool[40];
+                    //for the length of the structure of btnHides, we need to read each bool into the array using a for loop
+                    for (int i = 0; i < 40; i++)
+                    {
+                        //use reflection to get the value of each bool inside the btnHides structure
+                        var propertyInfo = gbtns.btnHides.GetType().GetProperty($"Item{i}");
+                        if (propertyInfo != null)
+                        {
+                            buttonHidesValues[i] = (bool)propertyInfo.GetValue(gbtns.btnHides);
+                        }
+                    }
                     if (buttonHidesValues.Length == gButtonFdbk.Length)
                     {
                         //update button visibility based on gButtonHides values
@@ -848,7 +947,8 @@ namespace TOAST_HMI
 
 
                     //hide / show btnStation1, btnStation2, etc based on gStationEnabled
-                    var enabledValues = ReadBoolArray("gHMIData.gStationEnabled", 6);
+                    //var enabledValues = ReadBoolArray("gHMIData.gStationEnabled", 6);
+                    var enabledValues = gHMI.gStationEnabled;
                     if (enabledValues.Length == gStationEnabled.Length)
                     {
                         Array.Copy(enabledValues, gStationEnabled, enabledValues.Length);
@@ -866,7 +966,8 @@ namespace TOAST_HMI
 
 
 
-                    var values = ReadBoolArray("gHMIData.gStationSelected", 6);
+                    //var values = ReadBoolArray("gHMIData.gStationSelected", 6);
+                    var values = gHMI.gStationSelected;
                     if (values.Length == gStationSelected.Length)
                     {
                         Array.Copy(values, gStationSelected, values.Length);
@@ -932,7 +1033,9 @@ namespace TOAST_HMI
                     // --- read integer station state and update lblStationState background ---
                     try
                     {
-                        int stationState = ReadInt16("gHMIData.hmiHeader.stationstate");
+                        //int stationState = ReadInt16("gHMIData.hmiHeader.stationstate");
+                        int stationState = gHMI.hmiHeader.stationstate;
+
 
                         // Map PLC integer values to colours. Adjust mapping as required.
                         string stateText = stationState switch
@@ -961,7 +1064,8 @@ namespace TOAST_HMI
                     //header.cycleTypeFeedback.
                     try
                     {
-                        int cycletypefeedback = ReadInt16("gHMIData.hmiHeader.cycleTypeFeedback");
+                        //int cycletypefeedback = ReadInt16("gHMIData.hmiHeader.cycleTypeFeedback");
+                        int cycletypefeedback = gHMI.hmiHeader.cycleTypeFeedback;
                         // Map PLC integer values to colours. Adjust mapping as required.
                         string stateText = cycletypefeedback switch
                         {
@@ -989,7 +1093,8 @@ namespace TOAST_HMI
                     //header.FaultStateHeader.
                     try
                     {
-                        int faultStateHeader = ReadInt16("gHMIData.hmiHeader.FaultStateHeader");
+                        //int faultStateHeader = ReadInt16("gHMIData.hmiHeader.FaultStateHeader");
+                        int faultStateHeader = gHMI.hmiHeader.FaultStateHeader;
 
                         // Map PLC integer values to colours. Adjust mapping as required.
                         string stateText = faultStateHeader switch
@@ -1035,7 +1140,8 @@ namespace TOAST_HMI
                     //header.homestate.
                     try
                     {
-                        int homestate = ReadInt16("gHMIData.hmiHeader.homestate");
+                        //int homestate = ReadInt16("gHMIData.hmiHeader.homestate");
+                        int homestate = gHMI.hmiHeader.homestate;
 
                         // Map PLC integer values to colours. Adjust mapping as required.
                         string stateText = homestate switch
@@ -1079,7 +1185,8 @@ namespace TOAST_HMI
                     try
                     {
                         //
-                        int stationName = ReadInt16("gHMIData.hmiHeader.stationNameSelect");
+                        //int stationName = ReadInt16("gHMIData.hmiHeader.stationNameSelect");
+                        int stationName = gHMI.hmiHeader.stationNameSelect;
                         // Map PLC integer values to colours. Adjust mapping as required.
                         string stateText = stationName switch
                         {
