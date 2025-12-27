@@ -422,9 +422,6 @@ namespace TOAST_HMI
                     //hmi: structHMI;
                     //btns: structHMIBtns;
 
-
-                    //MotionRowDto/
-                    //call MotionRowDto
                     try
                     {
                         // Read and populate all 9 motion rows into matching usrcontRow controls
@@ -432,10 +429,7 @@ namespace TOAST_HMI
                     }
                     catch
                     {
-                        // ignore any read/update errors for the motion rows
-
-                        //show a message with the text from the exception
-                        //ssageBox
+                      
                     }
 
                     //same with isAnyFaultState
@@ -1980,6 +1974,9 @@ namespace TOAST_HMI
 
         private void UpdateAllUsrcontRowsFromPlc()
         {
+
+
+
             MotionRowDto dto;
             dto = ReadMotionRowFromPlc(1);
             UpdateUsrcontRowFromMotionRow(usrcontRow1, dto);

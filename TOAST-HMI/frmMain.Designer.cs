@@ -1050,8 +1050,8 @@
             usrcontRow4.ReturnNameBackColor = Color.Transparent;
             usrcontRow4.RowIndex = 4;
             usrcontRow4.RowName = "Cylinder A4";
-            usrcontRow4.ShowAdvanceButton = false;
-            usrcontRow4.ShowAdvanceLabel = false;
+            usrcontRow4.ShowAdvanceButton = true;
+            usrcontRow4.ShowAdvanceLabel = true;
             usrcontRow4.ShowReturnButton = false;
             usrcontRow4.Size = new Size(1000, 52);
             usrcontRow4.TabIndex = 3;
@@ -1072,8 +1072,8 @@
             usrcontRow3.ReturnNameBackColor = Color.Transparent;
             usrcontRow3.RowIndex = 3;
             usrcontRow3.RowName = "Cylinder A3";
-            usrcontRow3.ShowAdvanceButton = false;
-            usrcontRow3.ShowAdvanceLabel = false;
+            usrcontRow3.ShowAdvanceButton = true;
+            usrcontRow3.ShowAdvanceLabel = true;
             usrcontRow3.ShowReturnButton = false;
             usrcontRow3.Size = new Size(1000, 52);
             usrcontRow3.TabIndex = 2;
@@ -1094,8 +1094,8 @@
             usrcontRow2.ReturnNameBackColor = Color.Transparent;
             usrcontRow2.RowIndex = 2;
             usrcontRow2.RowName = "Cylinder A2";
-            usrcontRow2.ShowAdvanceButton = false;
-            usrcontRow2.ShowAdvanceLabel = false;
+            usrcontRow2.ShowAdvanceButton = true;
+            usrcontRow2.ShowAdvanceLabel = true;
             usrcontRow2.ShowReturnButton = false;
             usrcontRow2.Size = new Size(1000, 52);
             usrcontRow2.TabIndex = 1;
@@ -1116,8 +1116,8 @@
             usrcontRow1.ReturnNameBackColor = Color.Transparent;
             usrcontRow1.RowIndex = 1;
             usrcontRow1.RowName = "Cylinder A1";
-            usrcontRow1.ShowAdvanceButton = false;
-            usrcontRow1.ShowAdvanceLabel = false;
+            usrcontRow1.ShowAdvanceButton = true;
+            usrcontRow1.ShowAdvanceLabel = true;
             usrcontRow1.ShowReturnButton = false;
             usrcontRow1.Size = new Size(1000, 52);
             usrcontRow1.TabIndex = 0;
