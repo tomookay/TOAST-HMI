@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace TOAST_HMI
 {
-    internal class typeMotionRow
+    public record typeMotionRow
     {
-    typeMotionSide Advance;
-    typeMotionSide Return;
-        
-    string strPosn; //formatted position, in string form
+        public typeMotionSide Advance;
+        public typeMotionSide Return;
 
-	int IndexLocation; //index value
+        public string strPosn; //formatted position, in string form
+
+        public int IndexLocation; //index value
+
+        public bool bHidePosn; //TRUE to hide the posn
+        public bool bHideName; //TRUE to hide the name
 	
-	bool bHidePosn; //TRUE to hide the posn
-	bool bHideName; //TRUE to hide the name
-	
-	bool bIsAbsSymSwitch; //TRUE to switch between abs/symb
+	    public bool bIsAbsSymSwitch; //TRUE to switch between abs/symb
     }
 }

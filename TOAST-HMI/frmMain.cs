@@ -1,9 +1,11 @@
+using Microsoft.Win32;
 using System;
 using System.Collections;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Xml.Linq;
 using TwinCAT;
 using TwinCAT.Ads;
@@ -23,10 +25,10 @@ namespace TOAST_HMI
         // Use a nullable field and a consistent camelCase name to match usages below.
         private AdsClient? _adsClient;
         // TODO: set to your PLC AMS Net ID (e.g. "5.25.123.1.1") and port (default 851)
-        private readonly string _amsNetId = "5.132.152.5.1.1";
-        private readonly int _adsPort = 851;
+        private string _amsNetId = "5.132.152.5.1.1";
+        private int _adsPort = 851;
 
-
+        private const string RegBasePath = @"Software\TOAST-HMI";
 
 
         private bool[] gStationSelected = new bool[6];
@@ -34,6 +36,23 @@ namespace TOAST_HMI
         private string tc3ProjectPath = string.Empty;
 
         bool isConnectionFaulted = false;
+
+        public typeMotionRow manrow1;
+        public typeMotionRow manrow2;
+        public typeMotionRow manrow3;
+        public typeMotionRow manrow4;
+        public typeMotionRow manrow5;
+        public typeMotionRow manrow6;
+        public typeMotionRow manrow7;
+        public typeMotionRow manrow8;
+        public typeMotionRow manrow9;
+
+
+
+
+
+
+
 
         string[] StationNames = new string[]
         {
@@ -208,14 +227,14 @@ namespace TOAST_HMI
             }
             catch (AdsErrorException ex)
             {
-                MessageBox.Show($"ADS connect error: {ex.Message}", "ADS Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"ADS connect error 1: {ex.Message}", "ADS Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 _adsClient = null;
                 isConnectionFaulted = true;
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Connect error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Connect error 2: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 _adsClient = null;
                 isConnectionFaulted = true;
             }
@@ -394,19 +413,15 @@ namespace TOAST_HMI
 
         private void timGetPLCData_Tick(object sender, EventArgs e)
         {
-            //read gStationSelected
-
             if (isConnectionFaulted == false)
             {
-                try
+            try
                 {
-
-
-                    var symbolLoader = (IDynamicSymbolLoader)SymbolLoaderFactory.Create
-              (
-                  _adsClient,
-                  new SymbolLoaderSettings(SymbolsLoadMode.DynamicTree)
-              );
+                var symbolLoader = (IDynamicSymbolLoader)SymbolLoaderFactory.Create
+                  (
+                      _adsClient,
+                      new SymbolLoaderSettings(SymbolsLoadMode.DynamicTree)
+                  );
 
                     var symbols = (DynamicSymbolsCollection)symbolLoader.SymbolsDynamic;
 
@@ -416,7 +431,7 @@ namespace TOAST_HMI
                     //pick out the gHMI and gButtons
                     dynamic gHMI = gTOASTHMI.gData.hmi.ReadValue();
                     dynamic gbtns = gTOASTHMI.gData.btns.ReadValue();
-                   
+
 
                     //gData now contains;
                     //hmi: structHMI;
@@ -429,11 +444,11 @@ namespace TOAST_HMI
                     }
                     catch
                     {
-                      
+
                     }
 
                     //same with isAnyFaultState
-                   // bool isAnyFaultState = ReadBoolArray("gHMIData.hmiHeader.isAnyFaultState", 1)[0];
+                    // bool isAnyFaultState = ReadBoolArray("gHMIData.hmiHeader.isAnyFaultState", 1)[0];
                     bool isAnyFaultState = gHMI.hmiHeader.isAnyFaultState;
 
                     //if the isAnyFaultState is true, then dont hide the lblFaultState
@@ -477,7 +492,7 @@ namespace TOAST_HMI
                         //set the lbl to the string GlobalMessages.gMsgMc.Alarm.topMessage
                         //lblmsgViewAlarmMachine.Text = ReadPlcString("GlobalMessages.gMsgMc.Alarm.topMessage");
                         lblmsgViewAlarmMachine.Text = gHMI.GlobalMessages.gMsgMc.Alarm.topMessage;
-                    
+
                     }
 
                     //if gHMIData.gHideDisplayElementAlarmView.S1Enabled is TRUE then hide lblmsgViewAlarmStation1
@@ -492,12 +507,12 @@ namespace TOAST_HMI
                     {
                         lblmsgViewAlarmS1.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS1.Alarm.topMessage
-                       // lblmsgViewAlarmS1.Text = ReadPlcString("GlobalMessages.gMsgS1.Alarm.topMessage");
+                        // lblmsgViewAlarmS1.Text = ReadPlcString("GlobalMessages.gMsgS1.Alarm.topMessage");
                         lblmsgViewAlarmS1.Text = gHMI.GlobalMessages.gMsgS1.Alarm.topMessage;
 
                     }
                     //if gHMIData.gHideDisplayElementAlarmView.S2Enabled is TRUE then hide lblmsgViewAlarmStation2
-                   // bool hideAlarmViewS2 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S2Enabled", 1)[0];
+                    // bool hideAlarmViewS2 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S2Enabled", 1)[0];
                     bool hideAlarmViewS2 = gHMI.gHideDisplayElementAlarmView.S2Enabled;
                     if (hideAlarmViewS2 == true)
                     {
@@ -512,7 +527,7 @@ namespace TOAST_HMI
 
                     }
                     //if gHMIData.gHideDisplayElementAlarmView.S3Enabled is TRUE then hide lblmsgViewAlarmStation3
-                   // bool hideAlarmViewS3 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S3Enabled", 1)[0];
+                    // bool hideAlarmViewS3 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S3Enabled", 1)[0];
                     bool hideAlarmViewS3 = gHMI.gHideDisplayElementAlarmView.S3Enabled;
                     if (hideAlarmViewS3 == true)
                     {
@@ -558,7 +573,7 @@ namespace TOAST_HMI
 
                     }
                     //if gHMIData.gHideDisplayElementAlarmView.S6Enabled is TRUE then hide lblmsgViewAlarmStation6
-                   // bool hideAlarmViewS6 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S6Enabled", 1)[0];
+                    // bool hideAlarmViewS6 = ReadBoolArray("gHMIData.gHideDisplayElementAlarmView.S6Enabled", 1)[0];
                     bool hideAlarmViewS6 = gHMI.gHideDisplayElementAlarmView.S6Enabled;
                     if (hideAlarmViewS6 == true)
                     {
@@ -574,7 +589,7 @@ namespace TOAST_HMI
                     }
 
                     //read gHMIData.gHideDisplayElementPromptView.McEnabled for prompts
-                   // bool hidePromptView = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.McEnabled", 1)[0];
+                    // bool hidePromptView = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.McEnabled", 1)[0];
                     bool hidePromptView = gHMI.gHideDisplayElementPromptView.McEnabled;
                     if (hidePromptView == true)
                     {
@@ -610,12 +625,12 @@ namespace TOAST_HMI
                     {
                         lblmsgViewPromptsS2.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS2.Prompts.topMessage
-                       //lblmsgViewPromptsS2.Text = ReadPlcString("GlobalMessages.gMsgS2.Prompts.topMessage");
+                        //lblmsgViewPromptsS2.Text = ReadPlcString("GlobalMessages.gMsgS2.Prompts.topMessage");
                         lblmsgViewPromptsS2.Text = gHMI.GlobalMessages.gMsgS2.Prompts.topMessage;
 
                     }
                     //read gHMIData.gHideDisplayElementPromptView.S3Enabled for prompts
-                   //bool hidePromptViewS3 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S3Enabled", 1)[0];
+                    //bool hidePromptViewS3 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S3Enabled", 1)[0];
                     bool hidePromptViewS3 = gHMI.gHideDisplayElementPromptView.S3Enabled;
                     if (hidePromptViewS3 == true)
                     {
@@ -640,7 +655,7 @@ namespace TOAST_HMI
                     {
                         lblmsgViewPromptsS4.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS4.Prompts.topMessage
-                    //    lblmsgViewPromptsS4.Text = ReadPlcString("GlobalMessages.gMsgS4.Prompts.topMessage");
+                        //    lblmsgViewPromptsS4.Text = ReadPlcString("GlobalMessages.gMsgS4.Prompts.topMessage");
                         lblmsgViewPromptsS4.Text = gHMI.GlobalMessages.gMsgS4.Prompts.topMessage;
 
                     }
@@ -862,7 +877,7 @@ namespace TOAST_HMI
                         }
                     }
 
-                   if (buttonFdbkValues.Length == gButtonFdbk.Length)
+                    if (buttonFdbkValues.Length == gButtonFdbk.Length)
                     {
                         Array.Copy(buttonFdbkValues, gButtonFdbk, buttonFdbkValues.Length);
                         //update button backcolors based on gButtonFdbk values
@@ -914,17 +929,17 @@ namespace TOAST_HMI
                     //read all gHMIButtons.btnHides, which is 32 bools into gButtonHides array
                     //var buttonHidesValues = ReadBoolArray("gHMIButtons.btnHides", 32);
 
-                 //  dynamic gbtnHides = gTOASTHMI.gData.btns.btnHides.ReadValue();
+                    //  dynamic gbtnHides = gTOASTHMI.gData.btns.btnHides.ReadValue();
                     //gbtnHides contains multiple bytes inside it, so we need to read it into a bool array called buttonHidesValues
 
-                   // bool[] buttonHidesValues = gTOASTHMI.gData.btns.btnHides.ReadValue();
+                    // bool[] buttonHidesValues = gTOASTHMI.gData.btns.btnHides.ReadValue();
                     bool[] buttonHidesValues;
 
                     // using System.Linq;
                     // Read dynamic wrapper
-                   
-                        buttonHidesValues = ReadBoolArray("gHMIButtons.btnHides", 40);
-                    
+
+                    buttonHidesValues = ReadBoolArray("gHMIButtons.btnHides", 40);
+
 
                     if (buttonHidesValues.Length == gButtonFdbk.Length)
                     {
@@ -1225,6 +1240,11 @@ namespace TOAST_HMI
                     isConnectionFaulted = true;
                 }
             }
+
+
+            //update manual row's usrcont from plc
+            UpdateAllUsrcontRowsFromPlc();
+
 
             //dont bother using timer anymore
             if (isConnectionFaulted)
@@ -1801,9 +1821,71 @@ namespace TOAST_HMI
             }
         }
 
-        private void frmMain_Load_1(object sender, EventArgs e)
-        {
 
+
+        private void LoadSettingsFromRegistry()
+        {
+            try
+            {
+                using (var key = Registry.CurrentUser.OpenSubKey(RegBasePath))
+                {
+                    if (key == null)
+                    {
+                        MessageBox.Show("No base key found in registry. Using default settings.", "Registry", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //stop the application
+                        SaveSettingsToRegistry();
+
+
+                        return;
+                    }
+
+                    var local = key.GetValue("amsNetId") as string;
+                    if (!string.IsNullOrEmpty(local))
+                    {
+                        _amsNetId = local;
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("AMS Net ID not found in registry. Using default.", "Registry", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        _amsNetId = "5.132.152.5.1.1";
+                    }
+
+                    int localport = Convert.ToInt16(key.GetValue("adsPort"));
+                    if (localport > 1)
+                    {
+                        _adsPort = localport;
+                    }
+                    else
+                    {
+                        MessageBox.Show("ADS Port not found or invalid in registry. Using default.", "Registry", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        _adsPort = 851;
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to load settings from registry: {ex.Message}");
+            }
+        }
+
+        private void SaveSettingsToRegistry()
+        {
+            try
+            {
+                using (var key = Registry.CurrentUser.CreateSubKey(RegBasePath))
+                {
+                    key.SetValue("amsNetId", _amsNetId ?? "", RegistryValueKind.String);
+                    key.SetValue("adsPort", _adsPort, RegistryValueKind.DWord);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to save settings to registry: {ex.Message}");
+            }
         }
 
         // DTOs and helpers added to frmMain (same partial class)
@@ -1940,46 +2022,125 @@ namespace TOAST_HMI
             return row;
         }
 
-        private void UpdateUsrcontRowFromMotionRow(usrcontRow rowCtrl, MotionRowDto dto)
+        private void UpdateUsrcontRowFromMotionRow(usrcontRow rowCtrl, typeMotionRow typeMotionRow)
         {
             // Buttons visibility
-            rowCtrl.ShowAdvanceButton = !dto.Advance.HideButton;
-            rowCtrl.ShowReturnButton = !dto.Return.HideButton;
+            rowCtrl.ShowAdvanceButton = !typeMotionRow.Advance.bHideButton;
+            rowCtrl.ShowReturnButton = !typeMotionRow.Return.bHideButton;
+            rowCtrl.ShowAdvanceLabel = !typeMotionRow.Advance.bHideCoil;
+            //and so on
 
-            // Basic textual mapping (use numeric values from PLC)
-            rowCtrl.AdvanceName = dto.Advance.ValCoil.ToString();
-            rowCtrl.AdvancedName = dto.Advance.ValDepth.ToString();
-            rowCtrl.ReturnName = dto.Return.ValCoil.ToString();
-            rowCtrl.ReturnedName = dto.Return.ValDepth.ToString();
 
-            // Set 'IsReturned' based on a PLC boolean (we choose InterlockOK as returned indicator)
-            rowCtrl.IsReturned = dto.Return.InterlockOK;
-
-            // Map feedback colours if present (safe conversion)
-            try
+            if (typeMotionRow.Advance.Depth)
             {
-                if (dto.Advance.FdbkColour != 0)
-                    rowCtrl.AdvancedNameBackColor = Color.FromArgb((int)dto.Advance.FdbkColour);
+                rowCtrl.AdvanceNameBackColor = Color.LightGreen;
             }
-            catch { /* ignore invalid colour */ }
-
-            try
+            else
             {
-                if (dto.Return.FdbkColour != 0)
-                    rowCtrl.ReturnedNameBackColor = Color.FromArgb((int)dto.Return.FdbkColour);
+                 rowCtrl.AdvanceNameBackColor = Color.LightGray;
             }
-            catch { /* ignore invalid colour */ }
+
+            if (typeMotionRow.Advance.RequestCoil)
+            {
+                rowCtrl.AdvancedNameBackColor = Color.LightGreen;
+            }
+            else
+            {
+                rowCtrl.AdvancedNameBackColor = Color.LightGray;
+            }
+
+            if (typeMotionRow.Return.Depth)
+            {
+                rowCtrl.ReturnedNameBackColor = Color.LightGreen;
+            }
+            else
+            {
+                rowCtrl.ReturnedNameBackColor = Color.LightGray;
+            }
+
+
+
+
+           
         }
 
 
         private void UpdateAllUsrcontRowsFromPlc()
         {
 
+            //read the structure of PLC data containing all manual rows
+            //gHMIMotionRows.gMotionRows
+
+            var symbolLoader = (IDynamicSymbolLoader)SymbolLoaderFactory.Create
+                 (
+                     _adsClient,
+                     new SymbolLoaderSettings(SymbolsLoadMode.DynamicTree)
+                 );
+
+            var symbols = (DynamicSymbolsCollection)symbolLoader.SymbolsDynamic;
+
+            //assign the symbols of gHMIMotionRows to a dynamic variable
+            dynamic gHMIMotionRows = symbols["gHMIMotionRows"];
+
+            //pick out the gHMI and gButtons
+            dynamic gMotionRows = gHMIMotionRows.gMotionRows.ReadValue();
+
+
+            //gData now contains;
+            //hmi: structHMI;
+            //btns: structHMIBtns;
+
+            manrow1.Advance.RequestCoil = true;
+            manrow1.Advance.Depth = false;
+            manrow1.Advance.Prompt = true;
+            manrow1.Advance.InterlockOK = false;
+            manrow1.Advance.NumberOrder = 1;
+
+            manrow1.Advance.TimeTaken = 1234;
+            manrow1.Advance.valCoil = 2;
+            manrow1.Advance.valDepth = 3;
+
+            manrow1.Advance.bHideCoil = false;
+            manrow1.Advance.bHideDepth = false;
+            manrow1.Advance.bHideInterlock = false;
+            manrow1.Advance.bHidePrompt = false;
+            manrow1.Advance.bHideTime = false;
+            manrow1.Advance.bHideButton = false;
+
+            manrow1.Advance.FdbkColour = 0x00FF00; // Green
+            manrow1.Advance.CoilColour = 0x0000FF; // Blue
+
+            manrow1.Return.RequestCoil = false;
+            manrow1.Return.Depth = true;
+            manrow1.Return.Prompt = false;
+            manrow1.Return.InterlockOK = true;
+            manrow1.Return.NumberOrder = 2;
+
+            manrow1.Return.TimeTaken = 4321;
+            manrow1.Return.valCoil = 4;
+            manrow1.Return.valDepth = 5;
+            manrow1.Return.bHideCoil = false;
+            manrow1.Return.bHideDepth = false;
+            manrow1.Return.bHideInterlock = false;
+            manrow1.Return.bHidePrompt = false;
+            manrow1.Return.bHideTime = false;
+            manrow1.Return.bHideButton = false;
+            manrow1.Return.FdbkColour = 0xFF0000; // Red
+            manrow1.Return.CoilColour = 0x00FFFF; // Cyan
+
+            manrow1.strPosn = "100mm";
+            manrow1.IndexLocation = 1;
+            manrow1.bHidePosn = false;
+            manrow1.bHideName = false;
+            manrow1.bIsAbsSymSwitch = false;
+
+
+
 
 
             MotionRowDto dto;
-            dto = ReadMotionRowFromPlc(1);
-            UpdateUsrcontRowFromMotionRow(usrcontRow1, dto);
+           // dto = ReadMotionRowFromPlc(1);
+            UpdateUsrcontRowFromMotionRow(usrcontRow1, manrow1);
 
 
 
@@ -2039,10 +2200,6 @@ namespace TOAST_HMI
             }
         }
 
-        private void lsbReadSymbols_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -2215,9 +2372,9 @@ namespace TOAST_HMI
             }
         }
 
-   
-        
-    private void btnReadStruct2_Click(object sender, EventArgs e)
+
+
+        private void btnReadStruct2_Click(object sender, EventArgs e)
         {
             using (AdsClient client = new())
             {
@@ -2232,7 +2389,7 @@ namespace TOAST_HMI
 
                 //assign the symbols of gTOASTHMI to a dynamic variable
                 dynamic gTOASTHMI = symbols["gTOASTHMI"];
-                             
+
                 //pick out the gHMI and gButtons
                 dynamic gHMI = gTOASTHMI.gData.hmi.ReadValue();
                 dynamic gbtns = gTOASTHMI.gData.btns.ReadValue();
@@ -2245,8 +2402,19 @@ namespace TOAST_HMI
 
                 Console.WriteLine("\nPress any key to exit...\n");
                 // Console.ReadKey(true);
-               
+
             }
+        }
+
+        private void tpMode_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmMain_Load_1(object sender, EventArgs e)
+        {
+            LoadSettingsFromRegistry();
+          
         }
     }
 }
