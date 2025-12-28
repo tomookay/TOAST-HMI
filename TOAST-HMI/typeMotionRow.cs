@@ -19,5 +19,7 @@ namespace TOAST_HMI
         public bool bHideName; //TRUE to hide the name
 	
 	    public bool bIsAbsSymSwitch; //TRUE to switch between abs/symb
+
+        public string MotionName = "Row Name"; //name of the motion row
     }
 }

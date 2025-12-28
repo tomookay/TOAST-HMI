@@ -28,5 +28,8 @@ namespace TOAST_HMI
 
 		public System.UInt32 FdbkColour; //sensor feedback colour
 		public System.UInt32 CoilColour; //coil feedback colour
+
+		public string CoilName = "Coil Name";
+		public string DepthName = "Depth Name";
     }
 }

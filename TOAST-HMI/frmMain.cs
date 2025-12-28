@@ -2021,8 +2021,19 @@ namespace TOAST_HMI
             rowCtrl.ShowAdvanceButton = !typeMotionRow.Advance.bHideButton;
             rowCtrl.ShowReturnButton = !typeMotionRow.Return.bHideButton;
             rowCtrl.ShowAdvanceLabel = !typeMotionRow.Advance.bHideCoil;
-            
+
             //and so on
+            rowCtrl.AdvanceName = typeMotionRow.Advance.CoilName;
+            rowCtrl.AdvancedName = typeMotionRow.Advance.DepthName;
+
+            rowCtrl.ReturnName = typeMotionRow.Return.CoilName;
+            rowCtrl.ReturnedName = typeMotionRow.Return.DepthName;
+
+            rowCtrl.PositionText = typeMotionRow.strPosn;
+
+            //RowName
+            rowCtrl.RowName = typeMotionRow.MotionName;
+
 
 
             if (typeMotionRow.Advance.Depth)
