@@ -423,6 +423,7 @@ namespace TOAST_HMI
                     //pick out the gHMI and gButtons
                     dynamic gHMI = gTOASTHMI.gData.hmi.ReadValue();
                     dynamic gbtns = gTOASTHMI.gData.btns.ReadValue();
+                    dynamic gMsgs = gTOASTHMI.gData.GlobalMessages.ReadValue();
 
 
                     //gData now contains;
@@ -483,7 +484,7 @@ namespace TOAST_HMI
                         lblmsgViewAlarmMachine.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgMc.Alarm.topMessage
                         //lblmsgViewAlarmMachine.Text = ReadPlcString("GlobalMessages.gMsgMc.Alarm.topMessage");
-                        lblmsgViewAlarmMachine.Text = gHMI.GlobalMessages.gMsgMc.Alarm.topMessage;
+                        lblmsgViewAlarmMachine.Text = gMsgs.gMsgMc.Alarm.topMessage;
 
                     }
 
@@ -500,7 +501,7 @@ namespace TOAST_HMI
                         lblmsgViewAlarmS1.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS1.Alarm.topMessage
                         // lblmsgViewAlarmS1.Text = ReadPlcString("GlobalMessages.gMsgS1.Alarm.topMessage");
-                        lblmsgViewAlarmS1.Text = gHMI.GlobalMessages.gMsgS1.Alarm.topMessage;
+                        lblmsgViewAlarmS1.Text = gMsgs.gMsgS1.Alarm.topMessage;
 
                     }
                     //if gHMIData.gHideDisplayElementAlarmView.S2Enabled is TRUE then hide lblmsgViewAlarmStation2
@@ -515,7 +516,7 @@ namespace TOAST_HMI
                         lblmsgViewAlarmS2.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS2.Alarm.topMessage
                         //lblmsgViewAlarmS2.Text = ReadPlcString("GlobalMessages.gMsgS2.Alarm.topMessage");
-                        lblmsgViewAlarmS2.Text = gHMI.GlobalMessages.gMsgS2.Alarm.topMessage;
+                        lblmsgViewAlarmS2.Text = gMsgs.gMsgS2.Alarm.topMessage;
 
                     }
                     //if gHMIData.gHideDisplayElementAlarmView.S3Enabled is TRUE then hide lblmsgViewAlarmStation3
@@ -530,7 +531,7 @@ namespace TOAST_HMI
                         lblmsgViewAlarmS3.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS3.Alarm.topMessage
                         //lblmsgViewAlarmS3.Text = ReadPlcString("GlobalMessages.gMsgS3.Alarm.topMessage");
-                        lblmsgViewAlarmS3.Text = gHMI.GlobalMessages.gMsgS3.Alarm.topMessage;
+                        lblmsgViewAlarmS3.Text = gMsgs.gMsgS3.Alarm.topMessage;
 
                     }
                     //if gHMIData.gHideDisplayElementAlarmView.S4Enabled is TRUE then hide lblmsgViewAlarmStation4
@@ -545,7 +546,7 @@ namespace TOAST_HMI
                         lblmsgViewAlarmS4.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS4.Alarm.topMessage
                         //lblmsgViewAlarmS4.Text = ReadPlcString("GlobalMessages.gMsgS4.Alarm.topMessage");
-                        lblmsgViewAlarmS4.Text = gHMI.GlobalMessages.gMsgS4.Alarm.topMessage;
+                        lblmsgViewAlarmS4.Text = gMsgs.gMsgS4.Alarm.topMessage;
 
                     }
                     //if gHMIData.gHideDisplayElementAlarmView.S5Enabled is TRUE then hide lblmsgViewAlarmStation5
@@ -560,7 +561,7 @@ namespace TOAST_HMI
                         lblmsgViewAlarmS5.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS5.Alarm.topMessage
                         //lblmsgViewAlarmS5.Text = ReadPlcString("GlobalMessages.gMsgS5.Alarm.topMessage");
-                        lblmsgViewAlarmS5.Text = gHMI.GlobalMessages.gMsgS5.Alarm.topMessage;
+                        lblmsgViewAlarmS5.Text = gMsgs.gMsgS5.Alarm.topMessage;
 
 
                     }
@@ -576,7 +577,7 @@ namespace TOAST_HMI
                         lblmsgViewAlarmS6.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS6.Alarm.topMessage
                         //lblmsgViewAlarmS6.Text = ReadPlcString("GlobalMessages.gMsgS6.Alarm.topMessage");
-                        lblmsgViewAlarmS6.Text = gHMI.GlobalMessages.gMsgS6.Alarm.topMessage;
+                        lblmsgViewAlarmS6.Text = gMsgs.gMsgS6.Alarm.topMessage;
 
                     }
 
@@ -604,7 +605,7 @@ namespace TOAST_HMI
                         //set the lbl to the string GlobalMessages.gMsgS1.Prompts.topMessage
                         //read string from PLC
                         //lblmsgViewPromptsS1.Text = ReadPlcString("GlobalMessages.gMsgS1.Prompts.topMessage");
-                        lblmsgViewPromptsS1.Text = gHMI.GlobalMessages.gMsgS1.Prompts.topMessage;
+                        lblmsgViewPromptsS1.Text = gMsgs.gMsgS1.Prompts.topMessage;
                     }
                     //read gHMIData.gHideDisplayElementPromptView.S2Enabled for prompts
                     //bool hidePromptViewS2 = ReadBoolArray("gHMIData.gHideDisplayElementPromptView.S2Enabled", 1)[0];
@@ -618,7 +619,7 @@ namespace TOAST_HMI
                         lblmsgViewPromptsS2.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS2.Prompts.topMessage
                         //lblmsgViewPromptsS2.Text = ReadPlcString("GlobalMessages.gMsgS2.Prompts.topMessage");
-                        lblmsgViewPromptsS2.Text = gHMI.GlobalMessages.gMsgS2.Prompts.topMessage;
+                        lblmsgViewPromptsS2.Text = gMsgs.gMsgS2.Prompts.topMessage;
 
                     }
                     //read gHMIData.gHideDisplayElementPromptView.S3Enabled for prompts
@@ -633,7 +634,7 @@ namespace TOAST_HMI
                         lblmsgViewPromptsS3.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS3.Prompts.topMessage
                         //lblmsgViewPromptsS3.Text = ReadPlcString("GlobalMessages.gMsgS3.Prompts.topMessage");
-                        lblmsgViewPromptsS3.Text = gHMI.GlobalMessages.gMsgS3.Prompts.topMessage;
+                        lblmsgViewPromptsS3.Text = gMsgs.gMsgS3.Prompts.topMessage;
 
                     }
                     //read gHMIData.gHideDisplayElementPromptView.S4Enabled for prompts
@@ -648,7 +649,7 @@ namespace TOAST_HMI
                         lblmsgViewPromptsS4.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS4.Prompts.topMessage
                         //    lblmsgViewPromptsS4.Text = ReadPlcString("GlobalMessages.gMsgS4.Prompts.topMessage");
-                        lblmsgViewPromptsS4.Text = gHMI.GlobalMessages.gMsgS4.Prompts.topMessage;
+                        lblmsgViewPromptsS4.Text = gMsgs.gMsgS4.Prompts.topMessage;
 
                     }
                     //read gHMIData.gHideDisplayElementPromptView.S5Enabled for prompts
@@ -674,7 +675,7 @@ namespace TOAST_HMI
                         lblmsgViewPromptsS6.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS6.Prompts.topMessage
                         //lblmsgViewPromptsS6.Text = ReadPlcString("GlobalMessages.gMsgS6.Prompts.topMessage");
-                        lblmsgViewPromptsS6.Text = gHMI.GlobalMessages.gMsgS6.Prompts.topMessage;
+                        lblmsgViewPromptsS6.Text = gMsgs.gMsgS6.Prompts.topMessage;
 
                     }
 
@@ -691,7 +692,7 @@ namespace TOAST_HMI
                         lblmsgViewWarningMachine.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgMc.Warning.topMessage
                         //lblmsgViewWarningMachine.Text = ReadPlcString("GlobalMessages.gMsgMc.Warning.topMessage");
-                        lblmsgViewWarningMachine.Text = gHMI.GlobalMessages.gMsgMc.Warning.topMessage;
+                        lblmsgViewWarningMachine.Text = gMsgs.gMsgMc.Warning.topMessage;
 
                     }
                     //read gHMIData.gHideDisplayElementWarningView.S1Enabled
@@ -707,7 +708,7 @@ namespace TOAST_HMI
                         lblmsgViewWarningS1.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS1.Warning.topMessage
                         //lblmsgViewWarningS1.Text = ReadPlcString("GlobalMessages.gMsgS1.Warning.topMessage");
-                        lblmsgViewWarningS1.Text = gHMI.GlobalMessages.gMsgS1.Warning.topMessage;
+                        lblmsgViewWarningS1.Text = gMsgs.gMsgS1.Warning.topMessage;
 
                     }
                     //read gHMIData.gHideDisplayElementWarningView.S2Enabled
@@ -722,7 +723,7 @@ namespace TOAST_HMI
                         lblmsgViewWarningS2.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS2.Warning.topMessage
                         //lblmsgViewWarningS2.Text = ReadPlcString("GlobalMessages.gMsgS2.Warning.topMessage");
-                        lblmsgViewWarningS2.Text = gHMI.GlobalMessages.gMsgS2.Warning.topMessage;
+                        lblmsgViewWarningS2.Text = gMsgs.gMsgS2.Warning.topMessage;
 
                     }
                     //read gHMIData.gHideDisplayElementWarningView.S3Enabled
@@ -737,7 +738,7 @@ namespace TOAST_HMI
                         lblmsgViewWarningS3.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS3.Warning.topMessage
                         //lblmsgViewWarningS3.Text = ReadPlcString("GlobalMessages.gMsgS3.Warning.topMessage");
-                        lblmsgViewWarningS3.Text = gHMI.GlobalMessages.gMsgS3.Warning.topMessage;
+                        lblmsgViewWarningS3.Text = gMsgs.gMsgS3.Warning.topMessage;
 
                     }
                     //read gHMIData.gHideDisplayElementWarningView.S4Enabled
@@ -752,7 +753,7 @@ namespace TOAST_HMI
                         lblmsgViewWarningS4.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS4.Warning.topMessage
                         //lblmsgViewWarningS4.Text = ReadPlcString("GlobalMessages.gMsgS4.Warning.topMessage");
-                        lblmsgViewWarningS4.Text = gHMI.GlobalMessages.gMsgS4.Warning.topMessage;
+                        lblmsgViewWarningS4.Text = gMsgs.gMsgS4.Warning.topMessage;
 
                     }
                     //read gHMIData.gHideDisplayElementWarningView.S5Enabled
@@ -767,7 +768,7 @@ namespace TOAST_HMI
                         lblmsgViewWarningS5.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS5.Warning.topMessage
                         //lblmsgViewWarningS5.Text = ReadPlcString("GlobalMessages.gMsgS5.Warning.topMessage");
-                        lblmsgViewWarningS5.Text = gHMI.GlobalMessages.gMsgS5.Warning.topMessage;
+                        lblmsgViewWarningS5.Text = gMsgs.gMsgS5.Warning.topMessage;
 
                     }
                     //read gHMIData.gHideDisplayElementWarningView.S6Enabled
@@ -782,7 +783,7 @@ namespace TOAST_HMI
                         lblmsgViewWarningS6.Visible = true;
                         //set the lbl to the string GlobalMessages.gMsgS6.Warning.topMessage
                         //lblmsgViewWarningS6.Text = ReadPlcString("GlobalMessages.gMsgS6.Warning.topMessage");
-                        lblmsgViewWarningS6.Text = gHMI.GlobalMessages.gMsgS6.Warning.topMessage;
+                        lblmsgViewWarningS6.Text = gMsgs.gMsgS6.Warning.topMessage;
 
                     }
 
@@ -2093,15 +2094,10 @@ namespace TOAST_HMI
                 Return = new typeMotionSide()
             };
 
-
-
-            //gData now contains;
-            //hmi: structHMI;
-            //btns: structHMIBtns;
             manrow1.Advance.RequestCoil = gMotionRows.gMotionRow1.Advance.RequestCoil;
             manrow1.Advance.Depth = gMotionRows.gMotionRow1.Advance.Depth;
             manrow1.Advance.Prompt = gMotionRows.gMotionRow1.Advance.Prompt;
-            manrow1.Advance.InterlockOK = gMotionRows.gMotionRow1.Advance.InterlockOK;  
+            manrow1.Advance.InterlockOK = gMotionRows.gMotionRow1.Advance.InterlockOK;
             manrow1.Advance.NumberOrder = gMotionRows.gMotionRow1.Advance.NumberOrder;
 
             manrow1.Advance.TimeTaken = gMotionRows.gMotionRow1.Advance.TimeTaken;
@@ -2137,25 +2133,435 @@ namespace TOAST_HMI
             manrow1.Return.CoilColour = gMotionRows.gMotionRow1.Returned.CoilColour;
 
             manrow1.strPosn = gMotionRows.gMotionRow1.strPosn;
-            manrow1.IndexLocation = gMotionRows.gMotionRow1.IndexLocation;  
+            manrow1.IndexLocation = gMotionRows.gMotionRow1.IndexLocation;
             manrow1.bHidePosn = gMotionRows.gMotionRow1.bHidePosn;
             manrow1.bHideName = gMotionRows.gMotionRow1.bHideName;
             manrow1.bIsAbsSymSwitch = gMotionRows.gMotionRow1.bIsAbsSymSwitch;
 
-
-
-
-
-
-
-            MotionRowDto dto;
-           // dto = ReadMotionRowFromPlc(1);
             UpdateUsrcontRowFromMotionRow(usrcontRow1, manrow1);
+
+
+            typeMotionRow manrow2 = new()
+            {
+                Advance = new typeMotionSide(),
+                Return = new typeMotionSide()
+            };
+
+            manrow2.Advance.RequestCoil = gMotionRows.gMotionRow2.Advance.RequestCoil;
+            manrow2.Advance.Depth = gMotionRows.gMotionRow2.Advance.Depth;
+            manrow2.Advance.Prompt = gMotionRows.gMotionRow2.Advance.Prompt;
+            manrow2.Advance.InterlockOK = gMotionRows.gMotionRow2.Advance.InterlockOK;
+            manrow2.Advance.NumberOrder = gMotionRows.gMotionRow2.Advance.NumberOrder;
+
+            manrow2.Advance.TimeTaken = gMotionRows.gMotionRow2.Advance.TimeTaken;
+            manrow2.Advance.valCoil = gMotionRows.gMotionRow2.Advance.valCoil;
+            manrow2.Advance.valDepth = gMotionRows.gMotionRow2.Advance.valDepth;
+
+            manrow2.Advance.bHideCoil = gMotionRows.gMotionRow2.Advance.bHideCoil;
+            manrow2.Advance.bHideDepth = gMotionRows.gMotionRow2.Advance.bHideDepth;
+            manrow2.Advance.bHideInterlock = gMotionRows.gMotionRow2.Advance.bHideInterlock;
+            manrow2.Advance.bHidePrompt = gMotionRows.gMotionRow2.Advance.bHidePrompt;
+            manrow2.Advance.bHideTime = gMotionRows.gMotionRow2.Advance.bHideTime;
+            manrow2.Advance.bHideButton = gMotionRows.gMotionRow2.Advance.bHideButton;
+
+            manrow2.Advance.FdbkColour = gMotionRows.gMotionRow2.Advance.FdbkColour;
+            manrow2.Advance.CoilColour = gMotionRows.gMotionRow2.Advance.CoilColour;
+
+            manrow2.Return.RequestCoil = gMotionRows.gMotionRow2.Returned.RequestCoil;
+            manrow2.Return.Depth = gMotionRows.gMotionRow2.Returned.Depth;
+            manrow2.Return.Prompt = gMotionRows.gMotionRow2.Returned.Prompt;
+            manrow2.Return.InterlockOK = gMotionRows.gMotionRow2.Returned.InterlockOK;
+            manrow2.Return.NumberOrder = gMotionRows.gMotionRow2.Returned.NumberOrder;
+
+            manrow2.Return.TimeTaken = gMotionRows.gMotionRow2.Returned.TimeTaken;
+            manrow2.Return.valCoil = gMotionRows.gMotionRow2.Returned.valCoil;
+            manrow2.Return.valDepth = gMotionRows.gMotionRow2.Returned.valDepth;
+            manrow2.Return.bHideCoil = gMotionRows.gMotionRow2.Returned.bHideCoil;
+            manrow2.Return.bHideDepth = gMotionRows.gMotionRow2.Returned.bHideDepth;
+            manrow2.Return.bHideInterlock = gMotionRows.gMotionRow2.Returned.bHideInterlock;
+            manrow2.Return.bHidePrompt = gMotionRows.gMotionRow2.Returned.bHidePrompt;
+            manrow2.Return.bHideTime = gMotionRows.gMotionRow2.Returned.bHideTime;
+            manrow2.Return.bHideButton = gMotionRows.gMotionRow2.Returned.bHideButton;
+            manrow2.Return.FdbkColour = gMotionRows.gMotionRow2.Returned.FdbkColour;
+            manrow2.Return.CoilColour = gMotionRows.gMotionRow2.Returned.CoilColour;
+
+            manrow2.strPosn = gMotionRows.gMotionRow2.strPosn;
+            manrow2.IndexLocation = gMotionRows.gMotionRow2.IndexLocation;
+            manrow2.bHidePosn = gMotionRows.gMotionRow2.bHidePosn;
+            manrow2.bHideName = gMotionRows.gMotionRow2.bHideName;
+            manrow2.bIsAbsSymSwitch = gMotionRows.gMotionRow2.bIsAbsSymSwitch;
+
+            UpdateUsrcontRowFromMotionRow(usrcontRow2, manrow2);
+
+            typeMotionRow manrow3 = new()
+            {
+                Advance = new typeMotionSide(),
+                Return = new typeMotionSide()
+            };
+
+            manrow3.Advance.RequestCoil = gMotionRows.gMotionRow3.Advance.RequestCoil;
+            manrow3.Advance.Depth = gMotionRows.gMotionRow3.Advance.Depth;
+            manrow3.Advance.Prompt = gMotionRows.gMotionRow3.Advance.Prompt;
+            manrow3.Advance.InterlockOK = gMotionRows.gMotionRow3.Advance.InterlockOK;
+            manrow3.Advance.NumberOrder = gMotionRows.gMotionRow3.Advance.NumberOrder;
+
+            manrow3.Advance.TimeTaken = gMotionRows.gMotionRow3.Advance.TimeTaken;
+            manrow3.Advance.valCoil = gMotionRows.gMotionRow3.Advance.valCoil;
+            manrow3.Advance.valDepth = gMotionRows.gMotionRow3.Advance.valDepth;
+
+            manrow3.Advance.bHideCoil = gMotionRows.gMotionRow3.Advance.bHideCoil;
+            manrow3.Advance.bHideDepth = gMotionRows.gMotionRow3.Advance.bHideDepth;
+            manrow3.Advance.bHideInterlock = gMotionRows.gMotionRow3.Advance.bHideInterlock;
+            manrow3.Advance.bHidePrompt = gMotionRows.gMotionRow3.Advance.bHidePrompt;
+            manrow3.Advance.bHideTime = gMotionRows.gMotionRow3.Advance.bHideTime;
+            manrow3.Advance.bHideButton = gMotionRows.gMotionRow3.Advance.bHideButton;
+
+            manrow3.Advance.FdbkColour = gMotionRows.gMotionRow3.Advance.FdbkColour;
+            manrow3.Advance.CoilColour = gMotionRows.gMotionRow3.Advance.CoilColour;
+
+            manrow3.Return.RequestCoil = gMotionRows.gMotionRow3.Returned.RequestCoil;
+            manrow3.Return.Depth = gMotionRows.gMotionRow3.Returned.Depth;
+            manrow3.Return.Prompt = gMotionRows.gMotionRow3.Returned.Prompt;
+            manrow3.Return.InterlockOK = gMotionRows.gMotionRow3.Returned.InterlockOK;
+            manrow3.Return.NumberOrder = gMotionRows.gMotionRow3.Returned.NumberOrder;
+
+            manrow3.Return.TimeTaken = gMotionRows.gMotionRow3.Returned.TimeTaken;
+            manrow3.Return.valCoil = gMotionRows.gMotionRow3.Returned.valCoil;
+            manrow3.Return.valDepth = gMotionRows.gMotionRow3.Returned.valDepth;
+            manrow3.Return.bHideCoil = gMotionRows.gMotionRow3.Returned.bHideCoil;
+            manrow3.Return.bHideDepth = gMotionRows.gMotionRow3.Returned.bHideDepth;
+            manrow3.Return.bHideInterlock = gMotionRows.gMotionRow3.Returned.bHideInterlock;
+            manrow3.Return.bHidePrompt = gMotionRows.gMotionRow3.Returned.bHidePrompt;
+            manrow3.Return.bHideTime = gMotionRows.gMotionRow3.Returned.bHideTime;
+            manrow3.Return.bHideButton = gMotionRows.gMotionRow3.Returned.bHideButton;
+            manrow3.Return.FdbkColour = gMotionRows.gMotionRow3.Returned.FdbkColour;
+            manrow3.Return.CoilColour = gMotionRows.gMotionRow3.Returned.CoilColour;
+
+            manrow3.strPosn = gMotionRows.gMotionRow3.strPosn;
+            manrow3.IndexLocation = gMotionRows.gMotionRow3.IndexLocation;
+            manrow3.bHidePosn = gMotionRows.gMotionRow3.bHidePosn;
+            manrow3.bHideName = gMotionRows.gMotionRow3.bHideName;
+            manrow3.bIsAbsSymSwitch = gMotionRows.gMotionRow3.bIsAbsSymSwitch;
+
+            UpdateUsrcontRowFromMotionRow(usrcontRow3, manrow3);
+
+            typeMotionRow manrow4 = new()
+            {
+                Advance = new typeMotionSide(),
+                Return = new typeMotionSide()
+            };
+
+            manrow4.Advance.RequestCoil = gMotionRows.gMotionRow4.Advance.RequestCoil;
+            manrow4.Advance.Depth = gMotionRows.gMotionRow4.Advance.Depth;
+            manrow4.Advance.Prompt = gMotionRows.gMotionRow4.Advance.Prompt;
+            manrow4.Advance.InterlockOK = gMotionRows.gMotionRow4.Advance.InterlockOK;
+            manrow4.Advance.NumberOrder = gMotionRows.gMotionRow4.Advance.NumberOrder;
+
+            manrow4.Advance.TimeTaken = gMotionRows.gMotionRow4.Advance.TimeTaken;
+            manrow4.Advance.valCoil = gMotionRows.gMotionRow4.Advance.valCoil;
+            manrow4.Advance.valDepth = gMotionRows.gMotionRow4.Advance.valDepth;
+
+            manrow4.Advance.bHideCoil = gMotionRows.gMotionRow4.Advance.bHideCoil;
+            manrow4.Advance.bHideDepth = gMotionRows.gMotionRow4.Advance.bHideDepth;
+            manrow4.Advance.bHideInterlock = gMotionRows.gMotionRow4.Advance.bHideInterlock;
+            manrow4.Advance.bHidePrompt = gMotionRows.gMotionRow4.Advance.bHidePrompt;
+            manrow4.Advance.bHideTime = gMotionRows.gMotionRow4.Advance.bHideTime;
+            manrow4.Advance.bHideButton = gMotionRows.gMotionRow4.Advance.bHideButton;
+
+            manrow4.Advance.FdbkColour = gMotionRows.gMotionRow4.Advance.FdbkColour;
+            manrow4.Advance.CoilColour = gMotionRows.gMotionRow4.Advance.CoilColour;
+
+            manrow4.Return.RequestCoil = gMotionRows.gMotionRow4.Returned.RequestCoil;
+            manrow4.Return.Depth = gMotionRows.gMotionRow4.Returned.Depth;
+            manrow4.Return.Prompt = gMotionRows.gMotionRow4.Returned.Prompt;
+            manrow4.Return.InterlockOK = gMotionRows.gMotionRow4.Returned.InterlockOK;
+            manrow4.Return.NumberOrder = gMotionRows.gMotionRow4.Returned.NumberOrder;
+
+            manrow4.Return.TimeTaken = gMotionRows.gMotionRow4.Returned.TimeTaken;
+            manrow4.Return.valCoil = gMotionRows.gMotionRow4.Returned.valCoil;
+            manrow4.Return.valDepth = gMotionRows.gMotionRow4.Returned.valDepth;
+            manrow4.Return.bHideCoil = gMotionRows.gMotionRow4.Returned.bHideCoil;
+            manrow4.Return.bHideDepth = gMotionRows.gMotionRow4.Returned.bHideDepth;
+            manrow4.Return.bHideInterlock = gMotionRows.gMotionRow4.Returned.bHideInterlock;
+            manrow4.Return.bHidePrompt = gMotionRows.gMotionRow4.Returned.bHidePrompt;
+            manrow4.Return.bHideTime = gMotionRows.gMotionRow4.Returned.bHideTime;
+            manrow4.Return.bHideButton = gMotionRows.gMotionRow4.Returned.bHideButton;
+            manrow4.Return.FdbkColour = gMotionRows.gMotionRow4.Returned.FdbkColour;
+            manrow4.Return.CoilColour = gMotionRows.gMotionRow4.Returned.CoilColour;
+
+            manrow4.strPosn = gMotionRows.gMotionRow4.strPosn;
+            manrow4.IndexLocation = gMotionRows.gMotionRow4.IndexLocation;
+            manrow4.bHidePosn = gMotionRows.gMotionRow4.bHidePosn;
+            manrow4.bHideName = gMotionRows.gMotionRow4.bHideName;
+            manrow4.bIsAbsSymSwitch = gMotionRows.gMotionRow4.bIsAbsSymSwitch;
+
+            UpdateUsrcontRowFromMotionRow(usrcontRow4, manrow4);
+
+            typeMotionRow manrow5 = new()
+            {
+                Advance = new typeMotionSide(),
+                Return = new typeMotionSide()
+            };
+
+            manrow5.Advance.RequestCoil = gMotionRows.gMotionRow5.Advance.RequestCoil;
+            manrow5.Advance.Depth = gMotionRows.gMotionRow5.Advance.Depth;
+            manrow5.Advance.Prompt = gMotionRows.gMotionRow5.Advance.Prompt;
+            manrow5.Advance.InterlockOK = gMotionRows.gMotionRow5.Advance.InterlockOK;
+            manrow5.Advance.NumberOrder = gMotionRows.gMotionRow5.Advance.NumberOrder;
+
+            manrow5.Advance.TimeTaken = gMotionRows.gMotionRow5.Advance.TimeTaken;
+            manrow5.Advance.valCoil = gMotionRows.gMotionRow5.Advance.valCoil;
+            manrow5.Advance.valDepth = gMotionRows.gMotionRow5.Advance.valDepth;
+
+            manrow5.Advance.bHideCoil = gMotionRows.gMotionRow5.Advance.bHideCoil;
+            manrow5.Advance.bHideDepth = gMotionRows.gMotionRow5.Advance.bHideDepth;
+            manrow5.Advance.bHideInterlock = gMotionRows.gMotionRow5.Advance.bHideInterlock;
+            manrow5.Advance.bHidePrompt = gMotionRows.gMotionRow5.Advance.bHidePrompt;
+            manrow5.Advance.bHideTime = gMotionRows.gMotionRow5.Advance.bHideTime;
+            manrow5.Advance.bHideButton = gMotionRows.gMotionRow5.Advance.bHideButton;
+
+            manrow5.Advance.FdbkColour = gMotionRows.gMotionRow5.Advance.FdbkColour;
+            manrow5.Advance.CoilColour = gMotionRows.gMotionRow5.Advance.CoilColour;
+
+            manrow5.Return.RequestCoil = gMotionRows.gMotionRow5.Returned.RequestCoil;
+            manrow5.Return.Depth = gMotionRows.gMotionRow5.Returned.Depth;
+            manrow5.Return.Prompt = gMotionRows.gMotionRow5.Returned.Prompt;
+            manrow5.Return.InterlockOK = gMotionRows.gMotionRow5.Returned.InterlockOK;
+            manrow5.Return.NumberOrder = gMotionRows.gMotionRow5.Returned.NumberOrder;
+
+            manrow5.Return.TimeTaken = gMotionRows.gMotionRow5.Returned.TimeTaken;
+            manrow5.Return.valCoil = gMotionRows.gMotionRow5.Returned.valCoil;
+            manrow5.Return.valDepth = gMotionRows.gMotionRow5.Returned.valDepth;
+            manrow5.Return.bHideCoil = gMotionRows.gMotionRow5.Returned.bHideCoil;
+            manrow5.Return.bHideDepth = gMotionRows.gMotionRow5.Returned.bHideDepth;
+            manrow5.Return.bHideInterlock = gMotionRows.gMotionRow5.Returned.bHideInterlock;
+            manrow5.Return.bHidePrompt = gMotionRows.gMotionRow5.Returned.bHidePrompt;
+            manrow5.Return.bHideTime = gMotionRows.gMotionRow5.Returned.bHideTime;
+            manrow5.Return.bHideButton = gMotionRows.gMotionRow5.Returned.bHideButton;
+            manrow5.Return.FdbkColour = gMotionRows.gMotionRow5.Returned.FdbkColour;
+            manrow5.Return.CoilColour = gMotionRows.gMotionRow5.Returned.CoilColour;
+
+            manrow5.strPosn = gMotionRows.gMotionRow5.strPosn;
+            manrow5.IndexLocation = gMotionRows.gMotionRow5.IndexLocation;
+            manrow5.bHidePosn = gMotionRows.gMotionRow5.bHidePosn;
+            manrow5.bHideName = gMotionRows.gMotionRow5.bHideName;
+            manrow5.bIsAbsSymSwitch = gMotionRows.gMotionRow5.bIsAbsSymSwitch;
+
+            UpdateUsrcontRowFromMotionRow(usrcontRow5, manrow5);
+
+            typeMotionRow manrow6 = new()
+            {
+                Advance = new typeMotionSide(),
+                Return = new typeMotionSide()
+            };
+
+            manrow6.Advance.RequestCoil = gMotionRows.gMotionRow6.Advance.RequestCoil;
+            manrow6.Advance.Depth = gMotionRows.gMotionRow6.Advance.Depth;
+            manrow6.Advance.Prompt = gMotionRows.gMotionRow6.Advance.Prompt;
+            manrow6.Advance.InterlockOK = gMotionRows.gMotionRow6.Advance.InterlockOK;
+            manrow6.Advance.NumberOrder = gMotionRows.gMotionRow6.Advance.NumberOrder;
+
+            manrow6.Advance.TimeTaken = gMotionRows.gMotionRow6.Advance.TimeTaken;
+            manrow6.Advance.valCoil = gMotionRows.gMotionRow6.Advance.valCoil;
+            manrow6.Advance.valDepth = gMotionRows.gMotionRow6.Advance.valDepth;
+
+            manrow6.Advance.bHideCoil = gMotionRows.gMotionRow6.Advance.bHideCoil;
+            manrow6.Advance.bHideDepth = gMotionRows.gMotionRow6.Advance.bHideDepth;
+            manrow6.Advance.bHideInterlock = gMotionRows.gMotionRow6.Advance.bHideInterlock;
+            manrow6.Advance.bHidePrompt = gMotionRows.gMotionRow6.Advance.bHidePrompt;
+            manrow6.Advance.bHideTime = gMotionRows.gMotionRow6.Advance.bHideTime;
+            manrow6.Advance.bHideButton = gMotionRows.gMotionRow6.Advance.bHideButton;
+
+            manrow6.Advance.FdbkColour = gMotionRows.gMotionRow6.Advance.FdbkColour;
+            manrow6.Advance.CoilColour = gMotionRows.gMotionRow6.Advance.CoilColour;
+
+            manrow6.Return.RequestCoil = gMotionRows.gMotionRow6.Returned.RequestCoil;
+            manrow6.Return.Depth = gMotionRows.gMotionRow6.Returned.Depth;
+            manrow6.Return.Prompt = gMotionRows.gMotionRow6.Returned.Prompt;
+            manrow6.Return.InterlockOK = gMotionRows.gMotionRow6.Returned.InterlockOK;
+            manrow6.Return.NumberOrder = gMotionRows.gMotionRow6.Returned.NumberOrder;
+
+            manrow6.Return.TimeTaken = gMotionRows.gMotionRow6.Returned.TimeTaken;
+            manrow6.Return.valCoil = gMotionRows.gMotionRow6.Returned.valCoil;
+            manrow6.Return.valDepth = gMotionRows.gMotionRow6.Returned.valDepth;
+            manrow6.Return.bHideCoil = gMotionRows.gMotionRow6.Returned.bHideCoil;
+            manrow6.Return.bHideDepth = gMotionRows.gMotionRow6.Returned.bHideDepth;
+            manrow6.Return.bHideInterlock = gMotionRows.gMotionRow6.Returned.bHideInterlock;
+            manrow6.Return.bHidePrompt = gMotionRows.gMotionRow6.Returned.bHidePrompt;
+            manrow6.Return.bHideTime = gMotionRows.gMotionRow6.Returned.bHideTime;
+            manrow6.Return.bHideButton = gMotionRows.gMotionRow6.Returned.bHideButton;
+            manrow6.Return.FdbkColour = gMotionRows.gMotionRow6.Returned.FdbkColour;
+            manrow6.Return.CoilColour = gMotionRows.gMotionRow6.Returned.CoilColour;
+
+            manrow6.strPosn = gMotionRows.gMotionRow6.strPosn;
+            manrow6.IndexLocation = gMotionRows.gMotionRow6.IndexLocation;
+            manrow6.bHidePosn = gMotionRows.gMotionRow6.bHidePosn;
+            manrow6.bHideName = gMotionRows.gMotionRow6.bHideName;
+            manrow6.bIsAbsSymSwitch = gMotionRows.gMotionRow6.bIsAbsSymSwitch;
+
+            UpdateUsrcontRowFromMotionRow(usrcontRow6, manrow6);
+
+            typeMotionRow manrow7 = new()
+            {
+                Advance = new typeMotionSide(),
+                Return = new typeMotionSide()
+            };
+
+            manrow7.Advance.RequestCoil = gMotionRows.gMotionRow7.Advance.RequestCoil;
+            manrow7.Advance.Depth = gMotionRows.gMotionRow7.Advance.Depth;
+            manrow7.Advance.Prompt = gMotionRows.gMotionRow7.Advance.Prompt;
+            manrow7.Advance.InterlockOK = gMotionRows.gMotionRow7.Advance.InterlockOK;
+            manrow7.Advance.NumberOrder = gMotionRows.gMotionRow7.Advance.NumberOrder;
+
+            manrow7.Advance.TimeTaken = gMotionRows.gMotionRow7.Advance.TimeTaken;
+            manrow7.Advance.valCoil = gMotionRows.gMotionRow7.Advance.valCoil;
+            manrow7.Advance.valDepth = gMotionRows.gMotionRow7.Advance.valDepth;
+
+            manrow7.Advance.bHideCoil = gMotionRows.gMotionRow7.Advance.bHideCoil;
+            manrow7.Advance.bHideDepth = gMotionRows.gMotionRow7.Advance.bHideDepth;
+            manrow7.Advance.bHideInterlock = gMotionRows.gMotionRow7.Advance.bHideInterlock;
+            manrow7.Advance.bHidePrompt = gMotionRows.gMotionRow7.Advance.bHidePrompt;
+            manrow7.Advance.bHideTime = gMotionRows.gMotionRow7.Advance.bHideTime;
+            manrow7.Advance.bHideButton = gMotionRows.gMotionRow7.Advance.bHideButton;
+
+            manrow7.Advance.FdbkColour = gMotionRows.gMotionRow7.Advance.FdbkColour;
+            manrow7.Advance.CoilColour = gMotionRows.gMotionRow7.Advance.CoilColour;
+
+            manrow7.Return.RequestCoil = gMotionRows.gMotionRow7.Returned.RequestCoil;
+            manrow7.Return.Depth = gMotionRows.gMotionRow7.Returned.Depth;
+            manrow7.Return.Prompt = gMotionRows.gMotionRow7.Returned.Prompt;
+            manrow7.Return.InterlockOK = gMotionRows.gMotionRow7.Returned.InterlockOK;
+            manrow7.Return.NumberOrder = gMotionRows.gMotionRow7.Returned.NumberOrder;
+
+            manrow7.Return.TimeTaken = gMotionRows.gMotionRow7.Returned.TimeTaken;
+            manrow7.Return.valCoil = gMotionRows.gMotionRow7.Returned.valCoil;
+            manrow7.Return.valDepth = gMotionRows.gMotionRow7.Returned.valDepth;
+            manrow7.Return.bHideCoil = gMotionRows.gMotionRow7.Returned.bHideCoil;
+            manrow7.Return.bHideDepth = gMotionRows.gMotionRow7.Returned.bHideDepth;
+            manrow7.Return.bHideInterlock = gMotionRows.gMotionRow7.Returned.bHideInterlock;
+            manrow7.Return.bHidePrompt = gMotionRows.gMotionRow7.Returned.bHidePrompt;
+            manrow7.Return.bHideTime = gMotionRows.gMotionRow7.Returned.bHideTime;
+            manrow7.Return.bHideButton = gMotionRows.gMotionRow7.Returned.bHideButton;
+            manrow7.Return.FdbkColour = gMotionRows.gMotionRow7.Returned.FdbkColour;
+            manrow7.Return.CoilColour = gMotionRows.gMotionRow7.Returned.CoilColour;
+
+            manrow7.strPosn = gMotionRows.gMotionRow7.strPosn;
+            manrow7.IndexLocation = gMotionRows.gMotionRow7.IndexLocation;
+            manrow7.bHidePosn = gMotionRows.gMotionRow7.bHidePosn;
+            manrow7.bHideName = gMotionRows.gMotionRow7.bHideName;
+            manrow7.bIsAbsSymSwitch = gMotionRows.gMotionRow7.bIsAbsSymSwitch;
+
+            UpdateUsrcontRowFromMotionRow(usrcontRow7, manrow7);
+
+            typeMotionRow manrow8 = new()
+            {
+                Advance = new typeMotionSide(),
+                Return = new typeMotionSide()
+            };
+
+            manrow8.Advance.RequestCoil = gMotionRows.gMotionRow8.Advance.RequestCoil;
+            manrow8.Advance.Depth = gMotionRows.gMotionRow8.Advance.Depth;
+            manrow8.Advance.Prompt = gMotionRows.gMotionRow8.Advance.Prompt;
+            manrow8.Advance.InterlockOK = gMotionRows.gMotionRow8.Advance.InterlockOK;
+            manrow8.Advance.NumberOrder = gMotionRows.gMotionRow8.Advance.NumberOrder;
+
+            manrow8.Advance.TimeTaken = gMotionRows.gMotionRow8.Advance.TimeTaken;
+            manrow8.Advance.valCoil = gMotionRows.gMotionRow8.Advance.valCoil;
+            manrow8.Advance.valDepth = gMotionRows.gMotionRow8.Advance.valDepth;
+
+            manrow8.Advance.bHideCoil = gMotionRows.gMotionRow8.Advance.bHideCoil;
+            manrow8.Advance.bHideDepth = gMotionRows.gMotionRow8.Advance.bHideDepth;
+            manrow8.Advance.bHideInterlock = gMotionRows.gMotionRow8.Advance.bHideInterlock;
+            manrow8.Advance.bHidePrompt = gMotionRows.gMotionRow8.Advance.bHidePrompt;
+            manrow8.Advance.bHideTime = gMotionRows.gMotionRow8.Advance.bHideTime;
+            manrow8.Advance.bHideButton = gMotionRows.gMotionRow8.Advance.bHideButton;
+
+            manrow8.Advance.FdbkColour = gMotionRows.gMotionRow8.Advance.FdbkColour;
+            manrow8.Advance.CoilColour = gMotionRows.gMotionRow8.Advance.CoilColour;
+
+            manrow8.Return.RequestCoil = gMotionRows.gMotionRow8.Returned.RequestCoil;
+            manrow8.Return.Depth = gMotionRows.gMotionRow8.Returned.Depth;
+            manrow8.Return.Prompt = gMotionRows.gMotionRow8.Returned.Prompt;
+            manrow8.Return.InterlockOK = gMotionRows.gMotionRow8.Returned.InterlockOK;
+            manrow8.Return.NumberOrder = gMotionRows.gMotionRow8.Returned.NumberOrder;
+
+            manrow8.Return.TimeTaken = gMotionRows.gMotionRow8.Returned.TimeTaken;
+            manrow8.Return.valCoil = gMotionRows.gMotionRow8.Returned.valCoil;
+            manrow8.Return.valDepth = gMotionRows.gMotionRow8.Returned.valDepth;
+            manrow8.Return.bHideCoil = gMotionRows.gMotionRow8.Returned.bHideCoil;
+            manrow8.Return.bHideDepth = gMotionRows.gMotionRow8.Returned.bHideDepth;
+            manrow8.Return.bHideInterlock = gMotionRows.gMotionRow8.Returned.bHideInterlock;
+            manrow8.Return.bHidePrompt = gMotionRows.gMotionRow8.Returned.bHidePrompt;
+            manrow8.Return.bHideTime = gMotionRows.gMotionRow8.Returned.bHideTime;
+            manrow8.Return.bHideButton = gMotionRows.gMotionRow8.Returned.bHideButton;
+            manrow8.Return.FdbkColour = gMotionRows.gMotionRow8.Returned.FdbkColour;
+            manrow8.Return.CoilColour = gMotionRows.gMotionRow8.Returned.CoilColour;
+
+            manrow8.strPosn = gMotionRows.gMotionRow8.strPosn;
+            manrow8.IndexLocation = gMotionRows.gMotionRow8.IndexLocation;
+            manrow8.bHidePosn = gMotionRows.gMotionRow8.bHidePosn;
+            manrow8.bHideName = gMotionRows.gMotionRow8.bHideName;
+            manrow8.bIsAbsSymSwitch = gMotionRows.gMotionRow8.bIsAbsSymSwitch;
+
+            UpdateUsrcontRowFromMotionRow(usrcontRow8, manrow8);
+
+            typeMotionRow manrow9 = new()
+            {
+                Advance = new typeMotionSide(),
+                Return = new typeMotionSide()
+            };
+
+            manrow9.Advance.RequestCoil = gMotionRows.gMotionRow9.Advance.RequestCoil;
+            manrow9.Advance.Depth = gMotionRows.gMotionRow9.Advance.Depth;
+            manrow9.Advance.Prompt = gMotionRows.gMotionRow9.Advance.Prompt;
+            manrow9.Advance.InterlockOK = gMotionRows.gMotionRow9.Advance.InterlockOK;
+            manrow9.Advance.NumberOrder = gMotionRows.gMotionRow9.Advance.NumberOrder;
+
+            manrow9.Advance.TimeTaken = gMotionRows.gMotionRow9.Advance.TimeTaken;
+            manrow9.Advance.valCoil = gMotionRows.gMotionRow9.Advance.valCoil;
+            manrow9.Advance.valDepth = gMotionRows.gMotionRow9.Advance.valDepth;
+
+            manrow9.Advance.bHideCoil = gMotionRows.gMotionRow9.Advance.bHideCoil;
+            manrow9.Advance.bHideDepth = gMotionRows.gMotionRow9.Advance.bHideDepth;
+            manrow9.Advance.bHideInterlock = gMotionRows.gMotionRow9.Advance.bHideInterlock;
+            manrow9.Advance.bHidePrompt = gMotionRows.gMotionRow9.Advance.bHidePrompt;
+            manrow9.Advance.bHideTime = gMotionRows.gMotionRow9.Advance.bHideTime;
+            manrow9.Advance.bHideButton = gMotionRows.gMotionRow9.Advance.bHideButton;
+
+            manrow9.Advance.FdbkColour = gMotionRows.gMotionRow9.Advance.FdbkColour;
+            manrow9.Advance.CoilColour = gMotionRows.gMotionRow9.Advance.CoilColour;
+
+            manrow9.Return.RequestCoil = gMotionRows.gMotionRow9.Returned.RequestCoil;
+            manrow9.Return.Depth = gMotionRows.gMotionRow9.Returned.Depth;
+            manrow9.Return.Prompt = gMotionRows.gMotionRow9.Returned.Prompt;
+            manrow9.Return.InterlockOK = gMotionRows.gMotionRow9.Returned.InterlockOK;
+            manrow9.Return.NumberOrder = gMotionRows.gMotionRow9.Returned.NumberOrder;
+
+            manrow9.Return.TimeTaken = gMotionRows.gMotionRow9.Returned.TimeTaken;
+            manrow9.Return.valCoil = gMotionRows.gMotionRow9.Returned.valCoil;
+            manrow9.Return.valDepth = gMotionRows.gMotionRow9.Returned.valDepth;
+            manrow9.Return.bHideCoil = gMotionRows.gMotionRow9.Returned.bHideCoil;
+            manrow9.Return.bHideDepth = gMotionRows.gMotionRow9.Returned.bHideDepth;
+            manrow9.Return.bHideInterlock = gMotionRows.gMotionRow9.Returned.bHideInterlock;
+            manrow9.Return.bHidePrompt = gMotionRows.gMotionRow9.Returned.bHidePrompt;
+            manrow9.Return.bHideTime = gMotionRows.gMotionRow9.Returned.bHideTime;
+            manrow9.Return.bHideButton = gMotionRows.gMotionRow9.Returned.bHideButton;
+            manrow9.Return.FdbkColour = gMotionRows.gMotionRow9.Returned.FdbkColour;
+            manrow9.Return.CoilColour = gMotionRows.gMotionRow9.Returned.CoilColour;
+
+            manrow9.strPosn = gMotionRows.gMotionRow9.strPosn;
+            manrow9.IndexLocation = gMotionRows.gMotionRow9.IndexLocation;
+            manrow9.bHidePosn = gMotionRows.gMotionRow9.bHidePosn;
+            manrow9.bHideName = gMotionRows.gMotionRow9.bHideName;
+            manrow9.bIsAbsSymSwitch = gMotionRows.gMotionRow9.bIsAbsSymSwitch;
+
+            UpdateUsrcontRowFromMotionRow(usrcontRow9, manrow9);
 
 
 
         }
 
+       
         private void btnReadStructure_Click(object sender, EventArgs e)
         {
             if (_adsClient == null || !_adsClient.IsConnected)
@@ -2240,36 +2646,6 @@ namespace TOAST_HMI
             }
 
 
-
-
-
-
-            //treeViewSymbols.Nodes.Clear();
-            //try
-            //{
-            //    if (!cbFlat.Checked)
-            //    {
-            //        TcAdsSymbolInfo symbol = symbolLoader.GetFirstSymbol(true);
-            //        while (symbol != null)
-            //        {
-            //            treeViewSymbols.Nodes.Add(CreateNewNode(symbol));
-            //            symbol = symbol.NextSymbol;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        foreach (TcAdsSymbolInfo symbol in symbolLoader)
-            //        {
-            //            TreeNode node = new TreeNode(symbol.Name);
-            //            node.Tag = symbol;
-            //            treeViewSymbols.Nodes.Add(node);
-            //        }
-            //    }
-            //}
-            //catch (Exception err)
-            //{
-            //    MessageBox.Show(err.Message);
-            //}
         }
 
         // Added helper methods and a small change in button1_Click to populate treeViewSymbols
@@ -2415,12 +2791,7 @@ namespace TOAST_HMI
             }
         }
 
-        private void tpMode_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void frmMain_Load_1(object sender, EventArgs e)
+            private void frmMain_Load_1(object sender, EventArgs e)
         {
             LoadSettingsFromRegistry();
           

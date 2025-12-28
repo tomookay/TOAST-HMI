@@ -42,7 +42,7 @@
             // 
             // btnRowReturnReq
             // 
-            btnRowReturnReq.Location = new Point(920, 0);
+            btnRowReturnReq.Location = new Point(895, -1);
             btnRowReturnReq.Name = "btnRowReturnReq";
             btnRowReturnReq.Size = new Size(80, 53);
             btnRowReturnReq.TabIndex = 54;
@@ -112,7 +112,7 @@
             // 
             // btnRowAdvanceReq
             // 
-            btnRowAdvanceReq.Location = new Point(0, 0);
+            btnRowAdvanceReq.Location = new Point(25, 0);
             btnRowAdvanceReq.Name = "btnRowAdvanceReq";
             btnRowAdvanceReq.Size = new Size(80, 52);
             btnRowAdvanceReq.TabIndex = 47;
@@ -122,7 +122,7 @@
             // lblAdvancePrompt
             // 
             lblAdvancePrompt.BorderStyle = BorderStyle.FixedSingle;
-            lblAdvancePrompt.Location = new Point(86, 0);
+            lblAdvancePrompt.Location = new Point(3, 0);
             lblAdvancePrompt.Name = "lblAdvancePrompt";
             lblAdvancePrompt.Size = new Size(19, 52);
             lblAdvancePrompt.TabIndex = 55;
@@ -131,7 +131,7 @@
             // lblReturnPrompt
             // 
             lblReturnPrompt.BorderStyle = BorderStyle.FixedSingle;
-            lblReturnPrompt.Location = new Point(895, 0);
+            lblReturnPrompt.Location = new Point(978, 0);
             lblReturnPrompt.Name = "lblReturnPrompt";
             lblReturnPrompt.Size = new Size(19, 52);
             lblReturnPrompt.TabIndex = 56;

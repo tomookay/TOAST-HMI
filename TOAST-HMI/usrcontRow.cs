@@ -163,6 +163,27 @@ namespace TOAST_HMI
             set => SetVisibleSafe(lblRowReturned, value);
         }
 
+        //show hide lblAdvancePrompt
+        [Browsable(true)]
+        [Category("Appearance")]
+        [Description("Show or hide the lblAdvancePrompt.")]
+        public bool ShowAdvancePrompt
+        {
+            get => lblAdvancePrompt.Visible;
+            set => SetVisibleSafe(lblAdvancePrompt, value);
+        }
+
+        //show hide lblReturnPrompt
+        [Browsable(true)]
+        [Category("Appearance")]
+        [Description("Show or hide the lblReturnPrompt.")]
+        public bool ShowReturnPrompt
+        {
+            get => lblReturnPrompt.Visible;
+            set => SetVisibleSafe(lblReturnPrompt, value);
+        }
+
+
 
         // New: expose Advance/Return request button visibility so frmMain (or any parent) can show them
         [Browsable(true)]
