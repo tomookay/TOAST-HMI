@@ -37,15 +37,7 @@ namespace TOAST_HMI
 
         bool isConnectionFaulted = false;
 
-        public typeMotionRow manrow1;
-        public typeMotionRow manrow2;
-        public typeMotionRow manrow3;
-        public typeMotionRow manrow4;
-        public typeMotionRow manrow5;
-        public typeMotionRow manrow6;
-        public typeMotionRow manrow7;
-        public typeMotionRow manrow8;
-        public typeMotionRow manrow9;
+       
 
 
 
@@ -2028,6 +2020,7 @@ namespace TOAST_HMI
             rowCtrl.ShowAdvanceButton = !typeMotionRow.Advance.bHideButton;
             rowCtrl.ShowReturnButton = !typeMotionRow.Return.bHideButton;
             rowCtrl.ShowAdvanceLabel = !typeMotionRow.Advance.bHideCoil;
+            
             //and so on
 
 
@@ -2058,10 +2051,19 @@ namespace TOAST_HMI
                 rowCtrl.ReturnedNameBackColor = Color.LightGray;
             }
 
+            if (typeMotionRow.Return.RequestCoil)
+            {
+                rowCtrl.ReturnNameBackColor = Color.LightGreen;
+            }
+            else
+            {
+                rowCtrl.ReturnNameBackColor = Color.LightGray;
+            }
 
 
 
-           
+
+
         }
 
 
@@ -2085,54 +2087,62 @@ namespace TOAST_HMI
             //pick out the gHMI and gButtons
             dynamic gMotionRows = gHMIMotionRows.gMotionRows.ReadValue();
 
+            typeMotionRow manrow1 = new()
+            {
+                Advance = new typeMotionSide(),
+                Return = new typeMotionSide()
+            };
+
+
 
             //gData now contains;
             //hmi: structHMI;
             //btns: structHMIBtns;
+            manrow1.Advance.RequestCoil = gMotionRows.gMotionRow1.Advance.RequestCoil;
+            manrow1.Advance.Depth = gMotionRows.gMotionRow1.Advance.Depth;
+            manrow1.Advance.Prompt = gMotionRows.gMotionRow1.Advance.Prompt;
+            manrow1.Advance.InterlockOK = gMotionRows.gMotionRow1.Advance.InterlockOK;  
+            manrow1.Advance.NumberOrder = gMotionRows.gMotionRow1.Advance.NumberOrder;
 
-            manrow1.Advance.RequestCoil = true;
-            manrow1.Advance.Depth = false;
-            manrow1.Advance.Prompt = true;
-            manrow1.Advance.InterlockOK = false;
-            manrow1.Advance.NumberOrder = 1;
+            manrow1.Advance.TimeTaken = gMotionRows.gMotionRow1.Advance.TimeTaken;
+            manrow1.Advance.valCoil = gMotionRows.gMotionRow1.Advance.valCoil;
+            manrow1.Advance.valDepth = gMotionRows.gMotionRow1.Advance.valDepth;
 
-            manrow1.Advance.TimeTaken = 1234;
-            manrow1.Advance.valCoil = 2;
-            manrow1.Advance.valDepth = 3;
+            manrow1.Advance.bHideCoil = gMotionRows.gMotionRow1.Advance.bHideCoil;
+            manrow1.Advance.bHideDepth = gMotionRows.gMotionRow1.Advance.bHideDepth;
+            manrow1.Advance.bHideInterlock = gMotionRows.gMotionRow1.Advance.bHideInterlock;
+            manrow1.Advance.bHidePrompt = gMotionRows.gMotionRow1.Advance.bHidePrompt;
+            manrow1.Advance.bHideTime = gMotionRows.gMotionRow1.Advance.bHideTime;
+            manrow1.Advance.bHideButton = gMotionRows.gMotionRow1.Advance.bHideButton;
 
-            manrow1.Advance.bHideCoil = false;
-            manrow1.Advance.bHideDepth = false;
-            manrow1.Advance.bHideInterlock = false;
-            manrow1.Advance.bHidePrompt = false;
-            manrow1.Advance.bHideTime = false;
-            manrow1.Advance.bHideButton = false;
+            manrow1.Advance.FdbkColour = gMotionRows.gMotionRow1.Advance.FdbkColour;
+            manrow1.Advance.CoilColour = gMotionRows.gMotionRow1.Advance.CoilColour;
 
-            manrow1.Advance.FdbkColour = 0x00FF00; // Green
-            manrow1.Advance.CoilColour = 0x0000FF; // Blue
+            manrow1.Return.RequestCoil = gMotionRows.gMotionRow1.Returned.RequestCoil;
+            manrow1.Return.Depth = gMotionRows.gMotionRow1.Returned.Depth;
+            manrow1.Return.Prompt = gMotionRows.gMotionRow1.Returned.Prompt;
+            manrow1.Return.InterlockOK = gMotionRows.gMotionRow1.Returned.InterlockOK;
+            manrow1.Return.NumberOrder = gMotionRows.gMotionRow1.Returned.NumberOrder;
 
-            manrow1.Return.RequestCoil = false;
-            manrow1.Return.Depth = true;
-            manrow1.Return.Prompt = false;
-            manrow1.Return.InterlockOK = true;
-            manrow1.Return.NumberOrder = 2;
+            manrow1.Return.TimeTaken = gMotionRows.gMotionRow1.Returned.TimeTaken;
+            manrow1.Return.valCoil = gMotionRows.gMotionRow1.Returned.valCoil;
+            manrow1.Return.valDepth = gMotionRows.gMotionRow1.Returned.valDepth;
+            manrow1.Return.bHideCoil = gMotionRows.gMotionRow1.Returned.bHideCoil;
+            manrow1.Return.bHideDepth = gMotionRows.gMotionRow1.Returned.bHideDepth;
+            manrow1.Return.bHideInterlock = gMotionRows.gMotionRow1.Returned.bHideInterlock;
+            manrow1.Return.bHidePrompt = gMotionRows.gMotionRow1.Returned.bHidePrompt;
+            manrow1.Return.bHideTime = gMotionRows.gMotionRow1.Returned.bHideTime;
+            manrow1.Return.bHideButton = gMotionRows.gMotionRow1.Returned.bHideButton;
+            manrow1.Return.FdbkColour = gMotionRows.gMotionRow1.Returned.FdbkColour;
+            manrow1.Return.CoilColour = gMotionRows.gMotionRow1.Returned.CoilColour;
 
-            manrow1.Return.TimeTaken = 4321;
-            manrow1.Return.valCoil = 4;
-            manrow1.Return.valDepth = 5;
-            manrow1.Return.bHideCoil = false;
-            manrow1.Return.bHideDepth = false;
-            manrow1.Return.bHideInterlock = false;
-            manrow1.Return.bHidePrompt = false;
-            manrow1.Return.bHideTime = false;
-            manrow1.Return.bHideButton = false;
-            manrow1.Return.FdbkColour = 0xFF0000; // Red
-            manrow1.Return.CoilColour = 0x00FFFF; // Cyan
+            manrow1.strPosn = gMotionRows.gMotionRow1.strPosn;
+            manrow1.IndexLocation = gMotionRows.gMotionRow1.IndexLocation;  
+            manrow1.bHidePosn = gMotionRows.gMotionRow1.bHidePosn;
+            manrow1.bHideName = gMotionRows.gMotionRow1.bHideName;
+            manrow1.bIsAbsSymSwitch = gMotionRows.gMotionRow1.bIsAbsSymSwitch;
 
-            manrow1.strPosn = "100mm";
-            manrow1.IndexLocation = 1;
-            manrow1.bHidePosn = false;
-            manrow1.bHideName = false;
-            manrow1.bIsAbsSymSwitch = false;
+
 
 
 
@@ -2163,7 +2173,6 @@ namespace TOAST_HMI
                 var symbolLoader = (IDynamicSymbolLoader)SymbolLoaderFactory.Create(_adsClient, new SymbolLoaderSettings(SymbolsLoadMode.DynamicTree));
 
                 var symbols = (DynamicSymbolsCollection)symbolLoader.SymbolsDynamic;
-
 
                 // Load all symbols from the PLC's symbol table.
                 //    var symbols = symbolLoader.Symbols;

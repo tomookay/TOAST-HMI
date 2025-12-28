@@ -8,13 +8,13 @@ namespace TOAST_HMI
 {
     public record typeMotionSide
     {
-		public bool RequestCoil;		//TRUE if the coil to advance the motion has been switched on
-		public bool Depth;  			//TRUE if the motion is complete
+		public bool RequestCoil = true;		//TRUE if the coil to advance the motion has been switched on
+		public bool Depth = false;  			//TRUE if the motion is complete
 		public bool Prompt;           //TRUE if the motion is OK to move (or to the next step)
 		public bool InterlockOK;		//TRUE if the interlock is satisified for the motion
 		public System.UInt32 NumberOrder;       //number of the motion to take
 
-		public System.UInt32 TimeTaken;		//Time Taken for the motion to complete
+		public System.TimeSpan TimeTaken;		//Time Taken for the motion to complete
 	
 		public int valCoil;		
 		public int valDepth;

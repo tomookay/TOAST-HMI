@@ -943,6 +943,8 @@
             usrcontRow9.RowName = "Cylinder A9";
             usrcontRow9.ShowAdvanceButton = false;
             usrcontRow9.ShowAdvanceLabel = false;
+            usrcontRow9.ShowlblRowName = true;
+            usrcontRow9.ShowlblRowPosn = true;
             usrcontRow9.ShowReturnButton = false;
             usrcontRow9.Size = new Size(1000, 52);
             usrcontRow9.TabIndex = 8;
@@ -965,6 +967,8 @@
             usrcontRow8.RowName = "Cylinder A8";
             usrcontRow8.ShowAdvanceButton = false;
             usrcontRow8.ShowAdvanceLabel = false;
+            usrcontRow8.ShowlblRowName = true;
+            usrcontRow8.ShowlblRowPosn = true;
             usrcontRow8.ShowReturnButton = false;
             usrcontRow8.Size = new Size(1000, 52);
             usrcontRow8.TabIndex = 7;
@@ -987,6 +991,8 @@
             usrcontRow7.RowName = "Cylinder A7";
             usrcontRow7.ShowAdvanceButton = false;
             usrcontRow7.ShowAdvanceLabel = false;
+            usrcontRow7.ShowlblRowName = true;
+            usrcontRow7.ShowlblRowPosn = true;
             usrcontRow7.ShowReturnButton = false;
             usrcontRow7.Size = new Size(1000, 52);
             usrcontRow7.TabIndex = 6;
@@ -1009,6 +1015,8 @@
             usrcontRow6.RowName = "Cylinder A6";
             usrcontRow6.ShowAdvanceButton = false;
             usrcontRow6.ShowAdvanceLabel = false;
+            usrcontRow6.ShowlblRowName = true;
+            usrcontRow6.ShowlblRowPosn = true;
             usrcontRow6.ShowReturnButton = false;
             usrcontRow6.Size = new Size(1000, 52);
             usrcontRow6.TabIndex = 5;
@@ -1031,6 +1039,8 @@
             usrcontRow5.RowName = "Cylinder A5";
             usrcontRow5.ShowAdvanceButton = false;
             usrcontRow5.ShowAdvanceLabel = false;
+            usrcontRow5.ShowlblRowName = true;
+            usrcontRow5.ShowlblRowPosn = true;
             usrcontRow5.ShowReturnButton = false;
             usrcontRow5.Size = new Size(1000, 52);
             usrcontRow5.TabIndex = 4;
@@ -1053,6 +1063,8 @@
             usrcontRow4.RowName = "Cylinder A4";
             usrcontRow4.ShowAdvanceButton = false;
             usrcontRow4.ShowAdvanceLabel = false;
+            usrcontRow4.ShowlblRowName = true;
+            usrcontRow4.ShowlblRowPosn = true;
             usrcontRow4.ShowReturnButton = false;
             usrcontRow4.Size = new Size(1000, 52);
             usrcontRow4.TabIndex = 3;
@@ -1075,6 +1087,8 @@
             usrcontRow3.RowName = "Cylinder A3";
             usrcontRow3.ShowAdvanceButton = false;
             usrcontRow3.ShowAdvanceLabel = false;
+            usrcontRow3.ShowlblRowName = true;
+            usrcontRow3.ShowlblRowPosn = true;
             usrcontRow3.ShowReturnButton = false;
             usrcontRow3.Size = new Size(1000, 52);
             usrcontRow3.TabIndex = 2;
@@ -1097,6 +1111,8 @@
             usrcontRow2.RowName = "Cylinder A2";
             usrcontRow2.ShowAdvanceButton = false;
             usrcontRow2.ShowAdvanceLabel = false;
+            usrcontRow2.ShowlblRowName = false;
+            usrcontRow2.ShowlblRowPosn = false;
             usrcontRow2.ShowReturnButton = false;
             usrcontRow2.Size = new Size(1000, 52);
             usrcontRow2.TabIndex = 1;
@@ -1119,6 +1135,8 @@
             usrcontRow1.RowName = "Cylinder A1";
             usrcontRow1.ShowAdvanceButton = true;
             usrcontRow1.ShowAdvanceLabel = true;
+            usrcontRow1.ShowlblRowName = true;
+            usrcontRow1.ShowlblRowPosn = true;
             usrcontRow1.ShowReturnButton = true;
             usrcontRow1.Size = new Size(1000, 52);
             usrcontRow1.TabIndex = 0;

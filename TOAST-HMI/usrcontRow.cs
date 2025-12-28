@@ -126,12 +126,43 @@ namespace TOAST_HMI
         // Expose whether the advance label is visible (you can change behaviour as needed)
         [Browsable(true)]
         [Category("Appearance")]
-        [Description("Show or hide the Advance label.")]
+        [Description("Show or hide the lblRowAdvance.")]
         public bool ShowAdvanceLabel
         {
             get => lblRowAdvance.Visible;
             set => SetVisibleSafe(lblRowAdvance, value);
         }
+
+        //show / hide lblRowAdvanced
+        [Browsable(true)]
+        [Category("Appearance")]
+        [Description("Show or hide the lblRowAdvanced.")]
+        public bool ShowAdvancedLabel
+        {
+            get => lblRowAdvanced.Visible;
+            set => SetVisibleSafe(lblRowAdvanced, value);
+        }
+
+        //show hide lblRowReturn
+        [Browsable(true)]
+        [Category("Appearance")]
+        [Description("Show or hide the lblRowReturn.")]
+        public bool ShowReturnLabel
+        {
+            get => lblRowReturn.Visible;
+            set => SetVisibleSafe(lblRowReturn, value);
+        }
+
+        //show hide lblRowReturned
+        [Browsable(true)]
+        [Category("Appearance")]
+        [Description("Show or hide the lblRowReturned.")]
+        public bool ShowReturnedLabel
+        {
+            get => lblRowReturned.Visible;
+            set => SetVisibleSafe(lblRowReturned, value);
+        }
+
 
         // New: expose Advance/Return request button visibility so frmMain (or any parent) can show them
         [Browsable(true)]
@@ -151,6 +182,27 @@ namespace TOAST_HMI
             get => btnRowReturnReq.Visible;
             set => SetVisibleSafe(btnRowReturnReq, value);
         }
+
+        //show lblRowPosn
+        [Browsable(true)]
+        [Category("Appearance")]
+        [Description("Show or hide the lblRowPosn")]
+        public bool ShowlblRowPosn
+        {
+            get => lblRowPosn.Visible;
+            set => SetVisibleSafe(lblRowPosn, value);
+        }
+
+        //show lblRowName
+        [Browsable(true)]
+        [Category("Appearance")]
+        [Description("Show or hide the lblRowName")]
+        public bool ShowlblRowName
+        {
+            get => lblRowName.Visible;
+            set => SetVisibleSafe(lblRowName, value);
+        }
+
 
         // Convenience method a parent can call to ensure both action buttons are visible
         public void EnsureActionButtonsVisible()

@@ -8,8 +8,8 @@ namespace TOAST_HMI
 {
     public record typeMotionRow
     {
-        public typeMotionSide Advance;
-        public typeMotionSide Return;
+        public required typeMotionSide Advance;
+        public required typeMotionSide Return;
 
         public string strPosn; //formatted position, in string form
 
