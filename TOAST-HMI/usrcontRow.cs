@@ -224,6 +224,26 @@ namespace TOAST_HMI
             set => SetVisibleSafe(lblRowName, value);
         }
 
+        //set lblAdvancePrompt backcolor to blue or not
+        [Browsable(true)]
+        [Category("Appearance")]
+        [Description("Set the lblAdvancePrompt backcolor to blue or not")]
+        public bool IsAdvancePromptBlue
+        {
+            get => GetBackColorSafe(lblAdvancePrompt) == Color.LightBlue;
+            set => SetBackColorSafe(lblAdvancePrompt, value ? Color.LightBlue : SystemColors.Control);
+        }
+
+        //set lblReturnPrompt backcolor to blue or not
+        [Browsable(true)]
+        [Category("Appearance")]
+        [Description("Set the lblReturnPrompt backcolor to blue or not")]
+        public bool IsReturnPromptBlue
+        {
+            get => GetBackColorSafe(lblReturnPrompt) == Color.LightBlue;
+            set => SetBackColorSafe(lblReturnPrompt, value ? Color.LightBlue : SystemColors.Control);
+        }
+
 
         // Convenience method a parent can call to ensure both action buttons are visible
         public void EnsureActionButtonsVisible()

@@ -1,4 +1,3 @@
-using Microsoft.Win32;
 using System.Collections;
 using System.Reflection;
 using System.Xml.Linq;
@@ -16,8 +15,6 @@ namespace TOAST_HMI
 
         //set connection data to PLC
         amsdata connectionData = new amsdata();
-
-
 
         private bool[] gStationSelected = new bool[6];
         private string tc3ProjectPath = string.Empty;
@@ -67,8 +64,27 @@ namespace TOAST_HMI
             " "
         };
 
+        string[] MotionRowTexts = new string[]
+  {
+            " ",
+            " ",
+            " ",
+            " "
+  };
+
+        string[] StationMotionRows = new string[2];
+
         private bool[] gStationEnabled = new bool[6];
         private bool[] gButtonFdbk = new bool[40];
+
+        string[] S1Rows = new string[2];
+        string[] S2Rows = new string[2];
+        string[] S3Rows = new string[2];
+        string[] S4Rows = new string[2];
+        string[] S5Rows = new string[2];
+        string[] S6Rows = new string[2];
+
+
 
 
         public frmMain()
@@ -1318,6 +1334,134 @@ namespace TOAST_HMI
                         MessageBox.Show($"Error reading or parsing CycleType file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+
+      
+
+                    //find the next file called MotionRowTexts
+                    string MotionRowText = textListFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Equals("MotionRowText", StringComparison.OrdinalIgnoreCase));
+
+                    try
+                    {
+                        string fileContent = File.ReadAllText(MotionRowText);
+                        var entries = FindAllTextDefaults(fileContent);
+                        if (entries.Count == 0)
+                        {
+                            MessageBox.Show("No TextID / TextDefault pairs found in the selected file.", "Parse result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
+                        var sb = new System.Text.StringBuilder();
+                        foreach (var entry in entries)
+                            sb.AppendLine($"TextID: \"{entry.TextId}\" → TextDefault: \"{entry.TextDefault}\"");
+
+                    //for entries with value 10000-19999, enter into S1Rows
+                    System.Array.Resize(ref S1Rows, 2165);
+                    System.Array.Resize(ref S2Rows, 2165);
+                    System.Array.Resize(ref S3Rows, 2165);
+                    System.Array.Resize(ref S4Rows, 2165);
+                    System.Array.Resize(ref S5Rows, 2165);
+                    System.Array.Resize(ref S6Rows, 2165);
+
+
+                    foreach (var entry in entries)
+                        {
+                        if (int.TryParse(entry.TextId, out int textIdValue))
+                        {
+                            if (textIdValue >= 10000 && textIdValue < 20000)
+                            {
+                                int index = textIdValue - 10000;
+                                //redim S1Rows if needed
+                                //System.Array.Resize(ref S1Rows, 2165);
+                                if (index >= 0 && index < S1Rows.Length)
+                                {
+                                    S1Rows[index] = entry.TextDefault;
+                                }
+                            }
+                            else if (textIdValue >= 20000 && textIdValue < 30000)
+                            {
+                                int index = textIdValue - 20000;
+                                if (index >= 0 && index < S2Rows.Length)
+                                {
+                                    S2Rows[index] = entry.TextDefault;
+                                }
+                            }
+                            else if (textIdValue >= 30000 && textIdValue < 40000)
+                            {
+                                int index = textIdValue - 30000;
+                                if (index >= 0 && index < S3Rows.Length)
+                                {
+                                    S3Rows[index] = entry.TextDefault;
+                                }
+                            }
+                            else if (textIdValue >= 40000 && textIdValue < 50000)
+                            {
+                                int index = textIdValue - 40000;
+                                if (index >= 0 && index < S4Rows.Length)
+                                {
+                                    S4Rows[index] = entry.TextDefault;
+                                }
+                            }
+                            else if (textIdValue >= 50000 && textIdValue < 60000)
+                            {
+                                int index = textIdValue - 50000;
+                                if (index >= 0 && index < S5Rows.Length)
+                                {
+                                    S5Rows[index] = entry.TextDefault;
+                                }
+                            }
+                            else if (textIdValue >= 60000 && textIdValue < 70000)
+                            {
+                                int index = textIdValue - 60000;
+                                if (index >= 0 && index < S6Rows.Length)
+                                {
+                                    S6Rows[index] = entry.TextDefault;
+                                }
+                            }
+                        }
+                    }
+
+                    //conbine arrays into StationMotionRows
+                    System.Array.Resize(ref StationMotionRows, 70000);
+                    for (int i = 0; i < S1Rows.Length; i++)
+                    {
+                        StationMotionRows[10000 + i] = S1Rows[i];
+                    }
+                    for (int i = 0; i < S2Rows.Length; i++)
+                    {
+                        StationMotionRows[20000 + i] = S2Rows[i];
+                    }
+                    for (int i = 0; i < S3Rows.Length; i++)
+                    {
+                        StationMotionRows[30000 + i] = S3Rows[i];
+                    }
+                    for (int i = 0; i < S4Rows.Length; i++)
+                    {
+                        StationMotionRows[40000 + i] = S4Rows[i];
+                    }
+                    for (int i = 0; i < S5Rows.Length; i++)
+                    {
+                        StationMotionRows[50000 + i] = S5Rows[i];
+                    }
+                    for (int i = 0; i < S6Rows.Length; i++)
+                    {
+                        StationMotionRows[60000 + i] = S6Rows[i];
+                    }
+
+
+
+
+
+                    // Show results in the text box
+                    //  txbSpecialXML.Text = sb.ToString();
+                    //MessageBox.Show($"Found {entries.Count} entries in the selected file.", "Parse result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(sb.ToString(), $"Found {entries.Count} entries", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error reading or parsing file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                
             }
         }
 
@@ -1580,9 +1724,7 @@ namespace TOAST_HMI
                 }
             }
         }
-
-
-
+    
         // DTOs and helpers added to frmMain (same partial class)
         private record MotionSideDto
         {
@@ -1614,8 +1756,6 @@ namespace TOAST_HMI
             public bool HideName { get; init; }
             public bool IsAbsSymSwitch { get; init; }
         }
-
-
 
         /// <summary>
         /// Read gHMIMotionRows.gMotionRows.gMotionRow{rowIndex} into a MotionRowDto.
@@ -1667,23 +1807,34 @@ namespace TOAST_HMI
         private void UpdateUsrcontRowFromMotionRow(usrcontRow rowCtrl, typeMotionRow typeMotionRow)
         {
             // Buttons visibility
-            rowCtrl.ShowAdvanceButton = !typeMotionRow.Advance.bHideButton;
-            rowCtrl.ShowReturnButton = !typeMotionRow.Return.bHideButton;
-            rowCtrl.ShowAdvanceLabel = !typeMotionRow.Advance.bHideCoil;
+                    
 
-            //and so on
+            //advance side (the left side)
+            rowCtrl.ShowAdvanceButton = !typeMotionRow.Advance.bHideButton;
             rowCtrl.AdvanceName = typeMotionRow.Advance.CoilName;
             rowCtrl.AdvancedName = typeMotionRow.Advance.DepthName;
+            rowCtrl.ShowAdvanceLabel = !typeMotionRow.Advance.bHideCoil;
+            rowCtrl.ShowAdvancedLabel = !typeMotionRow.Advance.bHideDepth;
+            rowCtrl.IsAdvancePromptBlue = typeMotionRow.Advance.Prompt;
 
+
+
+            //return side (the right side)
+            rowCtrl.ShowReturnButton = !typeMotionRow.Return.bHideButton;
             rowCtrl.ReturnName = typeMotionRow.Return.CoilName;
             rowCtrl.ReturnedName = typeMotionRow.Return.DepthName;
+            rowCtrl.ShowReturnLabel = !typeMotionRow.Return.bHideCoil;
+            rowCtrl.ShowReturnedLabel = !typeMotionRow.Return.bHideDepth;
+            rowCtrl.IsReturnPromptBlue = typeMotionRow.Return.Prompt;
 
+
+            //Positions in the middle
             rowCtrl.PositionText = typeMotionRow.strPosn;
+            rowCtrl.ShowlblRowPosn = !typeMotionRow.bHidePosn;
 
             //RowName
             rowCtrl.RowName = typeMotionRow.MotionName;
-
-
+            rowCtrl.ShowlblRowName = !typeMotionRow.bHideName;
 
             if (typeMotionRow.Advance.Depth)
             {
@@ -1720,7 +1871,40 @@ namespace TOAST_HMI
             {
                 rowCtrl.ReturnNameBackColor = Color.LightGray;
             }
+
+
         }
+
+        public int CalculateIndexPointer()
+        {
+            int stationPointer;
+
+            //check what station is selected
+            //station 1 gStationEnabled[0]
+            if      (gStationEnabled[0])
+                    stationPointer = 10000;
+            else if (gStationEnabled[1])
+                    stationPointer = 20000;
+            else if (gStationEnabled[2])
+                    stationPointer = 30000;
+            else if (gStationEnabled[3])
+                    stationPointer = 40000;
+            else if (gStationEnabled[4])
+                    stationPointer = 50000;
+            else if (gStationEnabled[5])
+                    stationPointer = 60000;
+            else
+                    stationPointer = 0; //no station selected
+
+            //add pointer to get page number
+
+
+
+
+            return stationPointer;
+
+        }
+
 
         private void UpdateAllUsrcontRowsFromPlc()
         {
@@ -1748,12 +1932,15 @@ namespace TOAST_HMI
                 Return = new typeMotionSide()
             };
 
+            //get index for manrow gMotionRows.gMotionRow1.IndexLocation
+
+
             manrow1.Advance.RequestCoil = gMotionRows.gMotionRow1.Advance.RequestCoil;
             manrow1.Advance.Depth = gMotionRows.gMotionRow1.Advance.Depth;
             manrow1.Advance.Prompt = gMotionRows.gMotionRow1.Advance.Prompt;
             manrow1.Advance.InterlockOK = gMotionRows.gMotionRow1.Advance.InterlockOK;
             manrow1.Advance.NumberOrder = gMotionRows.gMotionRow1.Advance.NumberOrder;
-
+           
             manrow1.Advance.TimeTaken = gMotionRows.gMotionRow1.Advance.TimeTaken;
             manrow1.Advance.valCoil = gMotionRows.gMotionRow1.Advance.valCoil;
             manrow1.Advance.valDepth = gMotionRows.gMotionRow1.Advance.valDepth;
@@ -1773,7 +1960,7 @@ namespace TOAST_HMI
             manrow1.Return.Prompt = gMotionRows.gMotionRow1.Returned.Prompt;
             manrow1.Return.InterlockOK = gMotionRows.gMotionRow1.Returned.InterlockOK;
             manrow1.Return.NumberOrder = gMotionRows.gMotionRow1.Returned.NumberOrder;
-
+           
             manrow1.Return.TimeTaken = gMotionRows.gMotionRow1.Returned.TimeTaken;
             manrow1.Return.valCoil = gMotionRows.gMotionRow1.Returned.valCoil;
             manrow1.Return.valDepth = gMotionRows.gMotionRow1.Returned.valDepth;
@@ -1791,6 +1978,28 @@ namespace TOAST_HMI
             manrow1.bHidePosn = gMotionRows.gMotionRow1.bHidePosn;
             manrow1.bHideName = gMotionRows.gMotionRow1.bHideName;
             manrow1.bIsAbsSymSwitch = gMotionRows.gMotionRow1.bIsAbsSymSwitch;
+
+            if (gMotionRows.gMotionRow1.bIsAbsSymSwitch == false)
+            {
+                //absolute
+                manrow1.Advance.DepthName = StationMotionRows[gMotionRows.gMotionRow1.IndexLocation + 0];
+                manrow1.Advance.CoilName = StationMotionRows[gMotionRows.gMotionRow1.IndexLocation + 1];
+                manrow1.Return.DepthName = StationMotionRows[gMotionRows.gMotionRow1.IndexLocation + 3];
+                manrow1.Return.CoilName = StationMotionRows[gMotionRows.gMotionRow1.IndexLocation + 4];
+                manrow1.MotionName = StationMotionRows[gMotionRows.gMotionRow1.IndexLocation + 6];
+            }
+            else
+            {
+                //relative
+                manrow1.Advance.DepthName = StationMotionRows[gMotionRows.gMotionRow1.IndexLocation + 0 + 10];
+                manrow1.Advance.CoilName = StationMotionRows[gMotionRows.gMotionRow1.IndexLocation + 1 + 10];
+                manrow1.Return.DepthName = StationMotionRows[gMotionRows.gMotionRow1.IndexLocation + 3 + 10];
+                manrow1.Return.CoilName = StationMotionRows[gMotionRows.gMotionRow1.IndexLocation + 4 + 10];
+                manrow1.MotionName = StationMotionRows[gMotionRows.gMotionRow1.IndexLocation + 6 + 10];
+            }
+
+
+
 
             UpdateUsrcontRowFromMotionRow(usrcontRow1, manrow1);
 
@@ -1845,6 +2054,25 @@ namespace TOAST_HMI
             manrow2.bHideName = gMotionRows.gMotionRow2.bHideName;
             manrow2.bIsAbsSymSwitch = gMotionRows.gMotionRow2.bIsAbsSymSwitch;
 
+            if (gMotionRows.gMotionRow2.bIsAbsSymSwitch == false)
+            {
+                //absolute
+                manrow2.Advance.DepthName = StationMotionRows[gMotionRows.gMotionRow2.IndexLocation + 0];
+                manrow2.Advance.CoilName = StationMotionRows[gMotionRows.gMotionRow2.IndexLocation + 1];
+                manrow2.Return.DepthName = StationMotionRows[gMotionRows.gMotionRow2.IndexLocation + 3];
+                manrow2.Return.CoilName = StationMotionRows[gMotionRows.gMotionRow2.IndexLocation + 4];
+                manrow2.MotionName = StationMotionRows[gMotionRows.gMotionRow2.IndexLocation + 6];
+            }
+            else
+            {
+                //relative
+                manrow2.Advance.DepthName = StationMotionRows[gMotionRows.gMotionRow2.IndexLocation + 0 + 10];
+                manrow2.Advance.CoilName = StationMotionRows[gMotionRows.gMotionRow2.IndexLocation + 1 + 10];
+                manrow2.Return.DepthName = StationMotionRows[gMotionRows.gMotionRow2.IndexLocation + 3 + 10];
+                manrow2.Return.CoilName = StationMotionRows[gMotionRows.gMotionRow2.IndexLocation + 4 + 10];
+                manrow2.MotionName = StationMotionRows[gMotionRows.gMotionRow2.IndexLocation + 6 + 10];
+            }
+
             UpdateUsrcontRowFromMotionRow(usrcontRow2, manrow2);
 
             typeMotionRow manrow3 = new()
@@ -1897,7 +2125,27 @@ namespace TOAST_HMI
             manrow3.bHideName = gMotionRows.gMotionRow3.bHideName;
             manrow3.bIsAbsSymSwitch = gMotionRows.gMotionRow3.bIsAbsSymSwitch;
 
-            UpdateUsrcontRowFromMotionRow(usrcontRow3, manrow3);
+            if (gMotionRows.gMotionRow3.bIsAbsSymSwitch == false)
+            {
+                //absolute
+                manrow3.Advance.DepthName = StationMotionRows[gMotionRows.gMotionRow3.IndexLocation + 0];
+                manrow3.Advance.CoilName = StationMotionRows[gMotionRows.gMotionRow3.IndexLocation + 1];
+                manrow3.Return.DepthName = StationMotionRows[gMotionRows.gMotionRow3.IndexLocation + 3];
+                manrow3.Return.CoilName = StationMotionRows[gMotionRows.gMotionRow3.IndexLocation + 4];
+                manrow3.MotionName = StationMotionRows[gMotionRows.gMotionRow3.IndexLocation + 6];
+            }
+            else
+            {
+                //relative
+                manrow3.Advance.DepthName = StationMotionRows[gMotionRows.gMotionRow3.IndexLocation + 0 + 10];
+                manrow3.Advance.CoilName = StationMotionRows[gMotionRows.gMotionRow3.IndexLocation + 1 + 10];
+                manrow3.Return.DepthName = StationMotionRows[gMotionRows.gMotionRow3.IndexLocation + 3 + 10];
+                manrow3.Return.CoilName = StationMotionRows[gMotionRows.gMotionRow3.IndexLocation + 4 + 10];
+                manrow3.MotionName = StationMotionRows[gMotionRows.gMotionRow3.IndexLocation + 6 + 10];
+            }
+
+
+                UpdateUsrcontRowFromMotionRow(usrcontRow3, manrow3);
 
             typeMotionRow manrow4 = new()
             {
@@ -1949,7 +2197,27 @@ namespace TOAST_HMI
             manrow4.bHideName = gMotionRows.gMotionRow4.bHideName;
             manrow4.bIsAbsSymSwitch = gMotionRows.gMotionRow4.bIsAbsSymSwitch;
 
-            UpdateUsrcontRowFromMotionRow(usrcontRow4, manrow4);
+            if (gMotionRows.gMotionRow4.bIsAbsSymSwitch == false)
+            {
+                //absolute
+                manrow4.Advance.DepthName = StationMotionRows[gMotionRows.gMotionRow4.IndexLocation + 0];
+                manrow4.Advance.CoilName = StationMotionRows[gMotionRows.gMotionRow4.IndexLocation + 1];
+                manrow4.Return.DepthName = StationMotionRows[gMotionRows.gMotionRow4.IndexLocation + 3];
+                manrow4.Return.CoilName = StationMotionRows[gMotionRows.gMotionRow4.IndexLocation + 4];
+                manrow4.MotionName = StationMotionRows[gMotionRows.gMotionRow4.IndexLocation + 6];
+            }
+            else
+            {
+                //relative
+                manrow4.Advance.DepthName = StationMotionRows[gMotionRows.gMotionRow4.IndexLocation + 0 + 10];
+                manrow4.Advance.CoilName = StationMotionRows[gMotionRows.gMotionRow4.IndexLocation + 1 + 10];
+                manrow4.Return.DepthName = StationMotionRows[gMotionRows.gMotionRow4.IndexLocation + 3 + 10];
+                manrow4.Return.CoilName = StationMotionRows[gMotionRows.gMotionRow4.IndexLocation + 4 + 10];
+                manrow4.MotionName = StationMotionRows[gMotionRows.gMotionRow4.IndexLocation + 6 + 10];
+            }
+
+
+                UpdateUsrcontRowFromMotionRow(usrcontRow4, manrow4);
 
             typeMotionRow manrow5 = new()
             {
@@ -2000,6 +2268,25 @@ namespace TOAST_HMI
             manrow5.bHidePosn = gMotionRows.gMotionRow5.bHidePosn;
             manrow5.bHideName = gMotionRows.gMotionRow5.bHideName;
             manrow5.bIsAbsSymSwitch = gMotionRows.gMotionRow5.bIsAbsSymSwitch;
+
+            if (gMotionRows.gMotionRow5.bIsAbsSymSwitch == false)
+            {
+                //absolute
+                manrow5.Advance.DepthName = StationMotionRows[gMotionRows.gMotionRow5.IndexLocation + 0];
+                manrow5.Advance.CoilName = StationMotionRows[gMotionRows.gMotionRow5.IndexLocation + 1];
+                manrow5.Return.DepthName = StationMotionRows[gMotionRows.gMotionRow5.IndexLocation + 3];
+                manrow5.Return.CoilName = StationMotionRows[gMotionRows.gMotionRow5.IndexLocation + 4];
+                manrow5.MotionName = StationMotionRows[gMotionRows.gMotionRow5.IndexLocation + 6];
+            }
+            else
+            {
+                //relative
+                manrow5.Advance.DepthName = StationMotionRows[gMotionRows.gMotionRow5.IndexLocation + 0 + 10];
+                manrow5.Advance.CoilName = StationMotionRows[gMotionRows.gMotionRow5.IndexLocation + 1 + 10];
+                manrow5.Return.DepthName = StationMotionRows[gMotionRows.gMotionRow5.IndexLocation + 3 + 10];
+                manrow5.Return.CoilName = StationMotionRows[gMotionRows.gMotionRow5.IndexLocation + 4 + 10];
+                manrow5.MotionName = StationMotionRows[gMotionRows.gMotionRow5.IndexLocation + 6 + 10];
+            }
 
             UpdateUsrcontRowFromMotionRow(usrcontRow5, manrow5);
 
@@ -2053,6 +2340,26 @@ namespace TOAST_HMI
             manrow6.bHideName = gMotionRows.gMotionRow6.bHideName;
             manrow6.bIsAbsSymSwitch = gMotionRows.gMotionRow6.bIsAbsSymSwitch;
 
+            //and the same for row 6
+            if (gMotionRows.gMotionRow6.bIsAbsSymSwitch == false)
+            {
+                //absolute
+                manrow6.Advance.DepthName = StationMotionRows[gMotionRows.gMotionRow6.IndexLocation + 0];
+                manrow6.Advance.CoilName = StationMotionRows[gMotionRows.gMotionRow6.IndexLocation + 1];
+                manrow6.Return.DepthName = StationMotionRows[gMotionRows.gMotionRow6.IndexLocation + 3];
+                manrow6.Return.CoilName = StationMotionRows[gMotionRows.gMotionRow6.IndexLocation + 4];
+                manrow6.MotionName = StationMotionRows[gMotionRows.gMotionRow6.IndexLocation + 6];
+            }
+            else
+            {
+                //relative
+                manrow6.Advance.DepthName = StationMotionRows[gMotionRows.gMotionRow6.IndexLocation + 0 + 10];
+                manrow6.Advance.CoilName = StationMotionRows[gMotionRows.gMotionRow6.IndexLocation + 1 + 10];
+                manrow6.Return.DepthName = StationMotionRows[gMotionRows.gMotionRow6.IndexLocation + 3 + 10];
+                manrow6.Return.CoilName = StationMotionRows[gMotionRows.gMotionRow6.IndexLocation + 4 + 10];
+                manrow6.MotionName = StationMotionRows[gMotionRows.gMotionRow6.IndexLocation + 6 + 10];
+            }
+
             UpdateUsrcontRowFromMotionRow(usrcontRow6, manrow6);
 
             typeMotionRow manrow7 = new()
@@ -2105,7 +2412,26 @@ namespace TOAST_HMI
             manrow7.bHideName = gMotionRows.gMotionRow7.bHideName;
             manrow7.bIsAbsSymSwitch = gMotionRows.gMotionRow7.bIsAbsSymSwitch;
 
-            UpdateUsrcontRowFromMotionRow(usrcontRow7, manrow7);
+            if (gMotionRows.gMotionRow7.bIsAbsSymSwitch == false)
+            {
+                //absolute
+                manrow7.Advance.DepthName = StationMotionRows[gMotionRows.gMotionRow7.IndexLocation + 0];
+                manrow7.Advance.CoilName = StationMotionRows[gMotionRows.gMotionRow7.IndexLocation + 1];
+                manrow7.Return.DepthName = StationMotionRows[gMotionRows.gMotionRow7.IndexLocation + 3];
+                manrow7.Return.CoilName = StationMotionRows[gMotionRows.gMotionRow7.IndexLocation + 4];
+                manrow7.MotionName = StationMotionRows[gMotionRows.gMotionRow7.IndexLocation + 6];
+            }
+            else
+            {
+                //relative
+                manrow7.Advance.DepthName = StationMotionRows[gMotionRows.gMotionRow7.IndexLocation + 0 + 10];
+                manrow7.Advance.CoilName = StationMotionRows[gMotionRows.gMotionRow7.IndexLocation + 1 + 10];
+                manrow7.Return.DepthName = StationMotionRows[gMotionRows.gMotionRow7.IndexLocation + 3 + 10];
+                manrow7.Return.CoilName = StationMotionRows[gMotionRows.gMotionRow7.IndexLocation + 4 + 10];
+                manrow7.MotionName = StationMotionRows[gMotionRows.gMotionRow7.IndexLocation + 6 + 10];
+            }
+
+                UpdateUsrcontRowFromMotionRow(usrcontRow7, manrow7);
 
             typeMotionRow manrow8 = new()
             {
@@ -2157,7 +2483,27 @@ namespace TOAST_HMI
             manrow8.bHideName = gMotionRows.gMotionRow8.bHideName;
             manrow8.bIsAbsSymSwitch = gMotionRows.gMotionRow8.bIsAbsSymSwitch;
 
-            UpdateUsrcontRowFromMotionRow(usrcontRow8, manrow8);
+            if (gMotionRows.gMotionRow8.bIsAbsSymSwitch == false)
+            {
+                //absolute
+                manrow8.Advance.DepthName = StationMotionRows[gMotionRows.gMotionRow8.IndexLocation + 0];
+                manrow8.Advance.CoilName = StationMotionRows[gMotionRows.gMotionRow8.IndexLocation + 1];
+                manrow8.Return.DepthName = StationMotionRows[gMotionRows.gMotionRow8.IndexLocation + 3];
+                manrow8.Return.CoilName = StationMotionRows[gMotionRows.gMotionRow8.IndexLocation + 4];
+                manrow8.MotionName = StationMotionRows[gMotionRows.gMotionRow8.IndexLocation + 6];
+            }
+            else
+            {
+                //relative
+                manrow8.Advance.DepthName = StationMotionRows[gMotionRows.gMotionRow8.IndexLocation + 0 + 10];
+                manrow8.Advance.CoilName = StationMotionRows[gMotionRows.gMotionRow8.IndexLocation + 1 + 10];
+                manrow8.Return.DepthName = StationMotionRows[gMotionRows.gMotionRow8.IndexLocation + 3 + 10];
+                manrow8.Return.CoilName = StationMotionRows[gMotionRows.gMotionRow8.IndexLocation + 4 + 10];
+                manrow8.MotionName = StationMotionRows[gMotionRows.gMotionRow8.IndexLocation + 6 + 10];
+            }
+
+
+                UpdateUsrcontRowFromMotionRow(usrcontRow8, manrow8);
 
             typeMotionRow manrow9 = new()
             {
@@ -2209,7 +2555,27 @@ namespace TOAST_HMI
             manrow9.bHideName = gMotionRows.gMotionRow9.bHideName;
             manrow9.bIsAbsSymSwitch = gMotionRows.gMotionRow9.bIsAbsSymSwitch;
 
-            UpdateUsrcontRowFromMotionRow(usrcontRow9, manrow9);
+            if (gMotionRows.gMotionRow9.bIsAbsSymSwitch == false)
+            {
+                //absolute
+                manrow9.Advance.DepthName = StationMotionRows[gMotionRows.gMotionRow9.IndexLocation + 0];
+                manrow9.Advance.CoilName = StationMotionRows[gMotionRows.gMotionRow9.IndexLocation + 1];
+                manrow9.Return.DepthName = StationMotionRows[gMotionRows.gMotionRow9.IndexLocation + 3];
+                manrow9.Return.CoilName = StationMotionRows[gMotionRows.gMotionRow9.IndexLocation + 4];
+                manrow9.MotionName = StationMotionRows[gMotionRows.gMotionRow9.IndexLocation + 6];
+            }
+            else
+            {
+                //relative
+                manrow9.Advance.DepthName = StationMotionRows[gMotionRows.gMotionRow9.IndexLocation + 0 + 10];
+                manrow9.Advance.CoilName = StationMotionRows[gMotionRows.gMotionRow9.IndexLocation + 1 + 10];
+                manrow9.Return.DepthName = StationMotionRows[gMotionRows.gMotionRow9.IndexLocation + 3 + 10];
+                manrow9.Return.CoilName = StationMotionRows[gMotionRows.gMotionRow9.IndexLocation + 4 + 10];
+                manrow9.MotionName = StationMotionRows[gMotionRows.gMotionRow9.IndexLocation + 6 + 10];
+            }
+
+
+                UpdateUsrcontRowFromMotionRow(usrcontRow9, manrow9);
 
         }
 
