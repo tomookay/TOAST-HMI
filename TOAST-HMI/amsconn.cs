@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TOAST_HMI
 {
-    internal class Class1
+    internal class amsconn
     {
     }
 

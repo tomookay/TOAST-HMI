@@ -120,10 +120,13 @@
             treeViewSymbols = new TreeView();
             btnReadStructure = new Button();
             lsbReadSymbols = new ListBox();
+            tabPage2 = new TabPage();
+            button2 = new Button();
             tabControl1.SuspendLayout();
             tpMode.SuspendLayout();
             tpManualRows.SuspendLayout();
             tabPage1.SuspendLayout();
+            tabPage2.SuspendLayout();
             SuspendLayout();
             // 
             // timGetPLCData
@@ -853,6 +856,7 @@
             tabControl1.Controls.Add(tpMode);
             tabControl1.Controls.Add(tpManualRows);
             tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage2);
             tabControl1.Location = new Point(0, 86);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -1243,6 +1247,27 @@
             lsbReadSymbols.Size = new Size(387, 409);
             lsbReadSymbols.TabIndex = 0;
             // 
+            // tabPage2
+            // 
+            tabPage2.Controls.Add(button2);
+            tabPage2.Location = new Point(4, 24);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(1000, 531);
+            tabPage2.TabIndex = 3;
+            tabPage2.Text = "tabPage2";
+            tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(53, 34);
+            button2.Name = "button2";
+            button2.Size = new Size(75, 23);
+            button2.TabIndex = 0;
+            button2.Text = "button2";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1298,6 +1323,7 @@
             tpMode.ResumeLayout(false);
             tpManualRows.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
+            tabPage2.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1394,5 +1420,7 @@
         private TreeView treeViewSymbols;
         private Button button1;
         private Button btnReadStruct2;
+        private TabPage tabPage2;
+        private Button button2;
     }
 }

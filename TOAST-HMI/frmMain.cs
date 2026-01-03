@@ -69,8 +69,8 @@ namespace TOAST_HMI
 
         private bool[] gStationEnabled = new bool[6];
         private bool[] gButtonFdbk = new bool[40];
-       
-      
+
+
         public frmMain()
         {
             InitializeComponent();
@@ -1380,7 +1380,7 @@ namespace TOAST_HMI
         }
 
         // Replace your existing FindAllTextDefaults and btnParse_Click with these implementations
-         private List<(string TextId, string TextDefault)> FindAllTextDefaults(string xml)
+        private List<(string TextId, string TextDefault)> FindAllTextDefaults(string xml)
         {
             if (string.IsNullOrWhiteSpace(xml))
                 return new List<(string, string)>();
@@ -1615,7 +1615,7 @@ namespace TOAST_HMI
             public bool IsAbsSymSwitch { get; init; }
         }
 
-   
+
 
         /// <summary>
         /// Read gHMIMotionRows.gMotionRows.gMotionRow{rowIndex} into a MotionRowDto.
@@ -1646,7 +1646,7 @@ namespace TOAST_HMI
                     HideButton = adsIO.ReadBool($"{prefix}.bHideButton", _adsClient),
                     FdbkColour = adsIO.ReadUInt32($"{prefix}.FdbkColour", _adsClient),
                     CoilColour = adsIO.ReadUInt32($"{prefix}.CoilColour", _adsClient)
-                 };
+                };
             }
 
             var row = new MotionRowDto
@@ -1659,7 +1659,7 @@ namespace TOAST_HMI
                 HideName = adsIO.ReadBool($"{baseSym}.bHideName", _adsClient),
                 IsAbsSymSwitch = adsIO.ReadBool($"{baseSym}.bIsAbsSymSwitch", _adsClient)
             };
-           
+
 
             return row;
         }
@@ -2295,7 +2295,7 @@ namespace TOAST_HMI
             {
                 MessageBox.Show(err.Message);
             }
-              
+
         }
 
         // Added helper methods and a small change in button1_Click to populate treeViewSymbols
@@ -2407,7 +2407,7 @@ namespace TOAST_HMI
             }
         }
 
-       private void btnReadStruct2_Click(object sender, EventArgs e)
+        private void btnReadStruct2_Click(object sender, EventArgs e)
         {
             using (AdsClient client = new())
             {
@@ -2439,9 +2439,44 @@ namespace TOAST_HMI
             }
         }
 
-    
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //read built in structure of TwinCAT_SystemInfoVarList
 
-       
+            if (isConnectionFaulted == false)
+            {
+                try
+                {
+                    var symbolLoader = (IDynamicSymbolLoader)SymbolLoaderFactory.Create
+                      (
+                          _adsClient,
+                          new SymbolLoaderSettings(SymbolsLoadMode.DynamicTree)
+                      );
+
+                    var symbols = (DynamicSymbolsCollection)symbolLoader.SymbolsDynamic;
+
+                    //assign the symbols of gTOASTHMI to a dynamic variable
+                    dynamic TwinCAT_SystemInfoVarList = symbols["TwinCAT_SystemInfoVarList"];
+
+                    //pick out the gHMI and gButtons
+                    //  dynamic gHMI = gTOASTHMI.gData.hmi.ReadValue();
+                    //  dynamic gbtns = gTOASTHMI.gData.btns.ReadValue();
+                    //  dynamic gMsgs = gTOASTHMI.gData.GlobalMessages.ReadValue();
+
+
+                    //gData now contains;
+                    //hmi: structHMI;
+                    //btns: structHMIBtns;
+                }
+
+                catch
+                (Exception ex)
+                {
+                    MessageBox.Show($"Error while reading TwinCAT_SystemInfoVarList structure: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+        }  
     }
 }
 
