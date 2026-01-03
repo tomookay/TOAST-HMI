@@ -1,22 +1,11 @@
 using Microsoft.Win32;
-using System;
 using System.Collections;
-using System.Diagnostics.Eventing.Reader;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
-using System.Security.Cryptography;
 using System.Xml.Linq;
 using TwinCAT;
 using TwinCAT.Ads;
-using TwinCAT.Ads;
-using TwinCAT.Ads.Reactive;
 using TwinCAT.Ads.TypeSystem;
 using TwinCAT.TypeSystem;
-
-
-
-
 
 namespace TOAST_HMI
 {
@@ -24,28 +13,17 @@ namespace TOAST_HMI
     {
         // Use a nullable field and a consistent camelCase name to match usages below.
         private AdsClient? _adsClient;
-        // TODO: set to your PLC AMS Net ID (e.g. "5.25.123.1.1") and port (default 851)
+       
+        //set connection data to PLC
         private string _amsNetId = "5.132.152.5.1.1";
         private int _adsPort = 851;
 
+        //registry location for saving settings
         private const string RegBasePath = @"Software\TOAST-HMI";
 
-
         private bool[] gStationSelected = new bool[6];
-
         private string tc3ProjectPath = string.Empty;
-
         bool isConnectionFaulted = false;
-
-       
-
-
-
-
-
-
-
-
         string[] StationNames = new string[]
         {
             "1",
@@ -92,7 +70,6 @@ namespace TOAST_HMI
         };
 
         private bool[] gStationEnabled = new bool[6];
-
         private bool[] gButtonFdbk = new bool[40];
         private object symbolLoader;
 
