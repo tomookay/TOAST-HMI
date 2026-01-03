@@ -15,10 +15,9 @@ namespace TOAST_HMI
         private AdsClient? _adsClient;
 
         //set connection data to PLC
-        private string _amsNetId = "5.132.152.5.1.1";
-        private int _adsPort = 851;
+        amsdata connectionData = new amsdata();
 
-   
+
 
         private bool[] gStationSelected = new bool[6];
         private string tc3ProjectPath = string.Empty;
@@ -169,7 +168,7 @@ namespace TOAST_HMI
 
         private void frmMain_Load(object? sender, EventArgs e)
         {
-            regHelper.LoadSettingsFromRegistry(_amsNetId, _adsPort);
+            connectionData = regHelper.LoadSettingsFromRegistry();
             ConnectAds();
         }
 
@@ -183,11 +182,11 @@ namespace TOAST_HMI
             try
             {
                 _adsClient = new AdsClient();
-                _adsClient.Connect(_amsNetId, _adsPort);
+                _adsClient.Connect(connectionData.amsNetId, connectionData.amsPort);
                 if (_adsClient.IsConnected)
                 {
                     // Optionally show status to the user or update UI
-                    Console.WriteLine($"Connected to {_amsNetId}:{_adsPort}");
+                    Console.WriteLine($"Connected to {connectionData.amsNetId}:{connectionData.amsPort}");
                     timGetPLCData.Start();
                 }
             }
@@ -1091,6 +1090,10 @@ namespace TOAST_HMI
                             lblStationName.Text = stateText;
                         }
 
+
+                        //update manual row's usrcont from plc
+                        UpdateAllUsrcontRowsFromPlc();
+
                     }
                     catch
                     {
@@ -1103,10 +1106,6 @@ namespace TOAST_HMI
                     isConnectionFaulted = true;
                 }
             }
-
-
-            //update manual row's usrcont from plc
-            UpdateAllUsrcontRowsFromPlc();
 
 
             //dont bother using timer anymore
@@ -2412,7 +2411,7 @@ namespace TOAST_HMI
         {
             using (AdsClient client = new())
             {
-                client.Connect(_amsNetId, 851);
+                client.Connect(connectionData.amsNetId, connectionData.amsPort);
                 var symbolLoader = (IDynamicSymbolLoader)SymbolLoaderFactory.Create
                 (
                     client,
