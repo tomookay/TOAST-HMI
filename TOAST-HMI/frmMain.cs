@@ -18,8 +18,7 @@ namespace TOAST_HMI
         private string _amsNetId = "5.132.152.5.1.1";
         private int _adsPort = 851;
 
-        //registry location for saving settings
-        private const string RegBasePath = @"Software\TOAST-HMI";
+   
 
         private bool[] gStationSelected = new bool[6];
         private string tc3ProjectPath = string.Empty;
@@ -71,8 +70,8 @@ namespace TOAST_HMI
 
         private bool[] gStationEnabled = new bool[6];
         private bool[] gButtonFdbk = new bool[40];
-        private object symbolLoader;
-
+       
+      
         public frmMain()
         {
             InitializeComponent();
@@ -170,7 +169,7 @@ namespace TOAST_HMI
 
         private void frmMain_Load(object? sender, EventArgs e)
         {
-            LoadSettingsFromRegistry();
+            regHelper.LoadSettingsFromRegistry(_amsNetId, _adsPort);
             ConnectAds();
         }
 
@@ -189,9 +188,7 @@ namespace TOAST_HMI
                 {
                     // Optionally show status to the user or update UI
                     Console.WriteLine($"Connected to {_amsNetId}:{_adsPort}");
-
                     timGetPLCData.Start();
-
                 }
             }
             catch (AdsErrorException ex)
@@ -208,7 +205,6 @@ namespace TOAST_HMI
                 isConnectionFaulted = true;
             }
         }
-
         private void DisconnectAds()
         {
             try
@@ -229,128 +225,25 @@ namespace TOAST_HMI
             }
         }
 
-        private void WriteBool(string plcSymbol, bool value)
-        {
-            if (_adsClient == null || !_adsClient.IsConnected)
-            {
-                MessageBox.Show("Not connected to PLC.", "ADS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            uint handle = 0;
-            try
-            {
-                handle = _adsClient.CreateVariableHandle(plcSymbol);
-                _adsClient.WriteAny(handle, value);
-            }
-            catch (AdsErrorException ex)
-            {
-                MessageBox.Show($"ADS write error: {ex.Message}", "ADS Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                isConnectionFaulted = true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Write error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                isConnectionFaulted = true;
-            }
-            finally
-            {
-                if (handle != 0)
-                {
-                    try { _adsClient?.DeleteVariableHandle(handle); } catch { /* ignore */ }
-                }
-            }
-        }
-
-        private bool[] ReadBoolArray(string plcSymbol, int elementCount)
-        {
-            if (_adsClient == null || !_adsClient.IsConnected)
-                throw new InvalidOperationException("Not connected to PLC.");
-            //isConnectionFaulted = true;
-
-            uint handle = 0;
-            try
-            {
-                handle = _adsClient.CreateVariableHandle(plcSymbol);
-
-                // each boolean encoded as one byte on PLC here
-                int elementSize = sizeof(byte);
-                int readLength = checked(elementCount * elementSize);
-
-                var result = _adsClient.ReadAsResult(handle, readLength);
-                result.ThrowOnError();
-
-                byte[] buffer = result.Data.ToArray();
-                if (buffer.Length < elementCount)
-                    throw new InvalidOperationException($"Unexpected read length: got {buffer.Length} bytes, expected {readLength}.");
-
-                var values = new bool[elementCount];
-                for (int i = 0; i < elementCount; i++)
-                    values[i] = buffer[i] != 0;
-
-                return values;
-            }
-            finally
-            {
-                if (handle != 0)
-                {
-                    try { _adsClient?.DeleteVariableHandle(handle); } catch { /* ignore */ }
-                }
-            }
-        }
-
-        private int ReadInt16(string plcSymbol)
-        {
-            if (_adsClient == null || !_adsClient.IsConnected)
-                throw new InvalidOperationException("Not connected to PLC.");
-
-            uint handle = 0;
-            try
-            {
-                handle = _adsClient.CreateVariableHandle(plcSymbol);
-
-                // Beckhoff stores this integer as a 16-bit value; read 2 bytes
-                int readLength = sizeof(short);
-                var result = _adsClient.ReadAsResult(handle, readLength);
-                result.ThrowOnError();
-
-                byte[] buffer = result.Data.ToArray();
-                if (buffer.Length < readLength)
-                    throw new InvalidOperationException($"Unexpected read length: got {buffer.Length} bytes, expected {readLength}.");
-
-                // Convert 16-bit value and return as int for callers
-                short val16 = BitConverter.ToInt16(buffer, 0);
-                return (int)val16;
-            }
-            finally
-            {
-                if (handle != 0)
-                {
-                    try { _adsClient?.DeleteVariableHandle(handle); } catch { /* ignore */ }
-                }
-            }
-        }
-
-
         private void WireMomentary(Button btn, string plcSymbol)
         {
             // mouse press
             btn.MouseDown += (s, e) =>
             {
-                if (e.Button == MouseButtons.Left) WriteBool(plcSymbol, true);
-                WriteBool("gHMIButtons.gAnyButtonPressed", true);
+                if (e.Button == MouseButtons.Left) adsIO.WriteBool(plcSymbol, true, _adsClient);
+                adsIO.WriteBool("gHMIButtons.gAnyButtonPressed", true, _adsClient);
             };
 
             // mouse release
             btn.MouseUp += (s, e) =>
             {
-                if (e.Button == MouseButtons.Left) WriteBool(plcSymbol, false);
+                if (e.Button == MouseButtons.Left) adsIO.WriteBool(plcSymbol, false, _adsClient);
             };
 
             // covers release when pointer leaves control while pressed
             btn.MouseCaptureChanged += (s, e) =>
             {
-                if ((Control.MouseButtons & MouseButtons.Left) == 0) WriteBool(plcSymbol, false);
+                if ((Control.MouseButtons & MouseButtons.Left) == 0) adsIO.WriteBool(plcSymbol, false, _adsClient);
             };
 
             // keyboard support (Space / Enter)
@@ -358,9 +251,9 @@ namespace TOAST_HMI
             {
                 if (e.KeyCode == Keys.Space || e.KeyCode == Keys.Enter)
                 {
-                    WriteBool(plcSymbol, true);
+                    adsIO.WriteBool(plcSymbol, true, _adsClient);
                     e.Handled = true;
-                    WriteBool("gHMIButtons.gAnyButtonPressed", true);
+                    adsIO.WriteBool("gHMIButtons.gAnyButtonPressed", true, _adsClient);
                 }
             };
 
@@ -368,7 +261,7 @@ namespace TOAST_HMI
             {
                 if (e.KeyCode == Keys.Space || e.KeyCode == Keys.Enter)
                 {
-                    WriteBool(plcSymbol, false);
+                    adsIO.WriteBool(plcSymbol, false, _adsClient);
                     e.Handled = true;
                 }
             };
@@ -376,7 +269,7 @@ namespace TOAST_HMI
             // ensure FALSE when leaving and mouse isn't down
             btn.MouseLeave += (s, e) =>
             {
-                if ((Control.MouseButtons & MouseButtons.Left) == 0) WriteBool(plcSymbol, false);
+                if ((Control.MouseButtons & MouseButtons.Left) == 0) adsIO.WriteBool(plcSymbol, false, _adsClient);
             };
         }
 
@@ -820,7 +713,7 @@ namespace TOAST_HMI
                     }
 
                     //read power on status from Mc_Global.PowerOnFdbk
-                    bool powerOnFdbk = ReadBoolArray("Mc_Global.PowerOnFdbk", 1)[0];
+                    bool powerOnFdbk = adsIO.ReadBoolArray("Mc_Global.PowerOnFdbk", 1, _adsClient)[0];
                     //bool powerOnFdbk = gbtns.btnModes.PowerOnFdbk;
                     if (powerOnFdbk == true)
                     {
@@ -908,7 +801,7 @@ namespace TOAST_HMI
                     // using System.Linq;
                     // Read dynamic wrapper
 
-                    buttonHidesValues = ReadBoolArray("gHMIButtons.btnHides", 40);
+                    buttonHidesValues = adsIO.ReadBoolArray("gHMIButtons.btnHides", 40, _adsClient);
 
 
                     if (buttonHidesValues.Length == gButtonFdbk.Length)
@@ -1488,8 +1381,7 @@ namespace TOAST_HMI
         }
 
         // Replace your existing FindAllTextDefaults and btnParse_Click with these implementations
-
-        private List<(string TextId, string TextDefault)> FindAllTextDefaults(string xml)
+         private List<(string TextId, string TextDefault)> FindAllTextDefaults(string xml)
         {
             if (string.IsNullOrWhiteSpace(xml))
                 return new List<(string, string)>();
@@ -1543,8 +1435,6 @@ namespace TOAST_HMI
             return results;
         }
 
-
-
         private void lbFoundFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
             //on the selected file, use the FindAllTextDefaults to parse the path
@@ -1581,95 +1471,6 @@ namespace TOAST_HMI
             isConnectionFaulted = false;
             timGetPLCData.Start();
         }
-
-        // Read a PLC STRING (e.g. GlobalMessages.gMsgS1.Prompts.topMessage).
-        // maxBytes should match the PLC STRING maximum length (buffer size) you expect.
-        private string ReadPlcString(string plcSymbol, int maxBytes = 256)
-        {
-            if (_adsClient == null || !_adsClient.IsConnected)
-                throw new InvalidOperationException("Not connected to PLC.");
-
-            uint handle = 0;
-            try
-            {
-                handle = _adsClient.CreateVariableHandle(plcSymbol);
-
-                int readLength = checked(maxBytes);
-                var result = _adsClient.ReadAsResult(handle, readLength);
-                result.ThrowOnError();
-
-                byte[] buffer = result.Data.ToArray();
-                if (buffer.Length == 0)
-                    return string.Empty;
-
-                // Find first NUL (0) — common terminator for PLC strings
-                int firstNull = Array.IndexOf(buffer, (byte)0);
-                int usedLength = firstNull >= 0 ? firstNull : buffer.Length;
-
-                // Detect and skip common Beckhoff/TwinCAT STRING length prefix if present:
-                // Many PLC STRING implementations include a leading length byte.
-                int startIndex = 0;
-                if (buffer.Length >= 1)
-                {
-                    byte possibleLen = buffer[0];
-                    // Heuristic: if first byte is small and <= maxBytes and non-printable,
-                    // treat it as length prefix and skip it.
-                    if (possibleLen > 0 && possibleLen <= maxBytes && possibleLen < 32)
-                    {
-                        startIndex = 1;
-                        // adjust usedLength (reportedLen cannot exceed remaining buffer)
-                        int reportedLen = Math.Min(possibleLen, usedLength - 1);
-                        usedLength = Math.Max(0, reportedLen);
-                    }
-                }
-
-                if (usedLength <= 0 || startIndex >= buffer.Length)
-                    return string.Empty;
-
-                // Decode bytes. Use ASCII which is commonly used for TwinCAT TEXT; change if you need UTF8/ANSI.
-                string decoded = System.Text.Encoding.ASCII.GetString(buffer, startIndex, usedLength);
-
-                // Trim any trailing NULs or control characters
-                int trimAt = decoded.IndexOf('\0');
-                if (trimAt >= 0)
-                    decoded = decoded.Substring(0, trimAt);
-
-                return decoded;
-            }
-            catch (AdsErrorException ex)
-            {
-                isConnectionFaulted = true;
-                MessageBox.Show($"ADS read error ({plcSymbol}): {ex.Message}", "ADS Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return string.Empty;
-            }
-            catch (Exception ex)
-            {
-                isConnectionFaulted = true;
-                MessageBox.Show($"Read error ({plcSymbol}): {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return string.Empty;
-            }
-            finally
-            {
-                if (handle != 0)
-                {
-                    try { _adsClient?.DeleteVariableHandle(handle); } catch { /* ignore */ }
-                }
-            }
-        }
-
-        private void btnMode_Click(object sender, EventArgs e)
-        {
-
-
-
-        }
-
-        private void btnControl_Click(object sender, EventArgs e)
-        {
-
-
-        }
-
 
 
         private void OnRowAdvanceClicked(object? sender, EventArgs e)
@@ -1749,16 +1550,6 @@ namespace TOAST_HMI
             }
         }
 
-        private void btnAutoMode_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void usrcontRow1_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void SubscribeToRows()
         {
             // 1) Attach handlers for any designer-created usrcontRow controls placed on the form
@@ -1793,71 +1584,6 @@ namespace TOAST_HMI
 
 
 
-        private void LoadSettingsFromRegistry()
-        {
-            try
-            {
-                using (var key = Registry.CurrentUser.OpenSubKey(RegBasePath))
-                {
-                    if (key == null)
-                    {
-                        MessageBox.Show("No base key found in registry. Using default settings.", "Registry", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        //stop the application
-                        SaveSettingsToRegistry();
-
-
-                        return;
-                    }
-
-                    var local = key.GetValue("amsNetId") as string;
-                    if (!string.IsNullOrEmpty(local))
-                    {
-                        _amsNetId = local;
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("AMS Net ID not found in registry. Using default.", "Registry", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        _amsNetId = "5.132.152.5.1.1";
-                    }
-
-                    int localport = Convert.ToInt16(key.GetValue("adsPort"));
-                    if (localport > 1)
-                    {
-                        _adsPort = localport;
-                    }
-                    else
-                    {
-                        MessageBox.Show("ADS Port not found or invalid in registry. Using default.", "Registry", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        _adsPort = 851;
-                    }
-
-
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Failed to load settings from registry: {ex.Message}");
-            }
-        }
-
-        private void SaveSettingsToRegistry()
-        {
-            try
-            {
-                using (var key = Registry.CurrentUser.CreateSubKey(RegBasePath))
-                {
-                    key.SetValue("amsNetId", _amsNetId ?? "", RegistryValueKind.String);
-                    key.SetValue("adsPort", _adsPort, RegistryValueKind.DWord);
-
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Failed to save settings to registry: {ex.Message}");
-            }
-        }
-
         // DTOs and helpers added to frmMain (same partial class)
         private record MotionSideDto
         {
@@ -1890,61 +1616,7 @@ namespace TOAST_HMI
             public bool IsAbsSymSwitch { get; init; }
         }
 
-        private bool ReadBool(string plcSymbol)
-        {
-            if (_adsClient == null || !_adsClient.IsConnected) throw new InvalidOperationException("Not connected to PLC.");
-            uint handle = 0;
-            try
-            {
-                handle = _adsClient.CreateVariableHandle(plcSymbol);
-                var result = _adsClient.ReadAsResult(handle, sizeof(byte));
-                result.ThrowOnError();
-                byte[] buf = result.Data.ToArray();
-                return buf.Length > 0 && buf[0] != 0;
-            }
-            finally
-            {
-                if (handle != 0) try { _adsClient?.DeleteVariableHandle(handle); } catch { }
-            }
-        }
-
-        private int ReadInt32(string plcSymbol)
-        {
-            if (_adsClient == null || !_adsClient.IsConnected) throw new InvalidOperationException("Not connected to PLC.");
-            uint handle = 0;
-            try
-            {
-                handle = _adsClient.CreateVariableHandle(plcSymbol);
-                var result = _adsClient.ReadAsResult(handle, sizeof(int));
-                result.ThrowOnError();
-                byte[] buf = result.Data.ToArray();
-                if (buf.Length < 4) throw new InvalidOperationException($"Unexpected read length for {plcSymbol}");
-                return BitConverter.ToInt32(buf, 0);
-            }
-            finally
-            {
-                if (handle != 0) try { _adsClient?.DeleteVariableHandle(handle); } catch { }
-            }
-        }
-
-        private uint ReadUInt32(string plcSymbol)
-        {
-            if (_adsClient == null || !_adsClient.IsConnected) throw new InvalidOperationException("Not connected to PLC.");
-            uint handle = 0;
-            try
-            {
-                handle = _adsClient.CreateVariableHandle(plcSymbol);
-                var result = _adsClient.ReadAsResult(handle, sizeof(uint));
-                result.ThrowOnError();
-                byte[] buf = result.Data.ToArray();
-                if (buf.Length < 4) throw new InvalidOperationException($"Unexpected read length for {plcSymbol}");
-                return BitConverter.ToUInt32(buf, 0);
-            }
-            finally
-            {
-                if (handle != 0) try { _adsClient?.DeleteVariableHandle(handle); } catch { }
-            }
-        }
+   
 
         /// <summary>
         /// Read gHMIMotionRows.gMotionRows.gMotionRow{rowIndex} into a MotionRowDto.
@@ -1959,35 +1631,36 @@ namespace TOAST_HMI
                 string prefix = $"{baseSym}.{sideName}";
                 return new MotionSideDto
                 {
-                    RequestCoil = ReadBool($"{prefix}.RequestCoil"),
-                    Depth = ReadBool($"{prefix}.Depth"),
-                    Prompt = ReadBool($"{prefix}.Prompt"),
-                    InterlockOK = ReadBool($"{prefix}.InterlockOK"),
-                    NumberOrder = ReadInt16($"{prefix}.NumberOrder"),
-                    TimeTaken = ReadUInt32($"{prefix}.TimeTaken"),
-                    ValCoil = ReadInt16($"{prefix}.valCoil"),
-                    ValDepth = ReadInt16($"{prefix}.valDepth"),
-                    HideCoil = ReadBool($"{prefix}.bHideCoil"),
-                    HideDepth = ReadBool($"{prefix}.bHideDepth"),
-                    HideInterlock = ReadBool($"{prefix}.bHideInterlock"),
-                    HidePrompt = ReadBool($"{prefix}.bHidePrompt"),
-                    HideTime = ReadBool($"{prefix}.bHideTime"),
-                    HideButton = ReadBool($"{prefix}.bHideButton"),
-                    FdbkColour = ReadUInt32($"{prefix}.FdbkColour"),
-                    CoilColour = ReadUInt32($"{prefix}.CoilColour")
-                };
+                    RequestCoil = adsIO.ReadBool($"{prefix}.RequestCoil", _adsClient),
+                    Depth = adsIO.ReadBool($"{prefix}.Depth", _adsClient),
+                    Prompt = adsIO.ReadBool($"{prefix}.Prompt", _adsClient),
+                    InterlockOK = adsIO.ReadBool($"{prefix}.InterlockOK", _adsClient),
+                    NumberOrder = adsIO.ReadInt16($"{prefix}.NumberOrder", _adsClient),
+                    TimeTaken = adsIO.ReadUInt32($"{prefix}.TimeTaken", _adsClient),
+                    ValCoil = adsIO.ReadInt16($"{prefix}.valCoil", _adsClient),
+                    ValDepth = adsIO.ReadInt16($"{prefix}.valDepth", _adsClient),
+                    HideCoil = adsIO.ReadBool($"{prefix}.bHideCoil", _adsClient),
+                    HideDepth = adsIO.ReadBool($"{prefix}.bHideDepth", _adsClient),
+                    HideInterlock = adsIO.ReadBool($"{prefix}.bHideInterlock", _adsClient),
+                    HidePrompt = adsIO.ReadBool($"{prefix}.bHidePrompt", _adsClient),
+                    HideTime = adsIO.ReadBool($"{prefix}.bHideTime", _adsClient),
+                    HideButton = adsIO.ReadBool($"{prefix}.bHideButton", _adsClient),
+                    FdbkColour = adsIO.ReadUInt32($"{prefix}.FdbkColour", _adsClient),
+                    CoilColour = adsIO.ReadUInt32($"{prefix}.CoilColour", _adsClient)
+                 };
             }
 
             var row = new MotionRowDto
             {
                 Advance = ReadSide("Advance"),
                 Return = ReadSide("Returned"),
-                StrPosn = ReadPlcString($"{baseSym}.strPosn", 80),
-                IndexLocation = ReadInt16($"{baseSym}.IndexLocation"),
-                HidePosn = ReadBool($"{baseSym}.bHidePosn"),
-                HideName = ReadBool($"{baseSym}.bHideName"),
-                IsAbsSymSwitch = ReadBool($"{baseSym}.bIsAbsSymSwitch")
+                StrPosn = adsIO.ReadPlcString($"{baseSym}.strPosn", 80, _adsClient),
+                IndexLocation = adsIO.ReadInt16($"{baseSym}.IndexLocation", _adsClient),
+                HidePosn = adsIO.ReadBool($"{baseSym}.bHidePosn", _adsClient),
+                HideName = adsIO.ReadBool($"{baseSym}.bHideName", _adsClient),
+                IsAbsSymSwitch = adsIO.ReadBool($"{baseSym}.bIsAbsSymSwitch", _adsClient)
             };
+           
 
             return row;
         }
@@ -2048,13 +1721,7 @@ namespace TOAST_HMI
             {
                 rowCtrl.ReturnNameBackColor = Color.LightGray;
             }
-
-
-
-
-
         }
-
 
         private void UpdateAllUsrcontRowsFromPlc()
         {
@@ -2545,8 +2212,6 @@ namespace TOAST_HMI
 
             UpdateUsrcontRowFromMotionRow(usrcontRow9, manrow9);
 
-
-
         }
 
 
@@ -2603,7 +2268,6 @@ namespace TOAST_HMI
             }
         }
 
-
         private void button1_Click(object sender, EventArgs e)
         {
 
@@ -2632,8 +2296,7 @@ namespace TOAST_HMI
             {
                 MessageBox.Show(err.Message);
             }
-
-
+              
         }
 
         // Added helper methods and a small change in button1_Click to populate treeViewSymbols
@@ -2745,9 +2408,7 @@ namespace TOAST_HMI
             }
         }
 
-
-
-        private void btnReadStruct2_Click(object sender, EventArgs e)
+       private void btnReadStruct2_Click(object sender, EventArgs e)
         {
             using (AdsClient client = new())
             {

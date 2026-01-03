@@ -158,7 +158,6 @@
             btnMode.TabIndex = 35;
             btnMode.Text = "Mode";
             btnMode.UseVisualStyleBackColor = true;
-            btnMode.Click += btnMode_Click;
             // 
             // btnControl
             // 
@@ -168,7 +167,6 @@
             btnControl.TabIndex = 36;
             btnControl.Text = "Control";
             btnControl.UseVisualStyleBackColor = true;
-            btnControl.Click += btnControl_Click;
             // 
             // btnAutoMode
             // 
@@ -178,7 +176,6 @@
             btnAutoMode.TabIndex = 37;
             btnAutoMode.Text = "AUTO MODE";
             btnAutoMode.UseVisualStyleBackColor = true;
-            btnAutoMode.Click += btnAutoMode_Click;
             // 
             // btnManualMode
             // 
@@ -1184,7 +1181,6 @@
             usrcontRow1.ShowReturnPrompt = false;
             usrcontRow1.Size = new Size(1000, 52);
             usrcontRow1.TabIndex = 0;
-            usrcontRow1.Load += usrcontRow1_Load;
             // 
             // tabPage1
             // 
