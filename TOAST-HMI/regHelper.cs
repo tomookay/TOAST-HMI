@@ -14,9 +14,9 @@ namespace TOAST_HMI
         //registry location for saving settings
         private const string RegBasePath = @"Software\TOAST-HMI";
 
-        static amsdata LoadSettingsFromRegistry()
+        static AMSdata LoadSettingsFromRegistry()
         {
-            amsdata connectionData = new amsdata();
+            AMSdata connectionData = new AMSdata();
             try
             {
                 using (var key = Registry.CurrentUser.OpenSubKey(RegBasePath))

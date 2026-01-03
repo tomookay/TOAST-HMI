@@ -1404,7 +1404,6 @@
         private TabControl tabControl1;
         private TabPage tpMode;
         private TabPage tpManualRows;
-        private usrcontRow frmRow1;
         private usrcontRow usrcontRow1;
         private usrcontRow usrcontRow3;
         private usrcontRow usrcontRow2;

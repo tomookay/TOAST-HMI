@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace TOAST_HMI
 {
-    internal class amsconn
-    {
-    }
 
-    public class amsdata
+    public class AMSdata
     {
         public string amsNetId;
         public int amsPort;

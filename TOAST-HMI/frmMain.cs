@@ -14,7 +14,7 @@ namespace TOAST_HMI
         private AdsClient? _adsClient;
 
         //set connection data to PLC
-        amsdata connectionData = new amsdata();
+        AMSdata connectionData = new AMSdata();
 
         private bool[] gStationSelected = new bool[6];
         private string tc3ProjectPath = string.Empty;
