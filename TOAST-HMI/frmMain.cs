@@ -13,7 +13,7 @@ namespace TOAST_HMI
     {
         // Use a nullable field and a consistent camelCase name to match usages below.
         private AdsClient? _adsClient;
-       
+
         //set connection data to PLC
         private string _amsNetId = "5.132.152.5.1.1";
         private int _adsPort = 851;
@@ -78,7 +78,6 @@ namespace TOAST_HMI
             InitializeComponent();
             SubscribeToRows();
 
-            this.Load += FrmMain_Load;
             this.FormClosing += FrmMain_FormClosing;
 
             // Wire momentary behaviour for buttons (press = TRUE, release = FALSE)
@@ -169,8 +168,9 @@ namespace TOAST_HMI
             //CreateManualRows(6);
         }
 
-        private void FrmMain_Load(object? sender, EventArgs e)
+        private void frmMain_Load(object? sender, EventArgs e)
         {
+            LoadSettingsFromRegistry();
             ConnectAds();
         }
 
@@ -384,13 +384,13 @@ namespace TOAST_HMI
         {
             if (isConnectionFaulted == false)
             {
-            try
+                try
                 {
-                var symbolLoader = (IDynamicSymbolLoader)SymbolLoaderFactory.Create
-                  (
-                      _adsClient,
-                      new SymbolLoaderSettings(SymbolsLoadMode.DynamicTree)
-                  );
+                    var symbolLoader = (IDynamicSymbolLoader)SymbolLoaderFactory.Create
+                      (
+                          _adsClient,
+                          new SymbolLoaderSettings(SymbolsLoadMode.DynamicTree)
+                      );
 
                     var symbols = (DynamicSymbolsCollection)symbolLoader.SymbolsDynamic;
 
@@ -2019,7 +2019,7 @@ namespace TOAST_HMI
             }
             else
             {
-                 rowCtrl.AdvanceNameBackColor = Color.LightGray;
+                rowCtrl.AdvanceNameBackColor = Color.LightGray;
             }
 
             if (typeMotionRow.Advance.RequestCoil)
@@ -2549,7 +2549,7 @@ namespace TOAST_HMI
 
         }
 
-       
+
         private void btnReadStructure_Click(object sender, EventArgs e)
         {
             if (_adsClient == null || !_adsClient.IsConnected)
@@ -2779,11 +2779,9 @@ namespace TOAST_HMI
             }
         }
 
-            private void frmMain_Load_1(object sender, EventArgs e)
-        {
-            LoadSettingsFromRegistry();
-          
-        }
+    
+
+       
     }
 }
 
