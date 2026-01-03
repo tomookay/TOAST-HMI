@@ -1757,67 +1757,16 @@ namespace TOAST_HMI
             public bool IsAbsSymSwitch { get; init; }
         }
 
-        /// <summary>
-        /// Read gHMIMotionRows.gMotionRows.gMotionRow{rowIndex} into a MotionRowDto.
-        /// rowIndex: use the index that matches PLC naming (1-based in your sample).
-        /// </summary>
-        private MotionRowDto ReadMotionRowFromPlc(int rowIndex)
-        {
-            string baseSym = $"gHMIMotionRows.gMotionRows.gMotionRow{rowIndex}";
-
-            MotionSideDto ReadSide(string sideName)
-            {
-                string prefix = $"{baseSym}.{sideName}";
-                return new MotionSideDto
-                {
-                    RequestCoil = adsIO.ReadBool($"{prefix}.RequestCoil", _adsClient),
-                    Depth = adsIO.ReadBool($"{prefix}.Depth", _adsClient),
-                    Prompt = adsIO.ReadBool($"{prefix}.Prompt", _adsClient),
-                    InterlockOK = adsIO.ReadBool($"{prefix}.InterlockOK", _adsClient),
-                    NumberOrder = adsIO.ReadInt16($"{prefix}.NumberOrder", _adsClient),
-                    TimeTaken = adsIO.ReadUInt32($"{prefix}.TimeTaken", _adsClient),
-                    ValCoil = adsIO.ReadInt16($"{prefix}.valCoil", _adsClient),
-                    ValDepth = adsIO.ReadInt16($"{prefix}.valDepth", _adsClient),
-                    HideCoil = adsIO.ReadBool($"{prefix}.bHideCoil", _adsClient),
-                    HideDepth = adsIO.ReadBool($"{prefix}.bHideDepth", _adsClient),
-                    HideInterlock = adsIO.ReadBool($"{prefix}.bHideInterlock", _adsClient),
-                    HidePrompt = adsIO.ReadBool($"{prefix}.bHidePrompt", _adsClient),
-                    HideTime = adsIO.ReadBool($"{prefix}.bHideTime", _adsClient),
-                    HideButton = adsIO.ReadBool($"{prefix}.bHideButton", _adsClient),
-                    FdbkColour = adsIO.ReadUInt32($"{prefix}.FdbkColour", _adsClient),
-                    CoilColour = adsIO.ReadUInt32($"{prefix}.CoilColour", _adsClient)
-                };
-            }
-
-            var row = new MotionRowDto
-            {
-                Advance = ReadSide("Advance"),
-                Return = ReadSide("Returned"),
-                StrPosn = adsIO.ReadPlcString($"{baseSym}.strPosn", 80, _adsClient),
-                IndexLocation = adsIO.ReadInt16($"{baseSym}.IndexLocation", _adsClient),
-                HidePosn = adsIO.ReadBool($"{baseSym}.bHidePosn", _adsClient),
-                HideName = adsIO.ReadBool($"{baseSym}.bHideName", _adsClient),
-                IsAbsSymSwitch = adsIO.ReadBool($"{baseSym}.bIsAbsSymSwitch", _adsClient)
-            };
-
-
-            return row;
-        }
-
         private void UpdateUsrcontRowFromMotionRow(usrcontRow rowCtrl, typeMotionRow typeMotionRow)
         {
             // Buttons visibility
-                    
-
-            //advance side (the left side)
+             //advance side (the left side)
             rowCtrl.ShowAdvanceButton = !typeMotionRow.Advance.bHideButton;
             rowCtrl.AdvanceName = typeMotionRow.Advance.CoilName;
             rowCtrl.AdvancedName = typeMotionRow.Advance.DepthName;
             rowCtrl.ShowAdvanceLabel = !typeMotionRow.Advance.bHideCoil;
             rowCtrl.ShowAdvancedLabel = !typeMotionRow.Advance.bHideDepth;
             rowCtrl.IsAdvancePromptBlue = typeMotionRow.Advance.Prompt;
-
-
 
             //return side (the right side)
             rowCtrl.ShowReturnButton = !typeMotionRow.Return.bHideButton;
@@ -1826,7 +1775,6 @@ namespace TOAST_HMI
             rowCtrl.ShowReturnLabel = !typeMotionRow.Return.bHideCoil;
             rowCtrl.ShowReturnedLabel = !typeMotionRow.Return.bHideDepth;
             rowCtrl.IsReturnPromptBlue = typeMotionRow.Return.Prompt;
-
 
             //Positions in the middle
             rowCtrl.PositionText = typeMotionRow.strPosn;
@@ -1871,40 +1819,7 @@ namespace TOAST_HMI
             {
                 rowCtrl.ReturnNameBackColor = Color.LightGray;
             }
-
-
         }
-
-        public int CalculateIndexPointer()
-        {
-            int stationPointer;
-
-            //check what station is selected
-            //station 1 gStationEnabled[0]
-            if      (gStationEnabled[0])
-                    stationPointer = 10000;
-            else if (gStationEnabled[1])
-                    stationPointer = 20000;
-            else if (gStationEnabled[2])
-                    stationPointer = 30000;
-            else if (gStationEnabled[3])
-                    stationPointer = 40000;
-            else if (gStationEnabled[4])
-                    stationPointer = 50000;
-            else if (gStationEnabled[5])
-                    stationPointer = 60000;
-            else
-                    stationPointer = 0; //no station selected
-
-            //add pointer to get page number
-
-
-
-
-            return stationPointer;
-
-        }
-
 
         private void UpdateAllUsrcontRowsFromPlc()
         {
@@ -1933,8 +1848,6 @@ namespace TOAST_HMI
             };
 
             //get index for manrow gMotionRows.gMotionRow1.IndexLocation
-
-
             manrow1.Advance.RequestCoil = gMotionRows.gMotionRow1.Advance.RequestCoil;
             manrow1.Advance.Depth = gMotionRows.gMotionRow1.Advance.Depth;
             manrow1.Advance.Prompt = gMotionRows.gMotionRow1.Advance.Prompt;
@@ -1998,11 +1911,7 @@ namespace TOAST_HMI
                 manrow1.MotionName = StationMotionRows[gMotionRows.gMotionRow1.IndexLocation + 6 + 10];
             }
 
-
-
-
             UpdateUsrcontRowFromMotionRow(usrcontRow1, manrow1);
-
 
             typeMotionRow manrow2 = new()
             {
@@ -2502,8 +2411,7 @@ namespace TOAST_HMI
                 manrow8.MotionName = StationMotionRows[gMotionRows.gMotionRow8.IndexLocation + 6 + 10];
             }
 
-
-                UpdateUsrcontRowFromMotionRow(usrcontRow8, manrow8);
+            UpdateUsrcontRowFromMotionRow(usrcontRow8, manrow8);
 
             typeMotionRow manrow9 = new()
             {
@@ -2591,12 +2499,8 @@ namespace TOAST_HMI
             try
             {
                 // Use the ISymbolLoaderFactory interface to get the symbol loader
-                //  var symbolLoader = TwinCAT.Ads.SymbolLoaderFactory.Create(_adsClient, SymbolLoaderSettings.Default);
-
-
-                var symbolLoader = (IDynamicSymbolLoader)SymbolLoaderFactory.Create(_adsClient, new SymbolLoaderSettings(SymbolsLoadMode.DynamicTree));
-
-                var symbols = (DynamicSymbolsCollection)symbolLoader.SymbolsDynamic;
+               var symbolLoader = (IDynamicSymbolLoader)SymbolLoaderFactory.Create(_adsClient, new SymbolLoaderSettings(SymbolsLoadMode.DynamicTree));
+               var symbols = (DynamicSymbolsCollection)symbolLoader.SymbolsDynamic;
 
                 // Load all symbols from the PLC's symbol table.
                 //    var symbols = symbolLoader.Symbols;
@@ -2840,7 +2744,6 @@ namespace TOAST_HMI
                 {
                     MessageBox.Show($"Error while reading TwinCAT_SystemInfoVarList structure: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
             }
         }  
     }
