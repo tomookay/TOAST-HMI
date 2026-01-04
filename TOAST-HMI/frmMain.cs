@@ -1766,7 +1766,7 @@ namespace TOAST_HMI
             rowCtrl.AdvancedName = typeMotionRow.Advance.DepthName;
             rowCtrl.ShowAdvanceLabel = !typeMotionRow.Advance.bHideCoil;
             rowCtrl.ShowAdvancedLabel = !typeMotionRow.Advance.bHideDepth;
-            rowCtrl.IsAdvancePromptBlue = typeMotionRow.Advance.Prompt;
+            rowCtrl.ShowpbAdvancePromptFilled = typeMotionRow.Advance.Prompt;
 
             //return side (the right side)
             rowCtrl.ShowReturnButton = !typeMotionRow.Return.bHideButton;
@@ -1774,7 +1774,7 @@ namespace TOAST_HMI
             rowCtrl.ReturnedName = typeMotionRow.Return.DepthName;
             rowCtrl.ShowReturnLabel = !typeMotionRow.Return.bHideCoil;
             rowCtrl.ShowReturnedLabel = !typeMotionRow.Return.bHideDepth;
-            rowCtrl.IsReturnPromptBlue = typeMotionRow.Return.Prompt;
+            rowCtrl.ShowpbReturnPromptFilled = typeMotionRow.Return.Prompt;
 
             //Positions in the middle
             rowCtrl.PositionText = typeMotionRow.strPosn;

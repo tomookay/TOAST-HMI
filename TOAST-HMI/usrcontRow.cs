@@ -163,24 +163,24 @@ namespace TOAST_HMI
             set => SetVisibleSafe(lblRowReturned, value);
         }
 
-        //show hide lblAdvancePrompt
+        //show hide pbAdvancePromptFilled
         [Browsable(true)]
         [Category("Appearance")]
-        [Description("Show or hide the lblAdvancePrompt.")]
+        [Description("Show or hide the pbAdvancePromptFilled.")]
         public bool ShowAdvancePrompt
         {
-            get => lblAdvancePrompt.Visible;
-            set => SetVisibleSafe(lblAdvancePrompt, value);
+            get => pbAdvancePromptFilled.Visible;
+            set => SetVisibleSafe(pbAdvancePromptFilled, value);
         }
 
-        //show hide lblReturnPrompt
+        //show hide pbReturnPromptNotFilled
         [Browsable(true)]
         [Category("Appearance")]
-        [Description("Show or hide the lblReturnPrompt.")]
+        [Description("Show or hide the pbReturnPromptNotFilled.")]
         public bool ShowReturnPrompt
         {
-            get => lblReturnPrompt.Visible;
-            set => SetVisibleSafe(lblReturnPrompt, value);
+            get => pbReturnPromptNotFilled.Visible;
+            set => SetVisibleSafe(pbReturnPromptNotFilled, value);
         }
 
 
@@ -224,25 +224,46 @@ namespace TOAST_HMI
             set => SetVisibleSafe(lblRowName, value);
         }
 
-        //set lblAdvancePrompt backcolor to blue or not
+        //hide pbAdvancePromptFilled
         [Browsable(true)]
         [Category("Appearance")]
-        [Description("Set the lblAdvancePrompt backcolor to blue or not")]
-        public bool IsAdvancePromptBlue
+        [Description("show or hide pbAdvancePromptFilled")]
+        public bool ShowpbAdvancePromptFilled
         {
-            get => GetBackColorSafe(lblAdvancePrompt) == Color.LightBlue;
-            set => SetBackColorSafe(lblAdvancePrompt, value ? Color.LightBlue : SystemColors.Control);
+            get => pbAdvancePromptFilled.Visible;
+            set => SetVisibleSafe(pbAdvancePromptFilled, value);
         }
 
-        //set lblReturnPrompt backcolor to blue or not
+        //hide pbReturnPromptFilled
         [Browsable(true)]
         [Category("Appearance")]
-        [Description("Set the lblReturnPrompt backcolor to blue or not")]
-        public bool IsReturnPromptBlue
+        [Description("show or hide pbReturnPromptFilled")]
+        public bool ShowpbReturnPromptFilled
         {
-            get => GetBackColorSafe(lblReturnPrompt) == Color.LightBlue;
-            set => SetBackColorSafe(lblReturnPrompt, value ? Color.LightBlue : SystemColors.Control);
+            get => pbReturnPromptFilled.Visible;
+            set => SetVisibleSafe(pbReturnPromptFilled, value);
         }
+
+        //pbAdvanceFilled
+        [Browsable(true)]
+        [Category("Appearance")]
+        [Description("show or hide pbAdvanceFilled")]
+        public bool ShowpbAdvanceFilled
+        {
+            get => pbAdvanceFilled.Visible;
+            set => SetVisibleSafe(pbAdvanceFilled, value);
+        }
+
+        //pbReturnFilled
+        [Browsable(true)]
+        [Category("Appearance")]
+        [Description("show or hide pbReturnFilled")]
+        public bool ShowpbReturnFilled
+        {
+            get => pbReturnFilled.Visible;
+            set => SetVisibleSafe(pbReturnFilled, value);
+        }
+
 
 
         // Convenience method a parent can call to ensure both action buttons are visible
