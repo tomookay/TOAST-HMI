@@ -3,6 +3,10 @@ a quick and dirty HMI in c# to suit TOAST, if you dont want to use the HMI compo
 WIP!- 
 <img width="1010" height="761" alt="image" src="https://github.com/user-attachments/assets/dd3992a9-359f-456f-966d-ed6f99789dbf" />
 
+manual screen linked with toast
+<img width="1010" height="761" alt="image" src="https://github.com/user-attachments/assets/ba82b09b-9b43-41ac-b8a9-3c7d092ffdca" />
+
+
 
 
 ams address location in reg
