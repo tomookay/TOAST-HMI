@@ -178,6 +178,13 @@ namespace TOAST_HMI
             WireMomentary(btnSEOC, "gHMIButtons.btnMode.btnFooterAutoCycleStopEOC");
             WireMomentary(btnReturnHome, "gHMIButtons.btnMode.btnFooterReturnHome");
 
+            WireMomentary(btnPrevPage, "gHMIButtons.btnPrevPage");
+            WireMomentary(btnNextPage, "gHMIButtons.btnNextPage");
+
+            //gHMIButtons.btnPlus1Row
+            WireMomentary(btnPlus1Row, "gHMIButtons.btnPlus1Row");
+            WireMomentary(btnNeg1Row, "gHMIButtons.btnNeg1Row");
+
             // Create manual rows for demonstration
             //CreateManualRows(6);
         }
@@ -1109,6 +1116,19 @@ namespace TOAST_HMI
 
                         //update manual row's usrcont from plc
                         UpdateAllUsrcontRowsFromPlc();
+
+
+                        //update manual row count
+                        //read gHMIData.gActivePageNumber and put the integer into lblgActivePageNumber
+                        int activePageNumber = gHMI.gActivePageNumber;
+                        lblgActivePageNumber.Text = activePageNumber.ToString();
+
+                        //read gHMIData.gMaxPageNumber and put the integer into lblgMaxPageNumber
+                        int maxPageNumber = gHMI.gMaxPageNumber;
+                        lblgMaxPageNumber.Text = maxPageNumber.ToString();
+
+
+
 
                     }
                     catch

@@ -46,7 +46,7 @@
             lblAnyWarnings = new Label();
             lblStationName = new Label();
             ofdTc3Project = new OpenFileDialog();
-            button4 = new Button();
+            btnLoadTC3Proj = new Button();
             lblAnyFaultsExist = new Label();
             lblmsgViewAlarmMachine = new Label();
             lblmsgViewAlarmS1 = new Label();
@@ -122,6 +122,12 @@
             lsbReadSymbols = new ListBox();
             tabPage2 = new TabPage();
             button2 = new Button();
+            btnNextPage = new Button();
+            btnPrevPage = new Button();
+            btnNeg1Row = new Button();
+            btnPlus1Row = new Button();
+            lblgActivePageNumber = new Label();
+            lblgMaxPageNumber = new Label();
             tabControl1.SuspendLayout();
             tpMode.SuspendLayout();
             tpManualRows.SuspendLayout();
@@ -288,15 +294,15 @@
             ofdTc3Project.Filter = "TwinCAT3 Projects | *.sln";
             ofdTc3Project.Title = "Select a TwinCAT3 Project...";
             // 
-            // button4
+            // btnLoadTC3Proj
             // 
-            button4.Location = new Point(769, 680);
-            button4.Name = "button4";
-            button4.Size = new Size(75, 23);
-            button4.TabIndex = 48;
-            button4.Text = "button4";
-            button4.UseVisualStyleBackColor = true;
-            button4.Click += button4_Click;
+            btnLoadTC3Proj.Location = new Point(786, 29);
+            btnLoadTC3Proj.Name = "btnLoadTC3Proj";
+            btnLoadTC3Proj.Size = new Size(132, 23);
+            btnLoadTC3Proj.TabIndex = 48;
+            btnLoadTC3Proj.Text = "Attach TC3 Project..";
+            btnLoadTC3Proj.UseVisualStyleBackColor = true;
+            btnLoadTC3Proj.Click += button4_Click;
             // 
             // lblAnyFaultsExist
             // 
@@ -941,16 +947,20 @@
             usrcontRow9.ReturnNameBackColor = Color.Transparent;
             usrcontRow9.RowIndex = 9;
             usrcontRow9.RowName = "Cylinder A9";
-            usrcontRow9.ShowAdvanceButton = true;
-            usrcontRow9.ShowAdvancedLabel = true;
-            usrcontRow9.ShowAdvanceLabel = true;
-            usrcontRow9.ShowAdvancePrompt = true;
-            usrcontRow9.ShowlblRowName = true;
-            usrcontRow9.ShowlblRowPosn = true;
-            usrcontRow9.ShowReturnButton = true;
-            usrcontRow9.ShowReturnedLabel = true;
-            usrcontRow9.ShowReturnLabel = true;
-            usrcontRow9.ShowReturnPrompt = true;
+            usrcontRow9.ShowAdvanceButton = false;
+            usrcontRow9.ShowAdvancedLabel = false;
+            usrcontRow9.ShowAdvanceLabel = false;
+            usrcontRow9.ShowAdvancePrompt = false;
+            usrcontRow9.ShowlblRowName = false;
+            usrcontRow9.ShowlblRowPosn = false;
+            usrcontRow9.ShowpbAdvanceFilled = false;
+            usrcontRow9.ShowpbAdvancePromptFilled = false;
+            usrcontRow9.ShowpbReturnFilled = false;
+            usrcontRow9.ShowpbReturnPromptFilled = false;
+            usrcontRow9.ShowReturnButton = false;
+            usrcontRow9.ShowReturnedLabel = false;
+            usrcontRow9.ShowReturnLabel = false;
+            usrcontRow9.ShowReturnPrompt = false;
             usrcontRow9.Size = new Size(1000, 52);
             usrcontRow9.TabIndex = 8;
             // 
@@ -970,16 +980,20 @@
             usrcontRow8.ReturnNameBackColor = Color.Transparent;
             usrcontRow8.RowIndex = 8;
             usrcontRow8.RowName = "Cylinder A8";
-            usrcontRow8.ShowAdvanceButton = true;
-            usrcontRow8.ShowAdvancedLabel = true;
-            usrcontRow8.ShowAdvanceLabel = true;
-            usrcontRow8.ShowAdvancePrompt = true;
-            usrcontRow8.ShowlblRowName = true;
-            usrcontRow8.ShowlblRowPosn = true;
-            usrcontRow8.ShowReturnButton = true;
-            usrcontRow8.ShowReturnedLabel = true;
-            usrcontRow8.ShowReturnLabel = true;
-            usrcontRow8.ShowReturnPrompt = true;
+            usrcontRow8.ShowAdvanceButton = false;
+            usrcontRow8.ShowAdvancedLabel = false;
+            usrcontRow8.ShowAdvanceLabel = false;
+            usrcontRow8.ShowAdvancePrompt = false;
+            usrcontRow8.ShowlblRowName = false;
+            usrcontRow8.ShowlblRowPosn = false;
+            usrcontRow8.ShowpbAdvanceFilled = false;
+            usrcontRow8.ShowpbAdvancePromptFilled = false;
+            usrcontRow8.ShowpbReturnFilled = false;
+            usrcontRow8.ShowpbReturnPromptFilled = false;
+            usrcontRow8.ShowReturnButton = false;
+            usrcontRow8.ShowReturnedLabel = false;
+            usrcontRow8.ShowReturnLabel = false;
+            usrcontRow8.ShowReturnPrompt = false;
             usrcontRow8.Size = new Size(1000, 52);
             usrcontRow8.TabIndex = 7;
             // 
@@ -999,16 +1013,20 @@
             usrcontRow7.ReturnNameBackColor = Color.Transparent;
             usrcontRow7.RowIndex = 7;
             usrcontRow7.RowName = "Cylinder A7";
-            usrcontRow7.ShowAdvanceButton = true;
-            usrcontRow7.ShowAdvancedLabel = true;
-            usrcontRow7.ShowAdvanceLabel = true;
-            usrcontRow7.ShowAdvancePrompt = true;
-            usrcontRow7.ShowlblRowName = true;
-            usrcontRow7.ShowlblRowPosn = true;
-            usrcontRow7.ShowReturnButton = true;
-            usrcontRow7.ShowReturnedLabel = true;
-            usrcontRow7.ShowReturnLabel = true;
-            usrcontRow7.ShowReturnPrompt = true;
+            usrcontRow7.ShowAdvanceButton = false;
+            usrcontRow7.ShowAdvancedLabel = false;
+            usrcontRow7.ShowAdvanceLabel = false;
+            usrcontRow7.ShowAdvancePrompt = false;
+            usrcontRow7.ShowlblRowName = false;
+            usrcontRow7.ShowlblRowPosn = false;
+            usrcontRow7.ShowpbAdvanceFilled = false;
+            usrcontRow7.ShowpbAdvancePromptFilled = false;
+            usrcontRow7.ShowpbReturnFilled = false;
+            usrcontRow7.ShowpbReturnPromptFilled = false;
+            usrcontRow7.ShowReturnButton = false;
+            usrcontRow7.ShowReturnedLabel = false;
+            usrcontRow7.ShowReturnLabel = false;
+            usrcontRow7.ShowReturnPrompt = false;
             usrcontRow7.Size = new Size(1000, 52);
             usrcontRow7.TabIndex = 6;
             // 
@@ -1028,16 +1046,20 @@
             usrcontRow6.ReturnNameBackColor = Color.Transparent;
             usrcontRow6.RowIndex = 6;
             usrcontRow6.RowName = "Cylinder A6";
-            usrcontRow6.ShowAdvanceButton = true;
-            usrcontRow6.ShowAdvancedLabel = true;
-            usrcontRow6.ShowAdvanceLabel = true;
-            usrcontRow6.ShowAdvancePrompt = true;
-            usrcontRow6.ShowlblRowName = true;
-            usrcontRow6.ShowlblRowPosn = true;
-            usrcontRow6.ShowReturnButton = true;
-            usrcontRow6.ShowReturnedLabel = true;
-            usrcontRow6.ShowReturnLabel = true;
-            usrcontRow6.ShowReturnPrompt = true;
+            usrcontRow6.ShowAdvanceButton = false;
+            usrcontRow6.ShowAdvancedLabel = false;
+            usrcontRow6.ShowAdvanceLabel = false;
+            usrcontRow6.ShowAdvancePrompt = false;
+            usrcontRow6.ShowlblRowName = false;
+            usrcontRow6.ShowlblRowPosn = false;
+            usrcontRow6.ShowpbAdvanceFilled = false;
+            usrcontRow6.ShowpbAdvancePromptFilled = false;
+            usrcontRow6.ShowpbReturnFilled = false;
+            usrcontRow6.ShowpbReturnPromptFilled = false;
+            usrcontRow6.ShowReturnButton = false;
+            usrcontRow6.ShowReturnedLabel = false;
+            usrcontRow6.ShowReturnLabel = false;
+            usrcontRow6.ShowReturnPrompt = false;
             usrcontRow6.Size = new Size(1000, 52);
             usrcontRow6.TabIndex = 5;
             // 
@@ -1057,16 +1079,20 @@
             usrcontRow5.ReturnNameBackColor = Color.Transparent;
             usrcontRow5.RowIndex = 5;
             usrcontRow5.RowName = "Cylinder A5";
-            usrcontRow5.ShowAdvanceButton = true;
-            usrcontRow5.ShowAdvancedLabel = true;
-            usrcontRow5.ShowAdvanceLabel = true;
-            usrcontRow5.ShowAdvancePrompt = true;
-            usrcontRow5.ShowlblRowName = true;
-            usrcontRow5.ShowlblRowPosn = true;
-            usrcontRow5.ShowReturnButton = true;
-            usrcontRow5.ShowReturnedLabel = true;
-            usrcontRow5.ShowReturnLabel = true;
-            usrcontRow5.ShowReturnPrompt = true;
+            usrcontRow5.ShowAdvanceButton = false;
+            usrcontRow5.ShowAdvancedLabel = false;
+            usrcontRow5.ShowAdvanceLabel = false;
+            usrcontRow5.ShowAdvancePrompt = false;
+            usrcontRow5.ShowlblRowName = false;
+            usrcontRow5.ShowlblRowPosn = false;
+            usrcontRow5.ShowpbAdvanceFilled = false;
+            usrcontRow5.ShowpbAdvancePromptFilled = false;
+            usrcontRow5.ShowpbReturnFilled = false;
+            usrcontRow5.ShowpbReturnPromptFilled = false;
+            usrcontRow5.ShowReturnButton = false;
+            usrcontRow5.ShowReturnedLabel = false;
+            usrcontRow5.ShowReturnLabel = false;
+            usrcontRow5.ShowReturnPrompt = false;
             usrcontRow5.Size = new Size(1000, 52);
             usrcontRow5.TabIndex = 4;
             // 
@@ -1086,16 +1112,20 @@
             usrcontRow4.ReturnNameBackColor = Color.Transparent;
             usrcontRow4.RowIndex = 4;
             usrcontRow4.RowName = "Cylinder A4";
-            usrcontRow4.ShowAdvanceButton = true;
-            usrcontRow4.ShowAdvancedLabel = true;
-            usrcontRow4.ShowAdvanceLabel = true;
-            usrcontRow4.ShowAdvancePrompt = true;
-            usrcontRow4.ShowlblRowName = true;
-            usrcontRow4.ShowlblRowPosn = true;
-            usrcontRow4.ShowReturnButton = true;
-            usrcontRow4.ShowReturnedLabel = true;
-            usrcontRow4.ShowReturnLabel = true;
-            usrcontRow4.ShowReturnPrompt = true;
+            usrcontRow4.ShowAdvanceButton = false;
+            usrcontRow4.ShowAdvancedLabel = false;
+            usrcontRow4.ShowAdvanceLabel = false;
+            usrcontRow4.ShowAdvancePrompt = false;
+            usrcontRow4.ShowlblRowName = false;
+            usrcontRow4.ShowlblRowPosn = false;
+            usrcontRow4.ShowpbAdvanceFilled = false;
+            usrcontRow4.ShowpbAdvancePromptFilled = false;
+            usrcontRow4.ShowpbReturnFilled = false;
+            usrcontRow4.ShowpbReturnPromptFilled = false;
+            usrcontRow4.ShowReturnButton = false;
+            usrcontRow4.ShowReturnedLabel = false;
+            usrcontRow4.ShowReturnLabel = false;
+            usrcontRow4.ShowReturnPrompt = false;
             usrcontRow4.Size = new Size(1000, 52);
             usrcontRow4.TabIndex = 3;
             // 
@@ -1115,16 +1145,20 @@
             usrcontRow3.ReturnNameBackColor = Color.Transparent;
             usrcontRow3.RowIndex = 3;
             usrcontRow3.RowName = "Cylinder A3";
-            usrcontRow3.ShowAdvanceButton = true;
-            usrcontRow3.ShowAdvancedLabel = true;
-            usrcontRow3.ShowAdvanceLabel = true;
-            usrcontRow3.ShowAdvancePrompt = true;
-            usrcontRow3.ShowlblRowName = true;
-            usrcontRow3.ShowlblRowPosn = true;
-            usrcontRow3.ShowReturnButton = true;
-            usrcontRow3.ShowReturnedLabel = true;
-            usrcontRow3.ShowReturnLabel = true;
-            usrcontRow3.ShowReturnPrompt = true;
+            usrcontRow3.ShowAdvanceButton = false;
+            usrcontRow3.ShowAdvancedLabel = false;
+            usrcontRow3.ShowAdvanceLabel = false;
+            usrcontRow3.ShowAdvancePrompt = false;
+            usrcontRow3.ShowlblRowName = false;
+            usrcontRow3.ShowlblRowPosn = false;
+            usrcontRow3.ShowpbAdvanceFilled = false;
+            usrcontRow3.ShowpbAdvancePromptFilled = false;
+            usrcontRow3.ShowpbReturnFilled = false;
+            usrcontRow3.ShowpbReturnPromptFilled = false;
+            usrcontRow3.ShowReturnButton = false;
+            usrcontRow3.ShowReturnedLabel = false;
+            usrcontRow3.ShowReturnLabel = false;
+            usrcontRow3.ShowReturnPrompt = false;
             usrcontRow3.Size = new Size(1000, 52);
             usrcontRow3.TabIndex = 2;
             // 
@@ -1144,16 +1178,20 @@
             usrcontRow2.ReturnNameBackColor = Color.Transparent;
             usrcontRow2.RowIndex = 2;
             usrcontRow2.RowName = "Cylinder A2";
-            usrcontRow2.ShowAdvanceButton = true;
-            usrcontRow2.ShowAdvancedLabel = true;
-            usrcontRow2.ShowAdvanceLabel = true;
-            usrcontRow2.ShowAdvancePrompt = true;
-            usrcontRow2.ShowlblRowName = true;
-            usrcontRow2.ShowlblRowPosn = true;
-            usrcontRow2.ShowReturnButton = true;
-            usrcontRow2.ShowReturnedLabel = true;
-            usrcontRow2.ShowReturnLabel = true;
-            usrcontRow2.ShowReturnPrompt = true;
+            usrcontRow2.ShowAdvanceButton = false;
+            usrcontRow2.ShowAdvancedLabel = false;
+            usrcontRow2.ShowAdvanceLabel = false;
+            usrcontRow2.ShowAdvancePrompt = false;
+            usrcontRow2.ShowlblRowName = false;
+            usrcontRow2.ShowlblRowPosn = false;
+            usrcontRow2.ShowpbAdvanceFilled = false;
+            usrcontRow2.ShowpbAdvancePromptFilled = false;
+            usrcontRow2.ShowpbReturnFilled = false;
+            usrcontRow2.ShowpbReturnPromptFilled = false;
+            usrcontRow2.ShowReturnButton = false;
+            usrcontRow2.ShowReturnedLabel = false;
+            usrcontRow2.ShowReturnLabel = false;
+            usrcontRow2.ShowReturnPrompt = false;
             usrcontRow2.Size = new Size(1000, 52);
             usrcontRow2.TabIndex = 1;
             // 
@@ -1173,16 +1211,20 @@
             usrcontRow1.ReturnNameBackColor = Color.Transparent;
             usrcontRow1.RowIndex = 1;
             usrcontRow1.RowName = "Cylinder A1";
-            usrcontRow1.ShowAdvanceButton = true;
-            usrcontRow1.ShowAdvancedLabel = true;
-            usrcontRow1.ShowAdvanceLabel = true;
-            usrcontRow1.ShowAdvancePrompt = true;
-            usrcontRow1.ShowlblRowName = true;
-            usrcontRow1.ShowlblRowPosn = true;
-            usrcontRow1.ShowReturnButton = true;
-            usrcontRow1.ShowReturnedLabel = true;
-            usrcontRow1.ShowReturnLabel = true;
-            usrcontRow1.ShowReturnPrompt = true;
+            usrcontRow1.ShowAdvanceButton = false;
+            usrcontRow1.ShowAdvancedLabel = false;
+            usrcontRow1.ShowAdvanceLabel = false;
+            usrcontRow1.ShowAdvancePrompt = false;
+            usrcontRow1.ShowlblRowName = false;
+            usrcontRow1.ShowlblRowPosn = false;
+            usrcontRow1.ShowpbAdvanceFilled = false;
+            usrcontRow1.ShowpbAdvancePromptFilled = false;
+            usrcontRow1.ShowpbReturnFilled = false;
+            usrcontRow1.ShowpbReturnPromptFilled = false;
+            usrcontRow1.ShowReturnButton = false;
+            usrcontRow1.ShowReturnedLabel = false;
+            usrcontRow1.ShowReturnLabel = false;
+            usrcontRow1.ShowReturnPrompt = false;
             usrcontRow1.Size = new Size(1000, 52);
             usrcontRow1.TabIndex = 0;
             // 
@@ -1268,11 +1310,72 @@
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
+            // btnNextPage
+            // 
+            btnNextPage.Location = new Point(924, 647);
+            btnNextPage.Name = "btnNextPage";
+            btnNextPage.Size = new Size(80, 80);
+            btnNextPage.TabIndex = 74;
+            btnNextPage.Text = "V";
+            btnNextPage.UseVisualStyleBackColor = true;
+            // 
+            // btnPrevPage
+            // 
+            btnPrevPage.Location = new Point(708, 647);
+            btnPrevPage.Name = "btnPrevPage";
+            btnPrevPage.Size = new Size(80, 80);
+            btnPrevPage.TabIndex = 75;
+            btnPrevPage.Text = "^";
+            btnPrevPage.UseVisualStyleBackColor = true;
+            // 
+            // btnNeg1Row
+            // 
+            btnNeg1Row.Location = new Point(794, 647);
+            btnNeg1Row.Name = "btnNeg1Row";
+            btnNeg1Row.Size = new Size(31, 80);
+            btnNeg1Row.TabIndex = 76;
+            btnNeg1Row.Text = "-1";
+            btnNeg1Row.UseVisualStyleBackColor = true;
+            // 
+            // btnPlus1Row
+            // 
+            btnPlus1Row.Location = new Point(887, 647);
+            btnPlus1Row.Name = "btnPlus1Row";
+            btnPlus1Row.Size = new Size(31, 80);
+            btnPlus1Row.TabIndex = 77;
+            btnPlus1Row.Text = "+1";
+            btnPlus1Row.UseVisualStyleBackColor = true;
+            // 
+            // lblgActivePageNumber
+            // 
+            lblgActivePageNumber.AutoSize = true;
+            lblgActivePageNumber.Location = new Point(831, 651);
+            lblgActivePageNumber.Name = "lblgActivePageNumber";
+            lblgActivePageNumber.Size = new Size(13, 15);
+            lblgActivePageNumber.TabIndex = 78;
+            lblgActivePageNumber.Text = "0";
+            // 
+            // lblgMaxPageNumber
+            // 
+            lblgMaxPageNumber.AutoSize = true;
+            lblgMaxPageNumber.Location = new Point(868, 651);
+            lblgMaxPageNumber.Name = "lblgMaxPageNumber";
+            lblgMaxPageNumber.Size = new Size(13, 15);
+            lblgMaxPageNumber.TabIndex = 79;
+            lblgMaxPageNumber.Text = "0";
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1008, 729);
+            Controls.Add(lblgMaxPageNumber);
+            Controls.Add(lblgActivePageNumber);
+            Controls.Add(btnPlus1Row);
+            Controls.Add(btnNeg1Row);
+            Controls.Add(btnLoadTC3Proj);
+            Controls.Add(btnPrevPage);
+            Controls.Add(btnNextPage);
             Controls.Add(tabControl1);
             Controls.Add(lblmsgViewWarningS6);
             Controls.Add(lblmsgViewWarningS5);
@@ -1296,7 +1399,6 @@
             Controls.Add(lblmsgViewAlarmS1);
             Controls.Add(lblmsgViewAlarmMachine);
             Controls.Add(lblAnyFaultsExist);
-            Controls.Add(button4);
             Controls.Add(lblStationName);
             Controls.Add(lblAnyWarnings);
             Controls.Add(lblHomeState);
@@ -1325,6 +1427,7 @@
             tabPage1.ResumeLayout(false);
             tabPage2.ResumeLayout(false);
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -1345,7 +1448,7 @@
         private Label lblAnyWarnings;
         private Label lblStationName;
         private OpenFileDialog ofdTc3Project;
-        private Button button4;
+        private Button btnLoadTC3Proj;
         private Label lblAnyFaultsExist;
         private Label lblmsgViewAlarmMachine;
         private Label lblmsgViewAlarmS1;
@@ -1421,5 +1524,11 @@
         private Button btnReadStruct2;
         private TabPage tabPage2;
         private Button button2;
+        private Button btnNextPage;
+        private Button btnPrevPage;
+        private Button btnNeg1Row;
+        private Button btnPlus1Row;
+        private Label lblgActivePageNumber;
+        private Label lblgMaxPageNumber;
     }
 }
