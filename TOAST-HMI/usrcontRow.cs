@@ -183,6 +183,62 @@ namespace TOAST_HMI
             set => SetVisibleSafe(pbReturnPromptNotFilled, value);
         }
 
+        //hide for both pbAdvanceInterlockFilled and pbAdvanceNotFilled
+        [Browsable(true)]
+        [Category("Appearance")]
+        [Description("Show or hide the pbAdvanceInterlockFilled and pbAdvanceNotFilled.")]
+        public bool ShowAdvanceInterlock
+        {
+            get => pbAdvanceInterlockFilled.Visible;
+            set
+            {
+                SetVisibleSafe(pbAdvanceInterlockFilled, value);
+                SetVisibleSafe(pbAdvanceInterlockNotFilled, value);
+            }
+        }
+        //hide for both pbReturnInterlockFilled and pbReturnNotFilled
+        [Browsable(true)]
+        [Category("Appearance")]
+        [Description("Show or hide the pbReturnInterlockFilled and pbReturnNotFilled.")]
+        public bool ShowReturnInterlock
+        {
+            get => pbReturnInterlockFilled.Visible;
+            set
+            {
+                SetVisibleSafe(pbReturnInterlockFilled, value);
+                SetVisibleSafe(pbReturnInterlockNotFilled, value);
+            }
+        }
+
+        //hide both pbAdvancePromptFilled and pbAdvancePromptNotFilled
+        [Browsable(true)]
+        [Category("Appearance")]
+        [Description("Show or hide the pbAdvancePromptFilled and pbAdvancePromptNotFilled.")]
+        public bool ShowAdvancePromptBoth
+        {
+            get => pbAdvancePromptFilled.Visible;
+            set
+            {
+                SetVisibleSafe(pbAdvancePromptFilled, value);
+                SetVisibleSafe(pbAdvancePromptNotFilled, value);
+            }
+        }
+
+        //hide both pbReturnPromptFilled and pbReturnPromptNotFilled
+        [Browsable(true)]
+        [Category("Appearance")]
+        [Description("Show or hide the pbReturnPromptFilled and pbReturnPromptNotFilled.")]
+        public bool ShowReturnPromptBoth
+        {
+            get => pbReturnPromptFilled.Visible;
+            set
+            {
+                SetVisibleSafe(pbReturnPromptFilled, value);
+                SetVisibleSafe(pbReturnPromptNotFilled, value);
+            }
+        }
+
+
 
 
         // New: expose Advance/Return request button visibility so frmMain (or any parent) can show them
@@ -234,6 +290,16 @@ namespace TOAST_HMI
             set => SetVisibleSafe(pbAdvancePromptFilled, value);
         }
 
+        //hide AdvanceInterlockFilled
+        [Browsable(true)]
+        [Category("Appearance")]
+        [Description("show or hide AdvanceInterlockFilled")]
+        public bool ShowAdvanceInterlockFilled
+        {
+            get => pbAdvanceInterlockFilled.Visible;
+            set => SetVisibleSafe(pbAdvanceInterlockFilled, value);
+        }
+
         //hide pbReturnPromptFilled
         [Browsable(true)]
         [Category("Appearance")]
@@ -244,25 +310,36 @@ namespace TOAST_HMI
             set => SetVisibleSafe(pbReturnPromptFilled, value);
         }
 
+        //hide ReturnInterlockFilled
+        [Browsable(true)]
+        [Category("Appearance")]
+        [Description("show or hide ReturnInterlockFilled")]
+        public bool ShowReturnInterlockFilled
+        {
+            get => pbReturnInterlockFilled.Visible;
+            set => SetVisibleSafe(pbReturnInterlockFilled, value);
+        }
+
+
         //pbAdvanceFilled
         [Browsable(true)]
         [Category("Appearance")]
-        [Description("show or hide pbAdvanceFilled")]
+        [Description("show or hide pbAdvance Interlock Filled")]
         public bool ShowpbAdvanceFilled
         {
-            get => pbAdvanceFilled.Visible;
-            set => SetVisibleSafe(pbAdvanceFilled, value);
+            get => pbAdvanceInterlockFilled.Visible;
+            set => SetVisibleSafe(pbAdvanceInterlockFilled, value);
         }
 
-        //pbReturnFilled
-        [Browsable(true)]
-        [Category("Appearance")]
-        [Description("show or hide pbReturnFilled")]
-        public bool ShowpbReturnFilled
-        {
-            get => pbReturnFilled.Visible;
-            set => SetVisibleSafe(pbReturnFilled, value);
-        }
+        //////pbReturnFilled
+        //[Browsable(true)]
+        //[Category("Appearance")]
+        //[Description("show or hide pbReturnFilled Interlock")]
+        //public bool ShowpbReturnInterlockFilled
+        //{
+        //    get => pbReturnInterlockFilled.Visible;
+        //    set => SetVisibleSafe(pbReturnInterlockFilled, value);
+        //}
 
 
 
@@ -385,6 +462,11 @@ namespace TOAST_HMI
             {
                 ctrl.BackColor = color;
             }
+        }
+
+        private void pbReturnInterlockFilled_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

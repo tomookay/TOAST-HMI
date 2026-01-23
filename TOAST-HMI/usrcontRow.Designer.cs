@@ -37,18 +37,18 @@
             lblRowAdvanced = new Label();
             lblRowAdvance = new Label();
             btnRowAdvanceReq = new Button();
-            pbAdvanceFilled = new PictureBox();
-            pbAdvanceNotFilled = new PictureBox();
-            pbReturnNotFilled = new PictureBox();
-            pbReturnFilled = new PictureBox();
+            pbAdvanceInterlockFilled = new PictureBox();
+            pbAdvanceInterlockNotFilled = new PictureBox();
+            pbReturnInterlockNotFilled = new PictureBox();
+            pbReturnInterlockFilled = new PictureBox();
             pbAdvancePromptNotFilled = new PictureBox();
             pbAdvancePromptFilled = new PictureBox();
             pbReturnPromptFilled = new PictureBox();
             pbReturnPromptNotFilled = new PictureBox();
-            ((System.ComponentModel.ISupportInitialize)pbAdvanceFilled).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pbAdvanceNotFilled).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pbReturnNotFilled).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pbReturnFilled).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbAdvanceInterlockFilled).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbAdvanceInterlockNotFilled).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbReturnInterlockNotFilled).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbReturnInterlockFilled).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbAdvancePromptNotFilled).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbAdvancePromptFilled).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbReturnPromptFilled).BeginInit();
@@ -134,49 +134,50 @@
             btnRowAdvanceReq.Text = "1";
             btnRowAdvanceReq.UseVisualStyleBackColor = true;
             // 
-            // pbAdvanceFilled
+            // pbAdvanceInterlockFilled
             // 
-            pbAdvanceFilled.Image = (Image)resources.GetObject("pbAdvanceFilled.Image");
-            pbAdvanceFilled.InitialImage = null;
-            pbAdvanceFilled.Location = new Point(0, 0);
-            pbAdvanceFilled.Name = "pbAdvanceFilled";
-            pbAdvanceFilled.Size = new Size(45, 52);
-            pbAdvanceFilled.SizeMode = PictureBoxSizeMode.StretchImage;
-            pbAdvanceFilled.TabIndex = 57;
-            pbAdvanceFilled.TabStop = false;
+            pbAdvanceInterlockFilled.Image = (Image)resources.GetObject("pbAdvanceInterlockFilled.Image");
+            pbAdvanceInterlockFilled.InitialImage = null;
+            pbAdvanceInterlockFilled.Location = new Point(0, 1);
+            pbAdvanceInterlockFilled.Name = "pbAdvanceInterlockFilled";
+            pbAdvanceInterlockFilled.Size = new Size(45, 52);
+            pbAdvanceInterlockFilled.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbAdvanceInterlockFilled.TabIndex = 57;
+            pbAdvanceInterlockFilled.TabStop = false;
             // 
-            // pbAdvanceNotFilled
+            // pbAdvanceInterlockNotFilled
             // 
-            pbAdvanceNotFilled.Image = (Image)resources.GetObject("pbAdvanceNotFilled.Image");
-            pbAdvanceNotFilled.InitialImage = null;
-            pbAdvanceNotFilled.Location = new Point(0, 0);
-            pbAdvanceNotFilled.Name = "pbAdvanceNotFilled";
-            pbAdvanceNotFilled.Size = new Size(45, 52);
-            pbAdvanceNotFilled.SizeMode = PictureBoxSizeMode.StretchImage;
-            pbAdvanceNotFilled.TabIndex = 58;
-            pbAdvanceNotFilled.TabStop = false;
+            pbAdvanceInterlockNotFilled.Image = (Image)resources.GetObject("pbAdvanceInterlockNotFilled.Image");
+            pbAdvanceInterlockNotFilled.InitialImage = null;
+            pbAdvanceInterlockNotFilled.Location = new Point(0, 0);
+            pbAdvanceInterlockNotFilled.Name = "pbAdvanceInterlockNotFilled";
+            pbAdvanceInterlockNotFilled.Size = new Size(45, 52);
+            pbAdvanceInterlockNotFilled.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbAdvanceInterlockNotFilled.TabIndex = 58;
+            pbAdvanceInterlockNotFilled.TabStop = false;
             // 
-            // pbReturnNotFilled
+            // pbReturnInterlockNotFilled
             // 
-            pbReturnNotFilled.Image = (Image)resources.GetObject("pbReturnNotFilled.Image");
-            pbReturnNotFilled.InitialImage = null;
-            pbReturnNotFilled.Location = new Point(952, 0);
-            pbReturnNotFilled.Name = "pbReturnNotFilled";
-            pbReturnNotFilled.Size = new Size(45, 52);
-            pbReturnNotFilled.SizeMode = PictureBoxSizeMode.StretchImage;
-            pbReturnNotFilled.TabIndex = 59;
-            pbReturnNotFilled.TabStop = false;
+            pbReturnInterlockNotFilled.Image = (Image)resources.GetObject("pbReturnInterlockNotFilled.Image");
+            pbReturnInterlockNotFilled.InitialImage = null;
+            pbReturnInterlockNotFilled.Location = new Point(952, 0);
+            pbReturnInterlockNotFilled.Name = "pbReturnInterlockNotFilled";
+            pbReturnInterlockNotFilled.Size = new Size(45, 52);
+            pbReturnInterlockNotFilled.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbReturnInterlockNotFilled.TabIndex = 59;
+            pbReturnInterlockNotFilled.TabStop = false;
             // 
-            // pbReturnFilled
+            // pbReturnInterlockFilled
             // 
-            pbReturnFilled.Image = (Image)resources.GetObject("pbReturnFilled.Image");
-            pbReturnFilled.InitialImage = null;
-            pbReturnFilled.Location = new Point(952, 0);
-            pbReturnFilled.Name = "pbReturnFilled";
-            pbReturnFilled.Size = new Size(45, 52);
-            pbReturnFilled.SizeMode = PictureBoxSizeMode.StretchImage;
-            pbReturnFilled.TabIndex = 60;
-            pbReturnFilled.TabStop = false;
+            pbReturnInterlockFilled.Image = (Image)resources.GetObject("pbReturnInterlockFilled.Image");
+            pbReturnInterlockFilled.InitialImage = null;
+            pbReturnInterlockFilled.Location = new Point(952, 0);
+            pbReturnInterlockFilled.Name = "pbReturnInterlockFilled";
+            pbReturnInterlockFilled.Size = new Size(45, 52);
+            pbReturnInterlockFilled.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbReturnInterlockFilled.TabIndex = 60;
+            pbReturnInterlockFilled.TabStop = false;
+            pbReturnInterlockFilled.Click += pbReturnInterlockFilled_Click;
             // 
             // pbAdvancePromptNotFilled
             // 
@@ -227,7 +228,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(pbReturnPromptFilled);
-            Controls.Add(pbAdvanceFilled);
+            Controls.Add(pbAdvanceInterlockFilled);
             Controls.Add(btnRowReturnReq);
             Controls.Add(lblRowReturned);
             Controls.Add(lblRowReturn);
@@ -239,15 +240,15 @@
             Controls.Add(pbAdvancePromptFilled);
             Controls.Add(pbAdvancePromptNotFilled);
             Controls.Add(pbReturnPromptNotFilled);
-            Controls.Add(pbAdvanceNotFilled);
-            Controls.Add(pbReturnFilled);
-            Controls.Add(pbReturnNotFilled);
+            Controls.Add(pbAdvanceInterlockNotFilled);
+            Controls.Add(pbReturnInterlockFilled);
+            Controls.Add(pbReturnInterlockNotFilled);
             Name = "usrcontRow";
             Size = new Size(1000, 52);
-            ((System.ComponentModel.ISupportInitialize)pbAdvanceFilled).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pbAdvanceNotFilled).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pbReturnNotFilled).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pbReturnFilled).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbAdvanceInterlockFilled).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbAdvanceInterlockNotFilled).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbReturnInterlockNotFilled).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbReturnInterlockFilled).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbAdvancePromptNotFilled).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbAdvancePromptFilled).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbReturnPromptFilled).EndInit();
@@ -265,10 +266,10 @@
         private Label lblRowAdvanced;
         private Label lblRowAdvance;
         private Button btnRowAdvanceReq;
-        private PictureBox pbAdvanceFilled;
-        private PictureBox pbAdvanceNotFilled;
-        private PictureBox pbReturnNotFilled;
-        private PictureBox pbReturnFilled;
+        private PictureBox pbAdvanceInterlockFilled;
+        private PictureBox pbAdvanceInterlockNotFilled;
+        private PictureBox pbReturnInterlockNotFilled;
+        private PictureBox pbReturnInterlockFilled;
         private PictureBox pbAdvancePromptNotFilled;
         private PictureBox pbAdvancePromptFilled;
         private PictureBox pbReturnPromptFilled;

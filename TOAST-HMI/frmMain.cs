@@ -1787,6 +1787,14 @@ namespace TOAST_HMI
             rowCtrl.ShowAdvanceLabel = !typeMotionRow.Advance.bHideCoil;
             rowCtrl.ShowAdvancedLabel = !typeMotionRow.Advance.bHideDepth;
             rowCtrl.ShowpbAdvancePromptFilled = typeMotionRow.Advance.Prompt;
+            rowCtrl.ShowAdvanceInterlockFilled = typeMotionRow.Advance.InterlockOK;
+            rowCtrl.ShowAdvanceInterlock = !typeMotionRow.Advance.bHideInterlock;
+            rowCtrl.ShowAdvancePrompt = !typeMotionRow.Advance.bHidePrompt;
+            rowCtrl.ShowAdvancePromptBoth = !typeMotionRow.Advance.bHidePrompt;
+
+
+
+
 
             //return side (the right side)
             rowCtrl.ShowReturnButton = !typeMotionRow.Return.bHideButton;
@@ -1795,6 +1803,12 @@ namespace TOAST_HMI
             rowCtrl.ShowReturnLabel = !typeMotionRow.Return.bHideCoil;
             rowCtrl.ShowReturnedLabel = !typeMotionRow.Return.bHideDepth;
             rowCtrl.ShowpbReturnPromptFilled = typeMotionRow.Return.Prompt;
+            rowCtrl.ShowReturnInterlockFilled = typeMotionRow.Return.InterlockOK;
+            rowCtrl.ShowReturnInterlock = !typeMotionRow.Return.bHideInterlock;
+            rowCtrl.ShowReturnPromptBoth = !typeMotionRow.Return.bHidePrompt;
+
+
+
 
             //Positions in the middle
             rowCtrl.PositionText = typeMotionRow.strPosn;
